@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Container, Section, Eyebrow } from "@/components/ui";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { Reveal } from "@/components/anim/Reveal";
 import { company, valori, marchi, sedi } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -28,14 +29,14 @@ export default function DlfPage() {
 
       <Section className="bg-surface">
         <Container>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <Reveal as="div" className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4" stagger={0.1}>
             {valori.map((v) => (
-              <div key={v.titolo} className="border-t-2 border-brand pt-4">
+              <div key={v.titolo} data-reveal-item className="border-t-2 border-brand pt-4">
                 <h2 className="font-display text-lg font-bold">{v.titolo}</h2>
                 <p className="mt-2 text-sm text-slate">{v.testo}</p>
               </div>
             ))}
-          </div>
+          </Reveal>
         </Container>
       </Section>
 

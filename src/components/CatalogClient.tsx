@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { prodotti, categorie, brands, type Categoria } from "@/lib/catalog";
 import { ProductCard } from "./ProductCard";
 import { track } from "@/lib/analytics";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/useScrollGsap";
 
 const catKeys = Object.keys(categorie) as Categoria[];
 
@@ -11,6 +12,8 @@ export function CatalogClient() {
   const [q, setQ] = useState("");
   const [cat, setCat] = useState<Categoria | "all">("all");
   const [brand, setBrand] = useState<string | "all">("all");
+
+  const gridRef = useRef<HTMLDivElement>(null);
 
   const risultati = useMemo(() => {
     return prodotti.filter((p) => {
@@ -20,6 +23,16 @@ export function CatalogClient() {
       return true;
     });
   }, [q, cat, brand]);
+
+  useGSAP(
+    () => {
+      if (prefersReducedMotion() || !gridRef.current) return;
+      gsap.from(gridRef.current.querySelectorAll("[data-card]"), {
+        opacity: 0, y: 28, duration: 0.5, stagger: 0.05, ease: "power2.out",
+      });
+    },
+    { scope: gridRef, dependencies: [risultati.length, cat, brand, q] },
+  );
 
   return (
     <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
@@ -64,8 +77,12 @@ export function CatalogClient() {
             Nessun mezzo per questi filtri. Scrivici: troviamo la macchina giusta.
           </div>
         ) : (
-          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            {risultati.map((p) => <ProductCard key={p.slug} p={p} />)}
+          <div ref={gridRef} className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            {risultati.map((p) => (
+              <div key={p.slug} data-card>
+                <ProductCard p={p} />
+              </div>
+            ))}
           </div>
         )}
       </div>

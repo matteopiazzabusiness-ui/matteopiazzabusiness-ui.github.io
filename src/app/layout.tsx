@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingActions } from "@/components/FloatingActions";
+import { Assistant } from "@/components/Assistant";
 import { Preloader } from "@/components/Preloader";
 import { OrgJsonLd } from "@/components/JsonLd";
 
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           {children}
         </main>
         <Footer />
+        <Assistant />
         <FloatingActions />
       </body>
     </html>

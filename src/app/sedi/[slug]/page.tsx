@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Container, Section, Eyebrow, ButtonLink, Badge } from "@/components/ui";
+import { Container, Section, ButtonLink, Badge } from "@/components/ui";
 import { LocalBusinessJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
+import { PageIntro } from "@/components/anim/PageIntro";
+import { Reveal } from "@/components/anim/Reveal";
 import { LeadForm } from "@/components/LeadForm";
 import { sedi, orari, waLink } from "@/lib/site";
 
@@ -26,15 +28,16 @@ export default async function SedePage({ params }: { params: Promise<{ slug: str
   const maps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${s.street} ${s.zip} ${s.city}`)}`;
 
   return (
-    <Section className="bg-surface">
+    <>
       <LocalBusinessJsonLd slug={s.slug} />
       <BreadcrumbJsonLd items={[{ name: "Home", url: "/" }, { name: `Sede ${s.city}`, url: `/sedi/${s.slug}` }]} />
+      <PageIntro eyebrow="Sede DLF" title={<>{s.city} <span className="text-white/50">({s.province})</span></>}>
+        {s.street} · {s.zip} {s.city}. Vendita, noleggio, assistenza e ricambi.
+      </PageIntro>
+      <Section className="bg-surface">
       <Container>
-        <Eyebrow>Sede DLF</Eyebrow>
-        <h1 className="mt-3 text-4xl font-bold">{s.city} <span className="text-slate text-2xl">({s.province})</span></h1>
-
-        <div className="mt-8 grid gap-10 lg:grid-cols-2">
-          <div className="space-y-6">
+        <div className="grid gap-10 lg:grid-cols-2">
+          <Reveal className="space-y-6">
             <div>
               <h2 className="font-display text-lg font-bold">Indirizzo e contatti</h2>
               <address className="mt-3 not-italic space-y-1 text-slate-strong">
@@ -70,14 +73,15 @@ export default async function SedePage({ params }: { params: Promise<{ slug: str
               <h2 className="font-display text-lg font-bold">Aree servite</h2>
               <p className="mt-2 text-slate">{s.areaServita.join(" · ")}</p>
             </div>
-          </div>
+          </Reveal>
 
-          <div className="rounded-lg border border-line bg-surface-2 p-6">
+          <Reveal as="div" x={24} y={0} className="rounded-lg border border-line bg-surface-2 p-6" start="top 85%">
             <h2 className="text-xl font-bold">Contatta la sede di {s.city}</h2>
             <div className="mt-4"><LeadForm intento="preventivo" /></div>
-          </div>
+          </Reveal>
         </div>
       </Container>
     </Section>
+    </>
   );
 }

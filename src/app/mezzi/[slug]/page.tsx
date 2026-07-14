@@ -5,6 +5,7 @@ import { Container, Section, Eyebrow, Badge } from "@/components/ui";
 import { ProductGallery } from "@/components/ProductGallery";
 import { LeadForm } from "@/components/LeadForm";
 import { ProductJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
+import { Reveal } from "@/components/anim/Reveal";
 import { prodotti, prodottoBySlug, categorie } from "@/lib/catalog";
 
 export function generateStaticParams() {
@@ -47,7 +48,7 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
         <div className="grid gap-10 lg:grid-cols-2">
           <ProductGallery images={p.immagini} alt={p.nome} slug={p.slug} />
 
-          <div>
+          <Reveal x={24} y={0}>
             <div className="flex flex-wrap items-center gap-2">
               <Badge tone="brand">{p.brand}</Badge>
               <Badge>{categorie[p.categoria].label}</Badge>
@@ -80,11 +81,11 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
                 </p>
               )}
             </div>
-          </div>
+          </Reveal>
         </div>
 
         {/* Form contestuale precompilato per modello */}
-        <div className="mt-14 grid gap-8 rounded-lg border border-line bg-surface-2 p-6 sm:p-8 lg:grid-cols-[1fr_1.1fr]">
+        <Reveal as="div" className="mt-14 grid gap-8 rounded-lg border border-line bg-surface-2 p-6 sm:p-8 lg:grid-cols-[1fr_1.1fr]">
           <div>
             <Eyebrow>Richiedi informazioni</Eyebrow>
             <h2 className="mt-3 text-2xl font-bold">Preventivo per {p.nome}</h2>
@@ -94,21 +95,21 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
             </p>
           </div>
           <LeadForm intento="preventivo" modello={p.nome} />
-        </div>
+        </Reveal>
 
         {/* Correlati */}
         {correlati.length > 0 && (
-          <div className="mt-14">
+          <Reveal as="div" className="mt-14" stagger={0.08}>
             <h2 className="text-2xl font-bold">Alternative</h2>
             <div className="mt-6 grid gap-5 sm:grid-cols-3">
               {correlati.map((c) => (
-                <Link key={c.slug} href={`/mezzi/${c.slug}`} className="rounded-lg border border-line p-4 hover:border-graphite-600">
+                <Link key={c.slug} data-reveal-item href={`/mezzi/${c.slug}`} className="rounded-lg border border-line p-4 hover:border-graphite-600">
                   <p className="text-xs uppercase text-slate">{categorie[c.categoria].label}</p>
                   <p className="mt-1 font-display font-bold">{c.nome}</p>
                 </Link>
               ))}
             </div>
-          </div>
+          </Reveal>
         )}
       </Container>
     </Section>

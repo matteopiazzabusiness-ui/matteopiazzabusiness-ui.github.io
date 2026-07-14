@@ -1,6 +1,7 @@
 import { Container, Section, Eyebrow, Badge } from "@/components/ui";
 import { LeadForm } from "@/components/LeadForm";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
+import { Reveal } from "@/components/anim/Reveal";
 import type { Intento } from "@/lib/catalog";
 import { company } from "@/lib/site";
 
@@ -66,14 +67,18 @@ export function ServiceLanding({
       <FaqJsonLd faq={faq} />
       <BreadcrumbJsonLd items={[{ name: "Home", url: "/" }, { name: titolo, url: `/${slug}` }]} />
 
-      <section className="bg-graphite-950 text-white">
-        <Container className="py-16 sm:py-20">
-          <Eyebrow>{titolo}</Eyebrow>
-          <h1 className="mt-4 max-w-3xl text-4xl sm:text-5xl font-extrabold text-white">{sottotitolo}</h1>
-          {/* Risposta breve iniziale — formato citabile per answer engine */}
-          <p className="mt-5 max-w-2xl text-lg text-white/75">{rispostaBreve}</p>
-          <div className="mt-6"><Badge tone="brand">Sicilia · 2 sedi</Badge></div>
-        </Container>
+      <section className="noise relative overflow-hidden bg-graphite-950 text-white">
+        <div className="bg-grid absolute inset-0 opacity-60" aria-hidden />
+        <div className="pointer-events-none absolute -right-16 top-0 h-96 w-96 rounded-full bg-brand/15 blur-[110px]" aria-hidden />
+        <Reveal as="div" stagger={0.12}>
+          <Container className="relative py-16 sm:py-24">
+            <div data-reveal-item><Eyebrow>{titolo}</Eyebrow></div>
+            <h1 data-reveal-item className="mt-4 max-w-3xl text-4xl sm:text-6xl font-extrabold text-white">{sottotitolo}</h1>
+            {/* Risposta breve iniziale — formato citabile per answer engine */}
+            <p data-reveal-item className="mt-5 max-w-2xl text-lg text-white/75">{rispostaBreve}</p>
+            <div data-reveal-item className="mt-6"><Badge tone="brand">Sicilia · 2 sedi</Badge></div>
+          </Container>
+        </Reveal>
       </section>
 
       <Section className="bg-surface">
@@ -81,9 +86,9 @@ export function ServiceLanding({
           <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr]">
             <div>
               <h2 className="text-2xl font-bold">Come funziona</h2>
-              <ol className="mt-6 space-y-5">
+              <Reveal as="ol" className="mt-6 space-y-5" stagger={0.12}>
                 {steps.map((s, i) => (
-                  <li key={s.t} className="flex gap-4">
+                  <li key={s.t} data-reveal-item className="flex gap-4">
                     <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-brand font-display font-bold text-brand-ink">
                       {i + 1}
                     </span>
@@ -93,15 +98,15 @@ export function ServiceLanding({
                     </div>
                   </li>
                 ))}
-              </ol>
+              </Reveal>
             </div>
 
-            <div className="rounded-lg border border-line bg-surface-2 p-6" id="richiesta">
+            <Reveal as="div" x={24} y={0} className="rounded-lg border border-line bg-surface-2 p-6" start="top 85%" id="richiesta">
               <Eyebrow>Richiesta</Eyebrow>
               <h2 className="mt-3 text-2xl font-bold">Invia la tua richiesta</h2>
               <p className="mt-2 text-sm text-slate">Ti rispondiamo rapidamente. Puoi proseguire su WhatsApp.</p>
               <div className="mt-5"><LeadForm intento={intento} /></div>
-            </div>
+            </Reveal>
           </div>
         </Container>
       </Section>
@@ -110,16 +115,16 @@ export function ServiceLanding({
       <Section className="bg-surface-2">
         <Container>
           <h2 className="text-2xl font-bold">Domande frequenti</h2>
-          <div className="mt-6 divide-y divide-line rounded-lg border border-line bg-surface">
+          <Reveal as="div" className="mt-6 divide-y divide-line rounded-lg border border-line bg-surface" stagger={0.08}>
             {faq.map((f) => (
-              <details key={f.q} className="group px-5 py-4">
+              <details key={f.q} data-reveal-item className="group px-5 py-4">
                 <summary className="cursor-pointer list-none font-semibold text-ink [&::-webkit-details-marker]:hidden">
                   {f.q}
                 </summary>
                 <p className="mt-2 text-slate">{f.a}</p>
               </details>
             ))}
-          </div>
+          </Reveal>
         </Container>
       </Section>
     </>

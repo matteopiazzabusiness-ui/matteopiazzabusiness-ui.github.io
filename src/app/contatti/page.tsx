@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { Container, Section, Eyebrow } from "@/components/ui";
+import { Container, Section } from "@/components/ui";
+import { PageIntro } from "@/components/anim/PageIntro";
+import { Reveal } from "@/components/anim/Reveal";
 import { LeadForm } from "@/components/LeadForm";
 import { sedi, orari, company } from "@/lib/site";
 import type { Intento } from "@/lib/catalog";
@@ -20,18 +22,16 @@ export default async function ContattiPage({
   const intento = (validIntenti.includes(sp.intento ?? "") ? sp.intento : "preventivo") as Intento | "preventivo";
 
   return (
-    <Section className="bg-surface">
+    <>
+      <PageIntro eyebrow="Contatti" title="Parliamo del tuo lavoro">
+        Vendita, noleggio, assistenza o ricambi: scrivici e ti indirizziamo al reparto e alla sede giusta.
+      </PageIntro>
+      <Section className="bg-surface">
       <Container>
-        <Eyebrow>Contatti</Eyebrow>
-        <h1 className="mt-3 text-4xl font-bold">Parliamo del tuo lavoro</h1>
-        <p className="mt-3 max-w-2xl text-slate">
-          Vendita, noleggio, assistenza o ricambi: scrivici e ti indirizziamo al reparto e alla sede giusta.
-        </p>
-
-        <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_1.1fr]">
-          <div className="space-y-6">
+        <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr]">
+          <Reveal className="space-y-6" stagger={0.1}>
             {sedi.map((s) => (
-              <div key={s.slug} className="rounded-lg border border-line p-5">
+              <div key={s.slug} data-reveal-item className="rounded-lg border border-line p-5">
                 <h2 className="font-display text-lg font-bold">{s.city} ({s.province})</h2>
                 <address className="mt-2 not-italic text-sm text-slate-strong space-y-1">
                   <p>{s.street}, {s.zip} {s.city}</p>
@@ -40,19 +40,20 @@ export default async function ContattiPage({
                 </address>
               </div>
             ))}
-            <div className="rounded-lg bg-surface-2 p-5 text-sm text-slate-strong">
+            <div data-reveal-item className="rounded-lg bg-surface-2 p-5 text-sm text-slate-strong">
               <p>{orari.feriali}</p>
               <p>{orari.sabato}</p>
               <p className="mt-2">PEC: {company.pec}</p>
             </div>
-          </div>
+          </Reveal>
 
-          <div className="rounded-lg border border-line bg-surface-2 p-6">
+          <Reveal as="div" x={24} y={0} className="rounded-lg border border-line bg-surface-2 p-6" start="top 85%">
             <h2 className="text-xl font-bold">Invia una richiesta</h2>
             <div className="mt-4"><LeadForm intento={intento} /></div>
-          </div>
+          </Reveal>
         </div>
       </Container>
     </Section>
+    </>
   );
 }
