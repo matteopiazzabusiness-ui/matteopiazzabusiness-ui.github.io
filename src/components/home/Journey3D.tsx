@@ -2,7 +2,10 @@
 
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { gsap, ScrollTrigger } from "@/lib/useScrollGsap";
+import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
+import { ScrollTrigger } from "@/lib/useScrollGsap";
 
 /**
  * VIAGGIO 3D — apertura Homepage.
@@ -38,6 +41,8 @@ export function Journey3D() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
 
     const scene = new THREE.Scene();
+    let composer: EffectComposer;
+    let bloom: UnrealBloomPass;
     scene.fog = new THREE.FogExp2(0x140d05, 0.028);
     const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
     camera.position.set(0, 1.4, 10);
@@ -53,6 +58,12 @@ export function Journey3D() {
     const fill = new THREE.DirectionalLight(0xff7a1a, 1.1); // controluce arancio
     fill.position.set(0, -2, -8);
     scene.add(fill);
+
+    // Post-processing: bloom cinematografico (glow su rim/wireframe/brand)
+    composer = new EffectComposer(renderer);
+    composer.addPass(new RenderPass(scene, camera));
+    bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.9, 0.5, 0.82);
+    composer.addPass(bloom);
 
     // Materiali
     const yellow = new THREE.MeshStandardMaterial({ color: 0xf5b301, metalness: 0.4, roughness: 0.45 });
@@ -141,6 +152,8 @@ export function Journey3D() {
     const resize = () => {
       const w = canvas.clientWidth, h = canvas.clientHeight;
       renderer.setSize(w, h, false);
+      composer.setSize(w, h);
+      bloom.setSize(w, h);
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
     };
@@ -221,7 +234,8 @@ export function Journey3D() {
       setOpacity(p1.current, b > 0.15 && b < 0.95 ? (b - 0.15) / 0.4 : b >= 0.95 ? 1 - (b - 0.95) * 6 : 0);
       setOpacity(p2.current, c);
 
-      renderer.render(scene, camera);
+      bloom.strength = 0.7 + b * 0.9 + c * 0.5; // bloom cresce in esplosione/transizione
+      composer.render();
       raf = requestAnimationFrame(render);
     };
     render();

@@ -7,6 +7,7 @@ import { BrandMarquee } from "@/components/home/BrandMarquee";
 import { ShaderStatement } from "@/components/home/ShaderStatement";
 import { ServicesSticky } from "@/components/home/ServicesSticky";
 import { ProcessTimeline } from "@/components/home/ProcessTimeline";
+import { ParticleMorph } from "@/components/home/ParticleMorph";
 import { Territory } from "@/components/home/Territory";
 import { FinalCta } from "@/components/home/FinalCta";
 
@@ -24,6 +25,7 @@ export default function Home() {
       <ShaderStatement />
       <ServicesSticky />
       <ProcessTimeline />
+      <ParticleMorph />
       <Territory />
       <FinalCta />
     </>
