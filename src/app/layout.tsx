@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingActions } from "@/components/FloatingActions";
+import { Preloader } from "@/components/Preloader";
 import { OrgJsonLd } from "@/components/JsonLd";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="it" className={`${inter.variable} ${archivo.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-surface text-ink">
         <OrgJsonLd />
+        <Preloader />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-3 focus:left-3 focus:bg-ink focus:text-white focus:px-4 focus:py-2 focus:rounded-md"
