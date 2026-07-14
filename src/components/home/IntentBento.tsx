@@ -45,24 +45,24 @@ export function IntentBento() {
   );
 
   return (
-    <section ref={root} className="bg-surface py-20 sm:py-28">
+    <section ref={root} className="bg-graphite-950 py-20 text-white sm:py-28">
       <Container>
         <Eyebrow>Cosa ti serve oggi</Eyebrow>
-        <h2 className="mt-3 max-w-2xl text-4xl font-bold sm:text-5xl">Quattro modi di lavorare con DLF</h2>
+        <h2 className="mt-3 max-w-2xl text-4xl font-bold text-white sm:text-5xl">Quattro modi di lavorare con DLF</h2>
         <div className="mt-12 grid auto-rows-[minmax(160px,auto)] grid-cols-1 gap-4 sm:grid-cols-6">
           {cards.map((c) => (
             <Link
               key={c.href}
               href={c.href}
-              className={`bento-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-line bg-surface-2 p-7 transition-colors duration-300 hover:border-brand ${c.span}`}
+              className={`bento-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-7 transition-colors duration-300 hover:border-brand hover:bg-white/[0.07] ${c.span}`}
             >
-              <div className="absolute right-5 top-5 font-display text-sm font-bold text-slate/40">{c.n}</div>
-              <span className="text-brand-700" aria-hidden>
+              <div className="absolute right-5 top-5 font-display text-sm font-bold text-white/25">{c.n}</div>
+              <span className="text-brand" aria-hidden>
                 <c.Icon className={c.big ? "h-14 w-14" : "h-9 w-9"} />
               </span>
               <div>
-                <h3 className={`font-display font-bold text-ink ${c.big ? "text-4xl" : "text-2xl"}`}>{c.t}</h3>
-                <p className="mt-2 max-w-sm text-slate">{c.d}</p>
+                <h3 className={`font-display font-bold text-white ${c.big ? "text-4xl" : "text-2xl"}`}>{c.t}</h3>
+                <p className="mt-2 max-w-sm text-white/60">{c.d}</p>
                 <span className="mt-4 inline-block text-sm font-semibold text-brand-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                   Scopri →
                 </span>

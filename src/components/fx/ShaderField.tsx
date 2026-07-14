@@ -67,7 +67,7 @@ export function ShaderField() {
     } catch {
       return; // no WebGL → resta il fallback CSS sotto
     }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.25));
 
     const scene = new THREE.Scene();
     const camera = new THREE.Camera();

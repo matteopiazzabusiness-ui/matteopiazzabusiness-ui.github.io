@@ -21,10 +21,18 @@ export function SmoothScroll() {
     const raf = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
-    // esponi per eventuale scroll programmato
     (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
 
+    // Ricalcola le posizioni dei pin quando cambia il layout (font/immagini caricati,
+    // canvas pronti): evita gap bianchi e salti.
+    const refresh = () => ScrollTrigger.refresh();
+    const t1 = setTimeout(refresh, 300);
+    const t2 = setTimeout(refresh, 1200);
+    window.addEventListener("load", refresh);
+
     return () => {
+      clearTimeout(t1); clearTimeout(t2);
+      window.removeEventListener("load", refresh);
       gsap.ticker.remove(raf);
       lenis.destroy();
     };

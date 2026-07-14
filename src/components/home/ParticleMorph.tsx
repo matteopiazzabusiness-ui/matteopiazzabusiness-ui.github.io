@@ -12,7 +12,7 @@ import { ScrollTrigger } from "@/lib/useScrollGsap";
  * con bloom e transizione colore giallo brand → blueprint blue. Ispirato ai reference
  * particle-morph (wearebrand). Overlay testi per fase = "nuove categorie".
  */
-const N = 7000;
+const N = 4200;
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
 const smooth = (t: number) => t * t * (3 - 2 * t);
@@ -30,7 +30,7 @@ export function ParticleMorph() {
     let renderer: THREE.WebGLRenderer;
     try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true }); }
     catch { return; }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.35));
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);

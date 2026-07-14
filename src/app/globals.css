@@ -67,15 +67,21 @@
 
 html {
   scroll-behavior: smooth;
+  /* Base scura: elimina i flash bianchi nei gap dei pin/overscroll */
+  background: #0b0e11;
 }
 
 body {
-  background: var(--background);
+  background: #0b0e11;
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overscroll-behavior: none;
 }
+
+/* Le sezioni WebGL non devono mai mostrare bianco prima di dipingere */
+canvas { background: transparent; }
 
 /* Focus visibile — accessibilità WCAG 2.2 */
 :where(a, button, input, select, textarea, [tabindex]):focus-visible {

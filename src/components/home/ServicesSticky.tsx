@@ -29,17 +29,17 @@ export function ServicesSticky() {
   );
 
   return (
-    <section ref={root} className="bg-surface-2 py-20 sm:py-28">
+    <section ref={root} className="bg-graphite-900 py-20 text-white sm:py-28">
       <Container>
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.4fr]">
           <div className="lg:sticky lg:top-24 lg:h-max">
             <Eyebrow>Un solo partner</Eyebrow>
-            <h2 className="mt-3 text-4xl font-bold sm:text-5xl">Tutto il ciclo di vita del tuo mezzo</h2>
-            <p className="mt-4 text-slate">
+            <h2 className="mt-3 text-4xl font-bold text-white sm:text-5xl">Tutto il ciclo di vita del tuo mezzo</h2>
+            <p className="mt-4 text-white/60">
               Dalla scelta all&apos;acquisto, dal noleggio all&apos;assistenza fino ai ricambi. Un unico
               interlocutore in Sicilia, dalle sedi di Caltanissetta e Catania.
             </p>
-            <Link href="/contatti?intento=preventivo" className="mt-6 inline-flex min-h-[52px] items-center rounded-md bg-ink px-6 font-semibold text-white transition-colors hover:bg-graphite-800">
+            <Link href="/contatti?intento=preventivo" className="mt-6 inline-flex min-h-[52px] items-center rounded-md bg-brand px-6 font-semibold text-brand-ink transition-transform hover:scale-[1.03]">
               Parla con noi →
             </Link>
           </div>
@@ -49,16 +49,16 @@ export function ServicesSticky() {
               <Link
                 key={s.k}
                 href={s.href}
-                className="svc-panel group block rounded-2xl border border-line bg-surface p-8 transition-all duration-300 hover:-translate-y-1 hover:border-brand hover:shadow-[0_20px_40px_-24px_rgba(0,0,0,0.25)]"
+                className="svc-panel group block rounded-2xl border border-white/10 bg-white/5 p-8 transition-all duration-300 hover:-translate-y-1 hover:border-brand hover:bg-white/[0.07]"
               >
                 <div className="flex items-baseline gap-4">
                   <span className="svc-anim font-display text-2xl font-extrabold text-brand">{s.k}</span>
-                  <h3 className="svc-anim font-display text-3xl font-bold text-ink">{s.t}</h3>
+                  <h3 className="svc-anim font-display text-3xl font-bold text-white">{s.t}</h3>
                 </div>
-                <p className="svc-anim mt-3 text-slate">{s.d}</p>
+                <p className="svc-anim mt-3 text-white/60">{s.d}</p>
                 <div className="svc-anim mt-4 flex flex-wrap gap-2">
                   {s.tags.map((t) => (
-                    <span key={t} className="rounded-full bg-surface-3 px-3 py-1 text-xs font-semibold text-slate-strong">{t}</span>
+                    <span key={t} className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/70">{t}</span>
                   ))}
                 </div>
               </Link>

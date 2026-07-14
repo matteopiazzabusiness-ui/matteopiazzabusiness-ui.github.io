@@ -36,22 +36,22 @@ export function ProcessTimeline() {
   );
 
   return (
-    <section ref={root} className="bg-surface py-20 sm:py-28">
+    <section ref={root} className="bg-graphite-950 py-20 text-white sm:py-28">
       <Container>
         <Eyebrow>Come lavoriamo</Eyebrow>
-        <h2 className="mt-3 max-w-2xl text-4xl font-bold sm:text-5xl">Dalla richiesta al cantiere, senza attriti</h2>
+        <h2 className="mt-3 max-w-2xl text-4xl font-bold text-white sm:text-5xl">Dalla richiesta al cantiere, senza attriti</h2>
 
         <div className="timeline-body relative mt-14 pl-8">
-          <div className="absolute left-[11px] top-2 h-full w-0.5 bg-line" aria-hidden />
+          <div className="absolute left-[11px] top-2 h-full w-0.5 bg-white/10" aria-hidden />
           <div className="timeline-fill absolute left-[11px] top-2 h-full w-0.5 origin-top scale-y-0 bg-brand" aria-hidden />
           <ol className="space-y-12">
             {steps.map((s, i) => (
               <li key={s.t} className="timeline-step relative">
-                <span className="timeline-dot absolute -left-8 top-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-brand bg-surface text-[10px] font-bold text-brand-700">
+                <span className="timeline-dot absolute -left-8 top-1 flex h-6 w-6 items-center justify-center rounded-full border-2 border-brand bg-graphite-950 text-[10px] font-bold text-brand">
                   {i + 1}
                 </span>
-                <h3 className="font-display text-2xl font-bold text-ink">{s.t}</h3>
-                <p className="mt-2 max-w-lg text-slate">{s.d}</p>
+                <h3 className="font-display text-2xl font-bold text-white">{s.t}</h3>
+                <p className="mt-2 max-w-lg text-white/60">{s.d}</p>
               </li>
             ))}
           </ol>

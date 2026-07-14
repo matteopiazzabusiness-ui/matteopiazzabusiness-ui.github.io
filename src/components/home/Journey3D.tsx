@@ -42,7 +42,7 @@ export function Journey3D() {
     } catch {
       return;
     }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.35));
 
     const scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x140d05, 0.028);
