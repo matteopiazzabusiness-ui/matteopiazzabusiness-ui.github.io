@@ -38,18 +38,21 @@ export function Journey3D() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x0b0e11, 0.03);
+    scene.fog = new THREE.FogExp2(0x140d05, 0.028);
     const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
     camera.position.set(0, 1.4, 10);
 
-    // Luci — industriale + rim brand
-    scene.add(new THREE.AmbientLight(0xffffff, 0.55));
-    const key = new THREE.DirectionalLight(0xffffff, 1.6);
-    key.position.set(5, 8, 6);
+    // Luci — cinematografiche calde (riferimento tramonto industriale)
+    scene.add(new THREE.AmbientLight(0xffe6c0, 0.4));
+    const key = new THREE.DirectionalLight(0xfff1dc, 2.0);
+    key.position.set(6, 9, 7);
     scene.add(key);
-    const rim = new THREE.DirectionalLight(0xf5b301, 2.2);
-    rim.position.set(-6, 3, -4);
+    const rim = new THREE.DirectionalLight(0xf5b301, 3.0); // rim giallo brand caldo
+    rim.position.set(-7, 3, -5);
     scene.add(rim);
+    const fill = new THREE.DirectionalLight(0xff7a1a, 1.1); // controluce arancio
+    fill.position.set(0, -2, -8);
+    scene.add(fill);
 
     // Materiali
     const yellow = new THREE.MeshStandardMaterial({ color: 0xf5b301, metalness: 0.4, roughness: 0.45 });
@@ -124,6 +127,16 @@ export function Journey3D() {
 
     root.position.y = 0.4;
 
+    // ---- Wireframe olografico (blueprint brand) su ogni mesh ----
+    const lineMat = new THREE.LineBasicMaterial({ color: 0xffd54a, transparent: true, opacity: 0.15 });
+    root.traverse((o) => {
+      const m = o as THREE.Mesh;
+      if (m.geometry && m.type === "Mesh") {
+        const edges = new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry, 30), lineMat);
+        m.add(edges);
+      }
+    });
+
     // ---- Resize ----
     const resize = () => {
       const w = canvas.clientWidth, h = canvas.clientHeight;
@@ -195,10 +208,13 @@ export function Journey3D() {
       scene.fog!.color = bg;
       rim.intensity = 2.2 + c * 1.5;
 
-      // dissolvenza mezzo verso le categorie
-      root.visible = c < 0.98;
+      // esplosione = transizione olografica: solidi semitrasparenti, wireframe glow
       const fade = 1 - c;
-      [yellow, dark, steel].forEach((m) => { m.opacity = fade; m.transparent = c > 0; });
+      root.visible = c < 0.98;
+      const holo = 1 - b * 0.45; // durante explode i solidi si alleggeriscono
+      [yellow, dark, steel].forEach((m) => { m.opacity = holo * fade; m.transparent = true; });
+      glass.opacity = 0.55 * fade;
+      lineMat.opacity = (0.15 + b * 0.85) * fade; // creste blueprint si accendono
 
       // overlay testi per fase
       setOpacity(p0.current, 1 - a * 1.2);
@@ -228,14 +244,23 @@ export function Journey3D() {
     <section ref={wrap} className="relative h-screen overflow-hidden bg-graphite-950 text-white">
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
 
-      {/* FASE 0 — intro */}
-      <div ref={p0} className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center px-6 text-center transition-opacity">
-        <span className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-brand">DLF Macchine · Sicilia</span>
-        <h1 className="max-w-4xl font-display text-5xl font-extrabold leading-[0.95] sm:text-7xl lg:text-8xl">
-          Guarda dentro <span className="text-brand">la macchina</span>
-        </h1>
-        <p className="mt-6 max-w-md text-white/60">Scorri per esplorarla — ruota, si apre, si racconta.</p>
-        <span className="mt-10 animate-bounce text-2xl text-brand">↓</span>
+      {/* FASE 0 — intro cinematografico (foto reale → 3D) */}
+      <div ref={p0} className="absolute inset-0 transition-opacity">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url(/media/products/dedalus-30-7-main.jpeg)" }}
+          aria-hidden
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-graphite-950 via-graphite-950/70 to-graphite-950/40" aria-hidden />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1a0f00]/70 via-transparent to-[#1a0f00]/50" aria-hidden />
+        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
+          <span className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-brand">DLF Macchine · Sicilia</span>
+          <h1 className="max-w-4xl font-display text-5xl font-extrabold leading-[0.95] drop-shadow-[0_2px_20px_rgba(0,0,0,0.6)] sm:text-7xl lg:text-8xl">
+            Guarda dentro <span className="text-brand">la macchina</span>
+          </h1>
+          <p className="mt-6 max-w-md text-white/70">Scorri per esplorarla — ruota, si apre, si racconta.</p>
+          <span className="mt-10 animate-bounce text-2xl text-brand">↓</span>
+        </div>
       </div>
 
       {/* FASE 1 — analisi pezzi */}
