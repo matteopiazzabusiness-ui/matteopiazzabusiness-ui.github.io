@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/useScrollGsap";
 import { Container } from "@/components/ui";
+import { HeroCanvas } from "@/components/fx/HeroCanvas";
 
 const headline = ["Movimenti", "la terra.", "Noi muoviamo", "il resto."];
 
@@ -44,7 +45,9 @@ export function Hero() {
 
   return (
     <section ref={root} className="noise relative flex min-h-[100svh] items-center overflow-hidden bg-graphite-950 text-white">
-      <div className="hero-grid bg-grid absolute inset-0 -top-1/4 h-[150%]" aria-hidden />
+      <div className="hero-grid absolute inset-0 -top-1/4 h-[150%]" aria-hidden>
+        <HeroCanvas />
+      </div>
       <div className="hero-glow pointer-events-none absolute right-0 top-1/4 h-[40rem] w-[40rem] translate-x-1/4 rounded-full bg-brand/25 blur-[130px]" aria-hidden />
 
       {/* Visual: mezzo reale a tutta altezza sul lato destro */}

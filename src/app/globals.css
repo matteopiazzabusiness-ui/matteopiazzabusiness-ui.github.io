@@ -221,6 +221,19 @@ h1, h2, h3, h4 {
 }
 .marquee:hover .marquee-track { animation-play-state: paused; }
 
+/* Lenis smooth scroll — stili richiesti */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Cursore custom: nasconde quello nativo su desktop puntatore fine */
+html.has-cursor,
+html.has-cursor a,
+html.has-cursor button,
+html.has-cursor [data-cursor] { cursor: none; }
+html.has-cursor .cursor-layer { display: block; }
+
 /* Elemento nascosto finché GSAP non lo rivela (evita flash) */
 .gsap-prep { opacity: 0; }
 @media (prefers-reduced-motion: reduce) {

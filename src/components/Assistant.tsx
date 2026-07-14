@@ -146,7 +146,7 @@ export function Assistant() {
             </button>
           </header>
 
-          <div ref={bodyRef} className="flex-1 space-y-3 overflow-y-auto bg-surface-2 p-4">
+          <div ref={bodyRef} data-lenis-prevent className="flex-1 space-y-3 overflow-y-auto bg-surface-2 p-4">
             {msgs.map((m, i) => (
               <div key={i} className={`flex ${m.from === "user" ? "justify-end" : "justify-start"}`}>
                 <div

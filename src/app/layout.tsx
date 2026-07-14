@@ -6,6 +6,9 @@ import { Footer } from "@/components/Footer";
 import { FloatingActions } from "@/components/FloatingActions";
 import { Assistant } from "@/components/Assistant";
 import { Preloader } from "@/components/Preloader";
+import { SmoothScroll } from "@/components/fx/SmoothScroll";
+import { Cursor } from "@/components/fx/Cursor";
+import { ScrollProgress } from "@/components/fx/ScrollProgress";
 import { OrgJsonLd } from "@/components/JsonLd";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
@@ -38,6 +41,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="it" data-scroll-behavior="smooth" className={`${inter.variable} ${archivo.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-surface text-ink">
         <OrgJsonLd />
+        <SmoothScroll />
+        <ScrollProgress />
+        <Cursor />
         <Preloader />
         <a
           href="#main"
