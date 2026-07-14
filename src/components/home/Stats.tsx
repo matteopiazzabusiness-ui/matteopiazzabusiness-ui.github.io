@@ -42,14 +42,15 @@ export function Stats() {
   );
 
   return (
-    <section ref={root} className="border-y border-line bg-surface">
-      <Container className="grid grid-cols-2 gap-px lg:grid-cols-4">
+    <section ref={root} className="relative overflow-hidden border-b border-white/10 bg-graphite-900 text-white">
+      <div className="bg-grid-fine absolute inset-0 opacity-50" aria-hidden />
+      <Container className="relative grid grid-cols-2 divide-x divide-white/10 lg:grid-cols-4">
         {stats.map((s) => (
-          <div key={s.label} className="stat-item px-4 py-12 text-center">
-            <div className="font-display text-5xl font-extrabold text-ink sm:text-6xl">
+          <div key={s.label} className="stat-item px-4 py-14 text-center">
+            <div className="font-display text-6xl font-extrabold text-brand sm:text-7xl">
               <span className="stat-num" data-n={s.n} data-suf={s.suf}>0{s.suf}</span>
             </div>
-            <p className="mx-auto mt-2 max-w-[16ch] text-sm text-slate">{s.label}</p>
+            <p className="mx-auto mt-3 max-w-[16ch] text-sm text-white/55">{s.label}</p>
           </div>
         ))}
       </Container>

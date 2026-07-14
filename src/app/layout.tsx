@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="it" className={`${inter.variable} ${archivo.variable} h-full`}>
+    <html lang="it" data-scroll-behavior="smooth" className={`${inter.variable} ${archivo.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-surface text-ink">
         <OrgJsonLd />
         <Preloader />

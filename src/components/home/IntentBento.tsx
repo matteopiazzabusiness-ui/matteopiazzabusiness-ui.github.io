@@ -4,12 +4,13 @@ import { useRef } from "react";
 import Link from "next/link";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/useScrollGsap";
 import { Container, Eyebrow } from "@/components/ui";
+import { IconExcavator, IconCalendar, IconWrench, IconGear } from "@/components/icons";
 
 const cards = [
-  { href: "/mezzi", n: "01", t: "Acquista", d: "Gamma Caterpillar e Dieci, nuovo e usato. Schede tecniche e disponibilità.", span: "sm:col-span-3 lg:col-span-2 lg:row-span-2", icon: "🚜", big: true },
-  { href: "/noleggio", n: "02", t: "Noleggia", d: "Per luogo, periodo e tipo di lavoro.", span: "sm:col-span-3 lg:col-span-2", icon: "📅" },
-  { href: "/assistenza", n: "03", t: "Assistenza", d: "Officina mobile. Meno fermo macchina.", span: "sm:col-span-3 lg:col-span-2", icon: "🔧" },
-  { href: "/ricambi", n: "04", t: "Ricambi", d: "Originali, per marca, modello e seriale.", span: "sm:col-span-6 lg:col-span-2", icon: "⚙️" },
+  { href: "/mezzi", n: "01", t: "Acquista", d: "Gamma Caterpillar e Dieci, nuovo e usato. Schede tecniche e disponibilità.", span: "sm:col-span-6 lg:col-span-2 lg:row-span-2", Icon: IconExcavator, big: true },
+  { href: "/noleggio", n: "02", t: "Noleggia", d: "Per luogo, periodo e tipo di lavoro.", span: "sm:col-span-3 lg:col-span-2", Icon: IconCalendar, big: false },
+  { href: "/assistenza", n: "03", t: "Assistenza", d: "Officina mobile. Meno fermo macchina.", span: "sm:col-span-3 lg:col-span-2", Icon: IconWrench, big: false },
+  { href: "/ricambi", n: "04", t: "Ricambi", d: "Originali, per marca, modello e seriale.", span: "sm:col-span-6 lg:col-span-4", Icon: IconGear, big: false },
 ];
 
 export function IntentBento() {
@@ -56,7 +57,9 @@ export function IntentBento() {
               className={`bento-card group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-line bg-surface-2 p-7 transition-colors duration-300 hover:border-brand ${c.span}`}
             >
               <div className="absolute right-5 top-5 font-display text-sm font-bold text-slate/40">{c.n}</div>
-              <span className={`${c.big ? "text-6xl" : "text-4xl"}`} aria-hidden>{c.icon}</span>
+              <span className="text-brand-700" aria-hidden>
+                <c.Icon className={c.big ? "h-14 w-14" : "h-9 w-9"} />
+              </span>
               <div>
                 <h3 className={`font-display font-bold text-ink ${c.big ? "text-4xl" : "text-2xl"}`}>{c.t}</h3>
                 <p className="mt-2 max-w-sm text-slate">{c.d}</p>
