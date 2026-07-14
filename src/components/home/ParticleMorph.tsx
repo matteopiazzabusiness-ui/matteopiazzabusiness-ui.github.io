@@ -34,7 +34,7 @@ export function ParticleMorph() {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
-    camera.position.set(0, 0, 9);
+    camera.position.set(0, 0, 13);
 
     // ---- 3 forme target ----
     const shapeSphere = new Float32Array(N * 3);
@@ -46,29 +46,29 @@ export function ParticleMorph() {
       const y = 1 - (i / (N - 1)) * 2;
       const r = Math.sqrt(1 - y * y);
       const phi = i * 2.399963;
-      shapeSphere[i3] = Math.cos(phi) * r * 3.2;
-      shapeSphere[i3 + 1] = y * 3.2;
-      shapeSphere[i3 + 2] = Math.sin(phi) * r * 3.2;
+      shapeSphere[i3] = Math.cos(phi) * r * 2.4;
+      shapeSphere[i3 + 1] = y * 2.4;
+      shapeSphere[i3 + 2] = Math.sin(phi) * r * 2.4;
       // vortice / galassia
       const a = i * 0.03;
-      const rad = Math.pow(i / N, 0.6) * 5.2;
+      const rad = Math.pow(i / N, 0.6) * 3.8;
       shapeVortex[i3] = Math.cos(a) * rad;
-      shapeVortex[i3 + 1] = (Math.random() - 0.5) * 1.2 + Math.sin(a * 0.5) * 0.6;
+      shapeVortex[i3 + 1] = (Math.random() - 0.5) * 1.0 + Math.sin(a * 0.5) * 0.5;
       shapeVortex[i3 + 2] = Math.sin(a) * rad;
       // onda / terreno
       const gx = (i % 100) / 100 - 0.5;
       const gz = Math.floor(i / 100) / 70 - 0.5;
-      shapeWave[i3] = gx * 11;
-      shapeWave[i3 + 1] = Math.sin(gx * 10) * Math.cos(gz * 10) * 1.1 - 1;
-      shapeWave[i3 + 2] = gz * 8;
+      shapeWave[i3] = gx * 8;
+      shapeWave[i3 + 1] = Math.sin(gx * 10) * Math.cos(gz * 10) * 0.9 - 0.5;
+      shapeWave[i3 + 2] = gz * 6;
     }
 
     const positions = new Float32Array(shapeSphere);
     const geo = new THREE.BufferGeometry();
     geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
-    const colYellow = new THREE.Color(0xf5b301);
-    const colBlue = new THREE.Color(0x5b9bd5);
+    const colYellow = new THREE.Color(0xd99700);
+    const colBlue = new THREE.Color(0x1d6fb8);
     const colors = new Float32Array(N * 3);
     for (let i = 0; i < N; i++) {
       const c = colYellow.clone().lerp(colBlue, i / N);
@@ -77,7 +77,7 @@ export function ParticleMorph() {
     geo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 
     const mat = new THREE.PointsMaterial({
-      size: 0.05, vertexColors: true, transparent: true, opacity: 0.9,
+      size: 0.035, vertexColors: true, transparent: true, opacity: 0.55,
       blending: THREE.AdditiveBlending, depthWrite: false,
     });
     const points = new THREE.Points(geo, mat);
@@ -85,7 +85,8 @@ export function ParticleMorph() {
 
     const composer = new EffectComposer(renderer);
     composer.addPass(new RenderPass(scene, camera));
-    const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 1.1, 0.6, 0.0);
+    // bloom contenuto: niente esplosione bianca
+    const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.35, 0.4, 0.75);
     composer.addPass(bloom);
 
     const resize = () => {

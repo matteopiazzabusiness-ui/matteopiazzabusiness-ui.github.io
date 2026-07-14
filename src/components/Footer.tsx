@@ -41,12 +41,6 @@ export function Footer() {
           <p>{orari.feriali} · {orari.sabato}</p>
           <p>© {new Date().getFullYear()} {company.legalName}. Tutti i diritti riservati.</p>
         </div>
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 pb-4 text-[10px] text-white/30">
-          Modello 3D segnaposto: “Bulldozer” di Poly by Google —{" "}
-          <a href="https://poly.pizza/m/ddxtaegI3HQ" target="_blank" rel="noopener" className="underline hover:text-white/50">
-            CC-BY 3.0
-          </a>. Da sostituire con il modello ufficiale DLF.
-        </div>
       </div>
     </footer>
   );

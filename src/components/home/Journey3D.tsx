@@ -49,8 +49,9 @@ export function Journey3D() {
     const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
     camera.position.set(0, 1.4, 10);
 
-    scene.add(new THREE.AmbientLight(0xffe6c0, 0.4));
-    const key = new THREE.DirectionalLight(0xfff1dc, 2.0); key.position.set(6, 9, 7); scene.add(key);
+    scene.add(new THREE.AmbientLight(0xffe6c0, 0.7));
+    scene.add(new THREE.HemisphereLight(0xfff1dc, 0x1a1205, 0.9));
+    const key = new THREE.DirectionalLight(0xfff1dc, 2.4); key.position.set(6, 9, 7); scene.add(key);
     const rim = new THREE.DirectionalLight(0xf5b301, 3.0); rim.position.set(-7, 3, -5); scene.add(rim);
     const fill = new THREE.DirectionalLight(0xff7a1a, 1.1); fill.position.set(0, -2, -8); scene.add(fill);
 
@@ -210,15 +211,20 @@ export function Journey3D() {
       scene.fog!.color = bg;
       rim.intensity = 2.2 + c * 1.5;
 
-      const fade = 1 - c;
-      g.visible = c < 0.98;
-      const holo = 1 - b * 0.45;
-      M.mats.forEach((m) => { (m as THREE.Material & { opacity: number }).opacity = holo * fade; });
-      M.line.opacity = (0.15 + b * 0.85) * fade;
+      // il mezzo resta solido e visibile; sfuma solo nella fase finale (c)
+      const fade = 1 - smooth(clamp01((p - 0.82) / 0.16));
+      g.visible = fade > 0.02;
+      M.mats.forEach((m) => {
+        const mm = m as THREE.Material & { opacity: number };
+        mm.transparent = fade < 0.99; mm.opacity = fade;
+      });
+      M.line.opacity = (0.12 + b * 0.5) * fade;
 
-      setOpacity(p0.current, 1 - a * 1.2);
-      setOpacity(p1.current, b > 0.15 && b < 0.95 ? (b - 0.15) / 0.4 : b >= 0.95 ? 1 - (b - 0.95) * 6 : 0);
-      setOpacity(p2.current, c);
+      // overlay testi — range NON sovrapposti (una fase alla volta)
+      setOpacity(p0.current, 1 - smooth(clamp01((p - 0.06) / 0.14)));
+      const p1o = smooth(clamp01((p - 0.40) / 0.08)) * (1 - smooth(clamp01((p - 0.60) / 0.06)));
+      setOpacity(p1.current, p1o);
+      setOpacity(p2.current, smooth(clamp01((p - 0.80) / 0.08)));
 
       bloom.strength = 0.7 + b * 0.9 + c * 0.5;
       composer.render();
