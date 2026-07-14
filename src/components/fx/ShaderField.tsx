@@ -60,7 +60,6 @@ export function ShaderField() {
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let renderer: THREE.WebGLRenderer;
     try {
