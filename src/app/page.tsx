@@ -1,5 +1,5 @@
 import { prodotti } from "@/lib/catalog";
-import { Hero } from "@/components/home/Hero";
+import { Journey3D } from "@/components/home/Journey3D";
 import { Stats } from "@/components/home/Stats";
 import { IntentBento } from "@/components/home/IntentBento";
 import { PinnedShowcase } from "@/components/home/PinnedShowcase";
@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <>
-      <Hero />
+      <Journey3D />
       <Stats />
       <IntentBento />
       <PinnedShowcase prodotti={showcaseFull} />
