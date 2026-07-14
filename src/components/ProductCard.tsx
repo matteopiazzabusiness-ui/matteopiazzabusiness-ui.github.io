@@ -3,12 +3,14 @@ import type { Prodotto } from "@/lib/catalog";
 import { categorie } from "@/lib/catalog";
 import { ProductImage } from "./ProductImage";
 import { Badge } from "./ui";
+import { Tilt } from "./fx/Tilt";
 
 export function ProductCard({ p }: { p: Prodotto }) {
   return (
+    <Tilt>
     <Link
       href={`/mezzi/${p.slug}`}
-      className="group flex flex-col overflow-hidden rounded-lg border border-line bg-surface transition-colors hover:border-graphite-600"
+      className="group relative flex flex-col overflow-hidden rounded-lg border border-line bg-surface transition-colors hover:border-graphite-600 hover:shadow-[0_24px_50px_-30px_rgba(0,0,0,0.4)] before:pointer-events-none before:absolute before:inset-0 before:z-10 before:opacity-0 before:transition-opacity hover:before:opacity-100 before:[background:radial-gradient(300px_at_var(--gx,50%)_var(--gy,50%),rgba(245,179,1,0.12),transparent)]"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-surface-3">
         <ProductImage src={p.immagini[0]} alt={p.nome} />
@@ -32,5 +34,6 @@ export function ProductCard({ p }: { p: Prodotto }) {
         </span>
       </div>
     </Link>
+    </Tilt>
   );
 }

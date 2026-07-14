@@ -4,6 +4,7 @@ import { Stats } from "@/components/home/Stats";
 import { IntentBento } from "@/components/home/IntentBento";
 import { PinnedShowcase } from "@/components/home/PinnedShowcase";
 import { BrandMarquee } from "@/components/home/BrandMarquee";
+import { ShaderStatement } from "@/components/home/ShaderStatement";
 import { ServicesSticky } from "@/components/home/ServicesSticky";
 import { ProcessTimeline } from "@/components/home/ProcessTimeline";
 import { Territory } from "@/components/home/Territory";
@@ -20,6 +21,7 @@ export default function Home() {
       <IntentBento />
       <PinnedShowcase prodotti={showcaseFull} />
       <BrandMarquee />
+      <ShaderStatement />
       <ServicesSticky />
       <ProcessTimeline />
       <Territory />
