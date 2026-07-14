@@ -26,6 +26,13 @@
   --color-surface-2: #f4f6f8;
   --color-surface-3: #eaeef2;
 
+  /* Blueprint blue — accento tecnico industriale (skill ui-ux-pro-max) */
+  --color-blueprint-50: #eaf2fb;
+  --color-blueprint-400: #5b9bd5;
+  --color-blueprint: #1d6fb8;
+  --color-blueprint-700: #124b7e;
+  --color-blueprint-950: #0a1f33;
+
   /* Giallo brand DLF (accento) */
   --color-brand-50: #fff8e1;
   --color-brand-300: #ffd54a;
@@ -92,10 +99,130 @@ h1, h2, h3, h4 {
   }
 }
 
-/* Utility: griglia diagonale industriale, densa ma ordinata */
+/* ---- Animazioni scroll-driven (CSS scroll timeline) ---- */
+/* Attive solo se il browser le supporta E l'utente non chiede reduced-motion.
+   Senza supporto: contenuto sempre visibile (nessuno stato nascosto bloccato). */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    @keyframes reveal-up {
+      from { opacity: 0; transform: translateY(32px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes reveal-left {
+      from { opacity: 0; transform: translateX(-48px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes reveal-right {
+      from { opacity: 0; transform: translateX(48px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes reveal-scale {
+      from { opacity: 0; transform: scale(0.94); }
+      to { opacity: 1; transform: none; }
+    }
+    .reveal, .reveal-l, .reveal-r, .reveal-scale {
+      animation-fill-mode: both;
+      animation-timing-function: linear;
+      animation-timeline: view();
+      animation-range: entry 4% cover 34%;
+    }
+    .reveal { animation-name: reveal-up; }
+    .reveal-l { animation-name: reveal-left; }
+    .reveal-r { animation-name: reveal-right; }
+    .reveal-scale { animation-name: reveal-scale; }
+  }
+}
+
+/* ---- Scroll orizzontale guidato dallo scroll verticale ---- */
+.hscroll { position: relative; }
+.hscroll__sticky {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+.hscroll__track {
+  display: flex;
+  gap: 1.25rem;
+  padding-inline: 1rem;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .hscroll { height: 320vh; view-timeline: --hs block; }
+    @keyframes track-x {
+      /* piccola pausa iniziale/finale, poi traslazione orizzontale completa */
+      0%, 8% { transform: translateX(0); }
+      92%, 100% { transform: translateX(calc(-100% + 100vw)); }
+    }
+    .hscroll__track {
+      animation: track-x linear both;
+      animation-timeline: --hs;
+      animation-range: cover;
+    }
+  }
+}
+/* Fallback: senza scroll-timeline diventa una fascia scrollabile a mano */
+@supports not (animation-timeline: view()) {
+  .hscroll__sticky { position: static; min-height: 0; overflow-x: auto; }
+  .hscroll__track { scroll-snap-type: x mandatory; }
+}
+
+/* Utility: griglia blueprint industriale, densa ma ordinata */
 .bg-grid {
   background-image:
-    linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
-  background-size: 44px 44px;
+    linear-gradient(to right, rgba(91,155,213,0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(91,155,213,0.07) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.bg-grid-fine {
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Grana filmica sottile — texture premium (no flat digitale) */
+.noise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Bagliore giallo brand — luce industriale, non gradiente AI */
+.glow-brand {
+  box-shadow: 0 0 0 1px rgba(245,179,1,0.25), 0 0 60px -12px rgba(245,179,1,0.45);
+}
+
+/* Testo con contorno (kinetic headline) */
+.text-stroke {
+  -webkit-text-stroke: 1.5px rgba(255,255,255,0.35);
+  color: transparent;
+}
+
+/* Marquee infinito (brand wall) */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+/* Elemento nascosto finché GSAP non lo rivela (evita flash) */
+.gsap-prep { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .gsap-prep { opacity: 1 !important; transform: none !important; }
 }
