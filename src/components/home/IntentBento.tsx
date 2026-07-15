@@ -45,7 +45,7 @@ export function IntentBento() {
   );
 
   return (
-    <section ref={root} className="bg-graphite-950 py-20 text-white sm:py-28">
+    <section ref={root} className="section-fade bg-graphite-950 py-20 text-white sm:py-28">
       <Container>
         <Eyebrow>Cosa ti serve oggi</Eyebrow>
         <h2 className="mt-3 max-w-2xl text-4xl font-bold text-white sm:text-5xl">Quattro modi di lavorare con DLF</h2>
@@ -67,7 +67,7 @@ export function IntentBento() {
                   Scopri →
                 </span>
               </div>
-              <span className="pointer-events-none absolute -bottom-16 -right-16 h-40 w-40 rounded-full bg-brand/10 blur-2xl transition-opacity duration-300 group-hover:opacity-100 opacity-0" aria-hidden />
+              <span className="pointer-events-none absolute -bottom-16 -right-16 h-40 w-40 rounded-full bg-brand/20 blur-2xl transition-opacity duration-300 group-hover:opacity-100 opacity-0" aria-hidden />
             </Link>
           ))}
         </div>

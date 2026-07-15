@@ -48,10 +48,10 @@ export function Hero() {
       <div className="hero-grid absolute inset-0 -top-1/4 h-[150%]" aria-hidden>
         <HeroCanvas />
       </div>
-      <div className="hero-glow pointer-events-none absolute right-0 top-1/4 h-[40rem] w-[40rem] translate-x-1/4 rounded-full bg-brand/25 blur-[130px]" aria-hidden />
+      <div className="hero-glow pointer-events-none absolute right-0 top-1/4 h-[40rem] w-[40rem] translate-x-1/4 rounded-full bg-brand/35 blur-[150px]" aria-hidden />
 
       {/* Visual: mezzo reale a tutta altezza sul lato destro */}
-      <div className="hero-visual pointer-events-none absolute inset-y-0 right-0 hidden w-[58%] lg:block" aria-hidden>
+      <div className="hero-visual pointer-events-none absolute inset-y-0 right-0 hidden w-[58%] md:block" aria-hidden>
         <div className="relative h-full w-full">
           <Image src="/media/products/dedalus-30-7-main.jpeg" alt="" fill priority sizes="60vw" className="object-cover object-left" />
           <div className="absolute inset-0 bg-gradient-to-r from-graphite-950 via-graphite-950/70 to-transparent" />
@@ -99,8 +99,9 @@ export function Hero() {
         </div>
       </Container>
 
-      <div className="hero-scrollcue absolute bottom-6 left-1/2 z-10 -translate-x-1/2 opacity-0" aria-hidden>
-        <div className="flex h-10 w-6 items-start justify-center rounded-full border border-white/30 p-1.5">
+      <div className="hero-scrollcue absolute bottom-6 left-1/2 z-10 -translate-x-1/2 flex flex-col items-center gap-2 opacity-0" aria-hidden>
+        <p className="text-xs font-semibold text-white/60">Scorri</p>
+        <div className="flex h-10 w-6 items-start justify-center rounded-full border border-white/40 p-1.5">
           <span className="h-2 w-1 animate-bounce rounded-full bg-brand" />
         </div>
       </div>

@@ -42,7 +42,7 @@ export function Stats() {
   );
 
   return (
-    <section ref={root} className="relative overflow-hidden border-b border-white/10 bg-graphite-900 text-white">
+    <section ref={root} className="section-fade relative overflow-hidden border-b border-white/10 bg-graphite-900 py-16 text-white sm:py-24">
       <div className="bg-grid-fine absolute inset-0 opacity-50" aria-hidden />
       <Container className="relative grid grid-cols-2 divide-x divide-white/10 lg:grid-cols-4">
         {stats.map((s) => (

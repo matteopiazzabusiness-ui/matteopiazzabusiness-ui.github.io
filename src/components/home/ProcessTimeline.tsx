@@ -36,7 +36,7 @@ export function ProcessTimeline() {
   );
 
   return (
-    <section ref={root} className="bg-graphite-950 py-20 text-white sm:py-28">
+    <section ref={root} className="section-fade bg-graphite-950 py-20 text-white sm:py-28">
       <Container>
         <Eyebrow>Come lavoriamo</Eyebrow>
         <h2 className="mt-3 max-w-2xl text-4xl font-bold text-white sm:text-5xl">Dalla richiesta al cantiere, senza attriti</h2>

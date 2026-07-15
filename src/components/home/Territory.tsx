@@ -13,7 +13,7 @@ export function Territory() {
     () => {
       if (prefersReducedMotion()) return;
       gsap.from(".terr-card", {
-        opacity: 0, y: 50, duration: 0.7, stagger: 0.15, ease: "power3.out",
+        opacity: 0, y: 50, duration: 0.7, stagger: 0.08, ease: "power3.out",
         scrollTrigger: { trigger: root.current, start: "top 72%", once: true },
       });
       gsap.to(".terr-pulse", { scale: 1.6, opacity: 0, duration: 2.2, ease: "sine.out", repeat: -1, stagger: 0.4 });
@@ -22,7 +22,7 @@ export function Territory() {
   );
 
   return (
-    <section ref={root} className="noise relative overflow-hidden bg-graphite-950 py-20 text-white sm:py-28">
+    <section ref={root} className="section-fade noise relative overflow-hidden bg-graphite-950 py-20 text-white sm:py-28">
       <div className="bg-grid absolute inset-0 opacity-40" aria-hidden />
       <Container className="relative">
         <Eyebrow>Territorio</Eyebrow>

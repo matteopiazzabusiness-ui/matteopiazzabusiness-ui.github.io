@@ -4,7 +4,7 @@ import { marchi } from "@/lib/site";
 export function BrandMarquee() {
   const row = [...marchi, ...marchi];
   return (
-    <section className="border-y border-white/10 bg-graphite-900 py-10 text-white">
+    <section className="section-fade border-y border-white/10 bg-graphite-900 py-12 text-white sm:py-16">
       <div className="mx-auto mb-6 max-w-6xl px-4 sm:px-6">
         <span className="text-xs font-bold uppercase tracking-[0.2em] text-white/40">Marchi trattati</span>
       </div>

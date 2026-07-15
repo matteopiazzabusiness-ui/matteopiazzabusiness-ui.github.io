@@ -29,7 +29,7 @@ export function ServicesSticky() {
   );
 
   return (
-    <section ref={root} className="bg-graphite-900 py-20 text-white sm:py-28">
+    <section ref={root} className="section-fade bg-graphite-900 py-20 text-white sm:py-28">
       <Container>
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.4fr]">
           <div className="lg:sticky lg:top-24 lg:h-max">

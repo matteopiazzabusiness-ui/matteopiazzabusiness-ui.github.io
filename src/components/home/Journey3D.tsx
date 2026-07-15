@@ -226,7 +226,7 @@ export function Journey3D() {
       setOpacity(p1.current, p1o);
       setOpacity(p2.current, smooth(clamp01((p - 0.80) / 0.08)));
 
-      bloom.strength = 0.7 + b * 0.9 + c * 0.5;
+      bloom.strength = 0.85 + b * 1.1 + c * 0.65;
       composer.render();
       raf = requestAnimationFrame(render);
     };

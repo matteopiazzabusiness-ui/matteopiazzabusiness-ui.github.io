@@ -48,9 +48,9 @@ export function PinnedShowcase({ prodotti }: { prodotti: Prodotto[] }) {
   );
 
   return (
-    <section ref={root} className="noise relative overflow-hidden bg-graphite-950 text-white">
+    <section ref={root} className="section-fade noise relative overflow-hidden bg-graphite-950 py-16 text-white sm:py-24">
       <div className="bg-grid-fine absolute inset-0 opacity-60" aria-hidden />
-      <div className="relative flex min-h-[100svh] flex-col justify-center py-16">
+      <div className="relative flex min-h-[100svh] flex-col justify-center">
         <div className="mx-auto mb-10 w-full max-w-6xl px-4 sm:px-6">
           <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-brand">
             <span className="h-px w-6 bg-brand" /> Gamma mezzi
