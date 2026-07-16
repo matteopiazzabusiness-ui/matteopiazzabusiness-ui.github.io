@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+/*
+  DLF Macchine v2 — "Cantiere Editoriale"
+  Identità 2026: rivista industriale. Carta calda + carbone + giallo CAT
+  usato come evidenziatore, mai come sfondo. Tipografia poster condensata
+  (Anton) su testo tecnico (Space Grotesk). Sezioni chiaro/scuro alternate.
+  Skill ui-ux-pro-max: variance 8, motion 9, density 4.
+*/
+
+@theme {
+  /* Superfici */
+  --color-carbon: #0a0a0b;
+  --color-carbon-800: #141416;
+  --color-carbon-700: #1e1e21;
+  --color-carbon-600: #2a2a2e;
+  --color-paper: #f4f1ec;
+  --color-paper-2: #ebe7df;
+  --color-paper-3: #dfdacf;
+
+  /* Inchiostri */
+  --color-ink: #121212;
+  --color-ink-soft: #4a4a4a;
+  --color-mist: #a8a49c;
+
+  /* Brand */
+  --color-giallo: #ffcc00;
+  --color-giallo-deep: #e6ac00;
+  --color-arancio: #ff5a1f;
+
+  /* Tipografia */
+  --font-poster: var(--font-anton), impact, sans-serif;
+  --font-sans: var(--font-grotesk), system-ui, sans-serif;
+  --font-mono: var(--font-jet), ui-monospace, monospace;
+
+  --ease-cine: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+html {
+  background: var(--color-carbon);
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior: none;
+}
+
+::selection {
+  background: var(--color-giallo);
+  color: var(--color-ink);
+}
+
+/* Focus visibile WCAG */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid var(--color-arancio);
+  outline-offset: 2px;
+}
+
+/* Titoli poster: condensati, maiuscoli, strettissimi */
+.t-poster {
+  font-family: var(--font-poster);
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+/* Etichetta tecnica */
+.t-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+}
+
+/* Evidenziatore giallo — marker su testo */
+.marker {
+  background: linear-gradient(transparent 58%, var(--color-giallo) 58%, var(--color-giallo) 92%, transparent 92%);
+}
+
+/* Riga hairline editoriale */
+.rule { border-top: 1px solid currentColor; opacity: 0.18; }
+
+/* Immagine con sipario: il wrapper clippa, il reveal GSAP anima clip-path */
+.curtain { clip-path: inset(0 0 0 0); }
+
+/* Grana pellicola */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Ticker infinito */
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker 28s linear infinite;
+}
+.ticker:hover .ticker-track { animation-play-state: paused; }
+
+/* Elementi preparati per GSAP: invisibili solo se JS attivo (no-flash, no SEO loss) */
+html.gsap-on .prep { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  html.gsap-on .prep { opacity: 1; }
+}
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* Link sottolineatura animata */
+.u-line {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 320ms var(--ease-cine);
+}
+.u-line:hover { background-size: 100% 2px; }
