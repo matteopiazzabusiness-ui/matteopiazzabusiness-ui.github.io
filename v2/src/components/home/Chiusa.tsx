@@ -39,7 +39,7 @@ export function Chiusa() {
       <h2 className="t-poster text-[13vw] leading-[0.9] sm:text-[9vw]">
         <span className="block overflow-hidden"><span className="ch-line block">Il cantiere</span></span>
         <span className="block overflow-hidden"><span className="ch-line block">non aspetta.</span></span>
-        <span className="block overflow-hidden"><span className="ch-line block text-paper">Chiamaci ora.</span></span>
+        <span className="block overflow-hidden"><span className="ch-line block underline decoration-carbon decoration-8 underline-offset-[1.5vw]">Chiamaci ora.</span></span>
       </h2>
 
       <div className="mt-16 grid gap-8 sm:grid-cols-3">
