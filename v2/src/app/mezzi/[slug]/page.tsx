@@ -5,6 +5,7 @@ import Image from "next/image";
 import { prodotti, prodottoBySlug, categorie } from "@/lib/catalog";
 import { company } from "@/lib/site";
 import { PageHead } from "@/components/PageHead";
+import { ProductJsonLd } from "@/components/JsonLd";
 
 export function generateStaticParams() {
   return prodotti.map((p) => ({ slug: p.slug }));
@@ -26,6 +27,7 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
 
   return (
     <>
+      <ProductJsonLd p={p} />
       <PageHead label={`${p.brand} · ${categorie[p.categoria].label}`} title={p.nome}>
         {p.descrizione}
       </PageHead>
