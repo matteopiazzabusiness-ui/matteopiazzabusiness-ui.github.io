@@ -66,7 +66,7 @@ export function Overture() {
     <section ref={root} className="relative min-h-[100svh] overflow-hidden bg-paper pt-24">
       {/* Preloader */}
       <div ref={veil} className="fixed inset-0 z-[60] flex items-end justify-between bg-carbon p-6 sm:p-10">
-        <span className="t-label text-paper/50">DLF Macchine — dal cantiere, per il cantiere</span>
+        <span className="t-label text-paper/70">DLF Macchine — dal cantiere, per il cantiere</span>
         <span className="t-poster text-7xl text-giallo sm:text-9xl"><span ref={pct}>000</span>%</span>
       </div>
 

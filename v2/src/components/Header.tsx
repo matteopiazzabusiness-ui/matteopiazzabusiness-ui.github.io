@@ -37,7 +37,7 @@ export function Header() {
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-label={open ? "Chiudi menu" : "Apri menu"}
-            className="t-label flex cursor-pointer items-center gap-3 text-white"
+            className="t-label -m-3 flex cursor-pointer items-center gap-3 p-3 text-white"
           >
             {open ? "Chiudi" : "Menu"}
             <span className="relative block h-3 w-7">

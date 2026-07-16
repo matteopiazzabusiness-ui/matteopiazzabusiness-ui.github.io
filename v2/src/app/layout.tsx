@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Anton, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Smooth } from "@/components/fx/Smooth";
+import { Progress } from "@/components/fx/Progress";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { OrgJsonLd } from "@/components/JsonLd";
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <OrgJsonLd />
         <Smooth>
+          <Progress />
           <Header />
           <main>{children}</main>
           <Footer />

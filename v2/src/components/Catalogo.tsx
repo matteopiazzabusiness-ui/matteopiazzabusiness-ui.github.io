@@ -30,13 +30,13 @@ export function Catalogo() {
           onChange={(e) => setQ(e.target.value)}
           placeholder="Cerca modello…"
           aria-label="Cerca modello"
-          className="t-label border border-ink/30 bg-transparent px-4 py-2.5 text-ink placeholder:text-ink/40 focus:border-ink"
+          className="border border-ink/30 bg-transparent px-4 py-3 font-[family-name:var(--font-jet)] text-base uppercase tracking-widest text-ink placeholder:text-ink/40 focus:border-ink"
         />
         <select
           value={cat}
           onChange={(e) => setCat(e.target.value as Categoria | "")}
           aria-label="Filtra per categoria"
-          className="t-label cursor-pointer border border-ink/30 bg-transparent px-4 py-2.5 text-ink"
+          className="cursor-pointer border border-ink/30 bg-transparent px-4 py-3 font-[family-name:var(--font-jet)] text-base uppercase tracking-widest text-ink"
         >
           <option value="">Tutte le categorie</option>
           {Object.entries(categorie).map(([k, v]) => (
@@ -47,7 +47,7 @@ export function Catalogo() {
           value={brand}
           onChange={(e) => setBrand(e.target.value)}
           aria-label="Filtra per marca"
-          className="t-label cursor-pointer border border-ink/30 bg-transparent px-4 py-2.5 text-ink"
+          className="cursor-pointer border border-ink/30 bg-transparent px-4 py-3 font-[family-name:var(--font-jet)] text-base uppercase tracking-widest text-ink"
         >
           <option value="">Tutte le marche</option>
           {brands.map((b) => <option key={b} value={b}>{b}</option>)}

@@ -59,6 +59,8 @@ export function Rail({ prodotti }: { prodotti: Prodotto[] }) {
           </p>
         </div>
 
+        {/* motion-reduce: il rail diventa una fascia scorrevole a mano (contenuto mai tagliato) */}
+        <div className="motion-reduce:overflow-x-auto">
         <div ref={track} className="flex gap-8 px-5 will-change-transform sm:px-8">
           {prodotti.map((p, i) => (
             <Link
@@ -91,6 +93,7 @@ export function Rail({ prodotti }: { prodotti: Prodotto[] }) {
             <span className="t-poster text-5xl text-ink">Tutto il catalogo</span>
             <span className="t-label mt-4 text-ink-soft">{"->"} {prodotti.length}+ modelli con filtri</span>
           </Link>
+        </div>
         </div>
       </div>
     </section>

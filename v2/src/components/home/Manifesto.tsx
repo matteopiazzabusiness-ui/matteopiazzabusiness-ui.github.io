@@ -46,7 +46,7 @@ export function Manifesto() {
           ["Noleggio", "Mezzi industriali e attrezzature"],
         ].map(([t, d], i) => (
           <div key={t} className="border-t border-paper/20 pt-4">
-            <span className="t-label text-paper/40">0{i + 1}</span>
+            <span className="t-label text-paper/60">0{i + 1}</span>
             <h3 className="t-poster mt-2 text-2xl text-paper">{t}</h3>
             <p className="mt-2 text-sm text-paper/60">{d}</p>
           </div>

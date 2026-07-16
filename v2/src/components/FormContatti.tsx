@@ -40,7 +40,7 @@ export function FormContatti({ intento, modello }: { intento?: string; modello?:
             type="button"
             onClick={() => setTipo(i.v)}
             aria-pressed={tipo === i.v}
-            className={`t-label cursor-pointer border px-4 py-2.5 transition-colors ${
+            className={`t-label cursor-pointer border px-4 py-3 transition-colors ${
               tipo === i.v ? "border-ink bg-ink text-paper" : "border-ink/30 text-ink hover:border-ink"
             }`}
           >

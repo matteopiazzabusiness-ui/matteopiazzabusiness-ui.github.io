@@ -16,19 +16,19 @@ export function Footer() {
         <div className="mt-16 grid gap-10 border-t border-paper/15 pt-10 sm:grid-cols-2 lg:grid-cols-4">
           {sedi.map((s) => (
             <div key={s.slug}>
-              <h3 className="t-label text-paper/50">{s.city} ({s.province})</h3>
+              <h3 className="t-label text-paper/70">{s.city} ({s.province})</h3>
               <p className="mt-3 text-sm text-paper/80">{s.street}, {s.zip} {s.city}</p>
               <p className="mt-1 text-sm"><a className="u-line" href={`tel:${s.phone.replace(/\s/g, "")}`}>{s.phone}</a></p>
               <p className="text-sm"><a className="u-line" href={`tel:${s.mobile.replace(/\s/g, "")}`}>{s.mobile}</a></p>
             </div>
           ))}
           <div>
-            <h3 className="t-label text-paper/50">Orari</h3>
+            <h3 className="t-label text-paper/70">Orari</h3>
             <p className="mt-3 text-sm text-paper/80">{orari.feriali}</p>
             <p className="text-sm text-paper/80">{orari.sabato}</p>
           </div>
           <div>
-            <h3 className="t-label text-paper/50">Naviga</h3>
+            <h3 className="t-label text-paper/70">Naviga</h3>
             <ul className="mt-3 space-y-1 text-sm">
               {[["/mezzi", "Mezzi"], ["/noleggio", "Noleggio"], ["/assistenza", "Assistenza"], ["/ricambi", "Ricambi"], ["/dlf", "Chi siamo"], ["/contatti", "Contatti"]].map(([h, l]) => (
                 <li key={h}><Link href={h} className="u-line">{l}</Link></li>
@@ -38,7 +38,7 @@ export function Footer() {
         </div>
 
         <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-paper/15 pt-6">
-          <p className="t-label text-paper/40">
+          <p className="t-label text-paper/60">
             © {new Date().getFullYear()} {company.legalName} · P.IVA {company.vat} · REA {company.rea} · PEC {company.pec}
           </p>
           <div className="flex gap-6">
