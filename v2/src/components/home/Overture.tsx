@@ -50,8 +50,12 @@ export function Overture() {
       })
         .to(veil.current, { yPercent: -100, duration: 0.9, ease: "expo.inOut" })
         .set(veil.current, { display: "none" })
+        // Gli elementi .prep nascono invisibili via CSS (html.gsap-on .prep):
+        // vanno resi visibili PRIMA delle animazioni, altrimenti .from(opacity)
+        // interpola 0→0 e il titolo resta bianco per sempre
+        .set(".prep", { opacity: 1 }, "<")
         .from(chars, { yPercent: 112, duration: 0.9, stagger: 0.022 }, "<15%")
-        .from(".ov-meta", { opacity: 0, y: 20, stagger: 0.09, duration: 0.6 }, "<35%")
+        .fromTo(".ov-meta", { opacity: 0, y: 20 }, { opacity: 1, y: 0, stagger: 0.09, duration: 0.6 }, "<35%")
         .from(".ov-card", { opacity: 0, y: 46, rotate: (i: number) => (i - 1) * 2.5, duration: 0.8, stagger: 0.1 }, "<20%");
 
       // Scrub uscita: titolo sale, card si aprono a ventaglio

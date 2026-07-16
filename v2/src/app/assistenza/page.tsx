@@ -13,7 +13,7 @@ export default function AssistenzaPage() {
       label="Assistenza"
       title="Se il mezzo si ferma, arriviamo noi"
       intro="Officina attrezzata a Caltanissetta e officina meccanica mobile per interventi direttamente in cantiere. Tecnici qualificati su Caterpillar, Dieci e tutte le principali marche."
-      img="/media/services/assistenza.png"
+      img="/media/team/officina-caltanissetta.jpg"
       intento="assistenza"
       punti={[
         { t: "In officina", d: "Diagnosi, tagliandi, revisioni e riparazioni complesse nella sede di Caltanissetta con attrezzature dedicate." },

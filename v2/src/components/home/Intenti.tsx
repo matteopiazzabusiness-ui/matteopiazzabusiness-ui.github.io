@@ -11,36 +11,44 @@ const CARDS = [
     label: "Vendita",
     n: "01",
     testo: "Gamma completa Caterpillar e Dieci: escavatori, minipale, sollevatori telescopici. Nuovo con garanzia ufficiale.",
+    punti: ["61+ modelli a catalogo", "Garanzia ufficiale CAT e Dieci", "Valutazione e permuta dell'usato"],
     img: "/media/products/306-cr.jpeg",
     bg: "bg-giallo",
     fg: "text-ink",
+    line: "border-ink/15",
   },
   {
     href: "/noleggio",
     label: "Noleggio",
     n: "02",
     testo: "Mezzi industriali e attrezzature a breve e lungo termine. Consegna in cantiere, manutenzione inclusa.",
-    img: "/media/services/noleggio.png",
+    punti: ["Breve e lungo termine", "Consegna in cantiere in tutta la Sicilia", "Manutenzione sempre inclusa"],
+    img: "/media/products/dedalus-30-7-main.jpeg",
     bg: "bg-carbon-700",
     fg: "text-paper",
+    line: "border-paper/15",
   },
   {
     href: "/assistenza",
     label: "Assistenza",
     n: "03",
     testo: "Officina meccanica mobile e tecnici qualificati. Interveniamo dove sei tu, in tutta la Sicilia.",
-    img: "/media/services/assistenza.png",
+    punti: ["Officina meccanica mobile", "Tecnici qualificati CAT e Dieci", "In sede o direttamente in cantiere"],
+    img: "/media/team/officina-caltanissetta.jpg",
     bg: "bg-paper-2",
     fg: "text-ink",
+    line: "border-ink/15",
   },
   {
     href: "/ricambi",
     label: "Ricambi",
     n: "04",
     testo: "Ricambi originali di tutte le marche, in stock nei magazzini di Caltanissetta e Catania.",
+    punti: ["Originali di tutte le marche", "In stock a Caltanissetta e Catania", "Ordini e spedizioni rapide"],
     img: "/media/team/magazzino-caltanissetta.jpg",
     bg: "bg-carbon",
     fg: "text-paper",
+    line: "border-paper/15",
   },
 ];
 
@@ -91,27 +99,40 @@ export function Intenti() {
         <Link
           key={c.href}
           href={c.href}
-          className={`int-panel group relative flex min-h-[92svh] flex-col justify-between overflow-hidden ${c.bg} ${c.fg} px-5 py-10 will-change-transform sm:px-8`}
+          className={`int-panel group relative flex min-h-[92svh] flex-col overflow-hidden ${c.bg} ${c.fg} px-5 py-10 will-change-transform sm:px-8`}
         >
           <div className="flex items-start justify-between gap-6">
             <h3 className="t-poster text-[15vw] leading-none sm:text-[10vw]">{c.label}</h3>
             <span className="t-label mt-4 shrink-0 opacity-60">{c.n} / 04</span>
           </div>
-          <div className="flex flex-wrap items-end justify-between gap-8">
-            <p className="max-w-md text-base leading-relaxed opacity-80 sm:text-lg">{c.testo}</p>
-            <div className="relative aspect-[4/3] w-full max-w-sm overflow-hidden sm:w-[34vw]">
+          {/* Corpo pieno: testo + punti a sinistra, foto grande a destra */}
+          <div className="mt-8 grid flex-1 items-stretch gap-8 sm:grid-cols-2 sm:gap-12">
+            <div className="flex flex-col justify-between gap-8">
+              <div>
+                <p className="max-w-md text-lg leading-relaxed opacity-85 sm:text-xl">{c.testo}</p>
+                <ul className="mt-8 max-w-md">
+                  {c.punti.map((p, i) => (
+                    <li key={p} className={`flex items-baseline gap-4 border-t ${c.line} py-3`}>
+                      <span className="t-label shrink-0 opacity-50">0{i + 1}</span>
+                      <span className="text-base sm:text-lg">{p}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <span className="t-label">
+                <span className="u-line">Vai al reparto {"->"}</span>
+              </span>
+            </div>
+            <div className="relative min-h-[38svh] overflow-hidden sm:min-h-0">
               <Image
                 src={c.img}
                 alt={c.label}
                 fill
-                sizes="(max-width: 640px) 100vw, 34vw"
+                sizes="(max-width: 640px) 100vw, 50vw"
                 className="object-cover transition-transform duration-700 [transition-timing-function:cubic-bezier(0.76,0,0.24,1)] group-hover:scale-105"
               />
             </div>
           </div>
-          <span className="t-label absolute bottom-10 left-5 sm:left-8">
-            <span className="u-line">Vai al reparto {"->"}</span>
-          </span>
         </Link>
       ))}
     </section>

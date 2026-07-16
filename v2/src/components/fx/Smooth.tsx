@@ -12,6 +12,8 @@ export function Smooth({ children }: { children: ReactNode }) {
 
     const lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1.05 });
     lenis.on("scroll", ScrollTrigger.update);
+    // Hook per test/debug (Playwright): scroll programmatico coerente con Lenis
+    (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
     const raf = (t: number) => lenis.raf(t * 1000);
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);

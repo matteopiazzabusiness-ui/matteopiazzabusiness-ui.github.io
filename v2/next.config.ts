@@ -10,6 +10,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Root esplicita: evita che Turbopack scelga il lockfile della cartella
+  // genitore come radice del progetto (warning multi-lockfile).
+  turbopack: { root: __dirname },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
   },

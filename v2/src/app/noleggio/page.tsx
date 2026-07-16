@@ -13,7 +13,7 @@ export default function NoleggioPage() {
       label="Noleggio"
       title="La macchina giusta, solo quando serve"
       intro="Mezzi industriali e attrezzature a noleggio, breve e lungo termine. Consegna in cantiere in tutta la Sicilia, manutenzione inclusa nel canone."
-      img="/media/services/noleggio.png"
+      img="/media/products/dedalus-30-7-main.jpeg"
       intento="noleggio"
       punti={[
         { t: "Flessibile", d: "Giornaliero, settimanale o mensile: paghi il mezzo solo per il tempo in cui lavora davvero." },
