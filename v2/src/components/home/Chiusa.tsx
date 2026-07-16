@@ -56,11 +56,12 @@ export function Chiusa() {
             href={`https://wa.me/${company.whatsapp}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="t-poster u-line mt-2 block text-2xl"
+            data-magnetic
+            className="t-poster u-line mt-2 inline-block text-2xl"
           >
             WhatsApp {"->"}
           </a>
-          <Link href="/contatti" className="t-poster u-line mt-1 block text-2xl">Form contatti {"->"}</Link>
+          <Link href="/contatti" data-magnetic className="t-poster u-line mt-1 block w-fit text-2xl">Form contatti {"->"}</Link>
         </div>
       </div>
     </section>

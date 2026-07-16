@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { gsap, useGSAP, reduced } from "@/lib/motion";
+import { gsap, ScrollTrigger, useGSAP, reduced } from "@/lib/motion";
 import type { Prodotto } from "@/lib/catalog";
 import { categorie } from "@/lib/catalog";
 
@@ -39,6 +39,16 @@ export function Rail({ prodotti }: { prodotti: Prodotto[] }) {
             }
           },
         },
+      });
+
+      // Effetto velocità: il binario si inclina col movimento e si
+      // raddrizza quando lo scroll si ferma
+      const skewTo = gsap.quickTo(track.current, "skewX", { duration: 0.4, ease: "power2.out" });
+      ScrollTrigger.create({
+        trigger: root.current,
+        start: "top bottom",
+        end: "bottom top",
+        onUpdate: (self) => skewTo(gsap.utils.clamp(-4, 4, self.getVelocity() / -420)),
       });
 
       // Profondità: le foto scorrono più lente delle card che le contengono

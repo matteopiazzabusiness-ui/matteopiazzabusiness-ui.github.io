@@ -72,6 +72,25 @@ export function Overture() {
       gsap.to(".ov-l2", { xPercent: 9, opacity: 0.12, ease: "none", scrollTrigger: exit });
       gsap.to(".ov-ghost", { yPercent: 26, ease: "none", scrollTrigger: exit });
       gsap.to(".ov-tail", { yPercent: -40, opacity: 0, ease: "none", scrollTrigger: exit });
+
+      // Parallasse mouse: titolo e fantasma su piani diversi (solo mouse)
+      // Centratura del fantasma via xPercent: i translate Tailwind verrebbero
+      // sovrascritti dal transform di quickTo
+      gsap.set(".ov-ghost", { xPercent: -50 });
+      if (window.matchMedia("(pointer: fine)").matches) {
+        const h1x = gsap.quickTo(".ov-title-plane", "x", { duration: 0.9, ease: "power3.out" });
+        const h1y = gsap.quickTo(".ov-title-plane", "y", { duration: 0.9, ease: "power3.out" });
+        const gx = gsap.quickTo(".ov-ghost", "x", { duration: 1.4, ease: "power3.out" });
+        const gy = gsap.quickTo(".ov-ghost", "y", { duration: 1.4, ease: "power3.out" });
+        const onMouse = (e: MouseEvent) => {
+          const nx = e.clientX / window.innerWidth - 0.5;
+          const ny = e.clientY / window.innerHeight - 0.5;
+          h1x(nx * 14); h1y(ny * 10);
+          gx(nx * -34); gy(ny * -22); // il fondo va in controtempo: profondità
+        };
+        window.addEventListener("mousemove", onMouse, { passive: true });
+        return () => window.removeEventListener("mousemove", onMouse);
+      }
     },
     { scope: root },
   );
@@ -92,7 +111,7 @@ export function Overture() {
         SICILIA
       </span>
 
-      <div className="relative px-5 sm:px-8">
+      <div className="ov-title-plane relative px-5 sm:px-8">
         <p className="ov-meta t-label prep text-ink-soft">Concessionaria Caterpillar & Dieci · Sicilia</p>
         <h1 className="t-poster prep mt-3 text-[16vw] leading-[0.92] text-ink sm:text-[12.5vw]">
           <span className="ov-l1 block overflow-hidden"><span ref={h1a} className="block">Muoviamo</span></span>
@@ -110,7 +129,7 @@ export function Overture() {
           Vendita, noleggio, assistenza e ricambi per macchine movimento terra.
           Officina meccanica mobile, due sedi, un&apos;unica squadra.
         </p>
-        <a href="#flotta" className="t-label marker px-2 py-2 text-ink">Inizia il viaggio ↓</a>
+        <a href="#flotta" data-magnetic className="t-label marker inline-block px-2 py-2 text-ink">Inizia il viaggio ↓</a>
       </div>
 
       {/* Indice reparti: valore subito, niente foto ripetute */}
