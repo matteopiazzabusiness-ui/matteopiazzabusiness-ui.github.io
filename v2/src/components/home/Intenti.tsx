@@ -64,6 +64,28 @@ export function Intenti() {
       if (reduced() || !root.current) return;
       const panels = gsap.utils.toArray<HTMLElement>(".int-panel");
       panels.forEach((panel, i) => {
+        // Reveal del corpo: testo, punti e foto salgono staggerati all'ingresso
+        gsap.from(panel.querySelectorAll(".int-reveal"), {
+          opacity: 0,
+          y: 36,
+          duration: 0.7,
+          stagger: 0.08,
+          ease: "power3.out",
+          scrollTrigger: { trigger: panel, start: "top 62%", once: true },
+        });
+        // Profondità: la foto scorre più lenta del pannello che la contiene
+        const img = panel.querySelector(".int-img");
+        if (img) {
+          gsap.fromTo(
+            img,
+            { yPercent: -8 },
+            {
+              yPercent: 8,
+              ease: "none",
+              scrollTrigger: { trigger: panel, start: "top bottom", end: "bottom top", scrub: true },
+            },
+          );
+        }
         if (i === panels.length - 1) return;
         // Il pannello resta fermo mentre il successivo lo copre.
         ScrollTrigger.create({
@@ -109,27 +131,27 @@ export function Intenti() {
           <div className="mt-8 grid flex-1 items-stretch gap-8 sm:grid-cols-2 sm:gap-12">
             <div className="flex flex-col justify-between gap-8">
               <div>
-                <p className="max-w-md text-lg leading-relaxed opacity-85 sm:text-xl">{c.testo}</p>
+                <p className="int-reveal max-w-md text-lg leading-relaxed opacity-85 sm:text-xl">{c.testo}</p>
                 <ul className="mt-8 max-w-md">
                   {c.punti.map((p, i) => (
-                    <li key={p} className={`flex items-baseline gap-4 border-t ${c.line} py-3`}>
+                    <li key={p} className={`int-reveal flex items-baseline gap-4 border-t ${c.line} py-3`}>
                       <span className="t-label shrink-0 opacity-50">0{i + 1}</span>
                       <span className="text-base sm:text-lg">{p}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <span className="t-label">
+              <span className="int-reveal t-label">
                 <span className="u-line">Vai al reparto {"->"}</span>
               </span>
             </div>
-            <div className="relative min-h-[38svh] overflow-hidden sm:min-h-0">
+            <div className="int-reveal relative min-h-[38svh] overflow-hidden sm:min-h-0">
               <Image
                 src={c.img}
                 alt={c.label}
                 fill
                 sizes="(max-width: 640px) 100vw, 50vw"
-                className="object-cover transition-transform duration-700 [transition-timing-function:cubic-bezier(0.76,0,0.24,1)] group-hover:scale-105"
+                className="int-img scale-[1.18] object-cover transition-transform duration-700 [transition-timing-function:cubic-bezier(0.76,0,0.24,1)] group-hover:scale-[1.24]"
               />
             </div>
           </div>

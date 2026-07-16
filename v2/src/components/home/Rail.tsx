@@ -21,7 +21,7 @@ export function Rail({ prodotti }: { prodotti: Prodotto[] }) {
       if (reduced() || !track.current || !root.current) return;
       const dist = () => track.current!.scrollWidth - window.innerWidth + 64;
 
-      gsap.to(track.current, {
+      const tween = gsap.to(track.current, {
         x: () => -dist(),
         ease: "none",
         scrollTrigger: {
@@ -39,6 +39,26 @@ export function Rail({ prodotti }: { prodotti: Prodotto[] }) {
             }
           },
         },
+      });
+
+      // Profondità: le foto scorrono più lente delle card che le contengono
+      // (parallasse orizzontale interna, agganciata al tween del rail)
+      gsap.utils.toArray<HTMLElement>(".rail-img").forEach((img) => {
+        gsap.fromTo(
+          img,
+          { xPercent: -7 },
+          {
+            xPercent: 7,
+            ease: "none",
+            scrollTrigger: {
+              trigger: img.closest("a"),
+              containerAnimation: tween,
+              start: "left right",
+              end: "right left",
+              scrub: true,
+            },
+          },
+        );
       });
     },
     { scope: root },
@@ -75,7 +95,7 @@ export function Rail({ prodotti }: { prodotti: Prodotto[] }) {
                     alt={p.nome}
                     fill
                     sizes="460px"
-                    className="object-cover transition-transform duration-700 [transition-timing-function:cubic-bezier(0.76,0,0.24,1)] group-hover:scale-105"
+                    className="rail-img scale-[1.16] object-cover transition-transform duration-700 [transition-timing-function:cubic-bezier(0.76,0,0.24,1)] group-hover:scale-[1.22]"
                   />
                 )}
                 <span className="t-label absolute left-3 top-3 bg-giallo px-2 py-1 text-ink">{p.brand}</span>

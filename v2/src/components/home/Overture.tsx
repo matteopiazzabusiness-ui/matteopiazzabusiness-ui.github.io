@@ -1,21 +1,23 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
+import Link from "next/link";
 import { gsap, useGSAP, reduced, splitChars } from "@/lib/motion";
 
 /**
- * OVERTURE — preloader contatore + hero tipografico.
- * Niente immagini giganti (le foto sorgente sono piccole: ingrandite
- * diventano sfocate) — il colpo d'occhio è il titolo poster a tutta
- * larghezza, tre scatti nitidi a dimensione naturale, ticker.
- * Allo scroll il titolo scivola via e le card ruotano in parallax.
+ * OVERTURE — preloader contatore + hero tipografico puro.
+ * Niente foto (i mezzi sfilano già nel Rail): il colpo d'occhio è il
+ * titolo poster gigante su "SICILIA" fantasma in outline, con uscita
+ * cinetica allo scroll (le due righe si dividono in direzioni opposte,
+ * il fantasma deriva più lento: tre piani di profondità).
+ * In basso i quattro reparti come indice navigabile, poi il ticker.
  */
 
-const SCATTI = [
-  { src: "/media/products/306-cr.jpeg", alt: "CAT 306 CR", cap: "CAT 306 CR — mini escavatore" },
-  { src: "/media/products/dedalus-30-7-main.jpeg", alt: "Dieci Dedalus 30.7", cap: "Dedalus 30.7 — telescopico" },
-  { src: "/media/products/299d3-xe.jpeg", alt: "CAT 299D3 XE", cap: "CAT 299D3 XE — minipala CTL" },
+const REPARTI = [
+  { href: "/mezzi", n: "01", label: "Vendita" },
+  { href: "/noleggio", n: "02", label: "Noleggio" },
+  { href: "/assistenza", n: "03", label: "Assistenza" },
+  { href: "/ricambi", n: "04", label: "Ricambi" },
 ];
 
 export function Overture() {
@@ -55,45 +57,55 @@ export function Overture() {
         // interpola 0→0 e il titolo resta bianco per sempre
         .set(".prep", { opacity: 1 }, "<")
         .from(chars, { yPercent: 112, duration: 0.9, stagger: 0.022 }, "<15%")
+        .fromTo(".ov-bar", { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "expo.inOut" }, "<45%")
         .fromTo(".ov-meta", { opacity: 0, y: 20 }, { opacity: 1, y: 0, stagger: 0.09, duration: 0.6 }, "<35%")
-        .from(".ov-card", { opacity: 0, y: 46, rotate: (i: number) => (i - 1) * 2.5, duration: 0.8, stagger: 0.1 }, "<20%");
+        .fromTo(
+          ".ov-rep",
+          { opacity: 0, y: 34 },
+          { opacity: 1, y: 0, stagger: 0.08, duration: 0.7 },
+          "<25%",
+        );
 
-      // Scrub uscita: titolo sale, card si aprono a ventaglio
-      gsap.to(".ov-title", {
-        yPercent: -26,
-        opacity: 0.15,
-        ease: "none",
-        scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: true },
-      });
-      gsap.utils.toArray<HTMLElement>(".ov-card").forEach((card, i) => {
-        gsap.to(card, {
-          yPercent: -10 - i * 8,
-          rotate: (i - 1) * 4,
-          ease: "none",
-          scrollTrigger: { trigger: root.current, start: "top top", end: "bottom top", scrub: true },
-        });
-      });
+      // Uscita cinetica: le due righe si dividono, il fantasma resta indietro
+      const exit = { trigger: root.current, start: "top top", end: "bottom top", scrub: true } as const;
+      gsap.to(".ov-l1", { xPercent: -9, opacity: 0.12, ease: "none", scrollTrigger: exit });
+      gsap.to(".ov-l2", { xPercent: 9, opacity: 0.12, ease: "none", scrollTrigger: exit });
+      gsap.to(".ov-ghost", { yPercent: 26, ease: "none", scrollTrigger: exit });
+      gsap.to(".ov-tail", { yPercent: -40, opacity: 0, ease: "none", scrollTrigger: exit });
     },
     { scope: root },
   );
 
   return (
-    <section ref={root} className="relative min-h-[100svh] overflow-hidden bg-paper pt-24">
+    <section ref={root} className="relative flex min-h-[100svh] flex-col overflow-hidden bg-paper pt-24">
       {/* Preloader */}
       <div ref={veil} className="fixed inset-0 z-[60] flex items-end justify-between bg-carbon p-6 sm:p-10">
         <span className="t-label text-paper/70">DLF Macchine — dal cantiere, per il cantiere</span>
         <span className="t-poster text-7xl text-giallo sm:text-9xl"><span ref={pct}>000</span>%</span>
       </div>
 
-      <div className="ov-title px-5 sm:px-8">
+      {/* Piano di fondo: SICILIA in outline, deriva più lenta dello scroll */}
+      <span
+        aria-hidden
+        className="ov-ghost t-poster pointer-events-none absolute left-1/2 top-[30%] -translate-x-1/2 select-none whitespace-nowrap text-[19vw] leading-none text-transparent [-webkit-text-stroke:1.5px_rgba(26,26,26,0.09)]"
+      >
+        SICILIA
+      </span>
+
+      <div className="relative px-5 sm:px-8">
         <p className="ov-meta t-label prep text-ink-soft">Concessionaria Caterpillar & Dieci · Sicilia</p>
-        <h1 className="t-poster prep mt-3 text-[15vw] text-ink sm:text-[11.5vw]">
-          <span className="block overflow-hidden"><span ref={h1a} className="block">Muoviamo</span></span>
-          <span className="block overflow-hidden"><span ref={h1b} className="block">la <span className="marker">terra</span></span></span>
+        <h1 className="t-poster prep mt-3 text-[16vw] leading-[0.92] text-ink sm:text-[12.5vw]">
+          <span className="ov-l1 block overflow-hidden"><span ref={h1a} className="block">Muoviamo</span></span>
+          <span className="ov-l2 relative block overflow-hidden">
+            {/* Evidenziatore: splitChars azzera il markup interno, quindi la
+                barra vive dietro la riga e si rivela con scaleX */}
+            <span aria-hidden className="ov-bar absolute bottom-[0.04em] left-0 h-[0.18em] w-[45%] origin-left bg-giallo" />
+            <span ref={h1b} className="relative block">la terra</span>
+          </span>
         </h1>
       </div>
 
-      <div className="ov-meta prep mt-6 flex flex-wrap items-start justify-between gap-6 px-5 sm:px-8">
+      <div className="ov-meta prep relative mt-8 flex flex-wrap items-start justify-between gap-6 px-5 sm:px-8">
         <p className="max-w-md text-base leading-relaxed text-ink-soft">
           Vendita, noleggio, assistenza e ricambi per macchine movimento terra.
           Officina meccanica mobile, due sedi, un&apos;unica squadra.
@@ -101,15 +113,20 @@ export function Overture() {
         <a href="#flotta" className="t-label marker px-2 py-2 text-ink">Inizia il viaggio ↓</a>
       </div>
 
-      {/* Tre scatti a dimensione naturale: nitidi, mai stirati */}
-      <div className="mt-10 flex flex-wrap gap-5 px-5 pb-10 sm:px-8">
-        {SCATTI.map((s, i) => (
-          <figure key={s.src} className={`ov-card w-[46vw] max-w-[300px] ${i === 1 ? "sm:mt-8" : ""}`}>
-            <div className="relative aspect-[4/3] overflow-hidden border border-ink/10 bg-white">
-              <Image src={s.src} alt={s.alt} fill priority={i === 0} sizes="300px" className="object-cover" />
-            </div>
-            <figcaption className="t-label mt-2 text-ink-soft">{s.cap}</figcaption>
-          </figure>
+      {/* Indice reparti: valore subito, niente foto ripetute */}
+      <div className="ov-tail relative mt-auto grid grid-cols-2 gap-px border-t border-ink/15 bg-ink/10 pt-px lg:grid-cols-4">
+        {REPARTI.map((r) => (
+          <Link
+            key={r.href}
+            href={r.href}
+            className="ov-rep group bg-paper px-5 py-6 transition-colors duration-300 hover:bg-carbon sm:px-8"
+          >
+            <span className="t-label text-giallo-deep transition-colors group-hover:text-giallo">{r.n}</span>
+            <span className="t-poster mt-1 flex items-baseline justify-between text-3xl text-ink transition-colors group-hover:text-paper sm:text-4xl">
+              {r.label}
+              <span className="text-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100">{"->"}</span>
+            </span>
+          </Link>
         ))}
       </div>
 

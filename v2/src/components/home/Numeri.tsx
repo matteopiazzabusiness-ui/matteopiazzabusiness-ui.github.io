@@ -43,6 +43,14 @@ export function Numeri() {
         ease: "power3.out",
         scrollTrigger: { trigger: root.current, start: "top 78%", once: true },
       });
+      // Profondità: le colonne salgono a velocità leggermente diverse
+      root.current.querySelectorAll<HTMLElement>(".num-item").forEach((el, i) => {
+        gsap.to(el, {
+          y: -14 - (i % 2) * 18,
+          ease: "none",
+          scrollTrigger: { trigger: root.current!, start: "top bottom", end: "bottom top", scrub: 0.8 },
+        });
+      });
     },
     { scope: root },
   );
