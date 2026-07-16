@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { Container, Section, Eyebrow } from "@/components/ui";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { Reveal } from "@/components/anim/Reveal";
-import { company, valori, marchi, sedi } from "@/lib/site";
+import Image from "next/image";
+import { company, valori, sedi } from "@/lib/site";
+import { partner, team } from "@/lib/team";
+import { TeamShowcase } from "@/components/TeamShowcase";
 
 export const metadata: Metadata = {
   title: "Chi è DLF Macchine — concessionaria movimento terra in Sicilia",
@@ -24,6 +27,23 @@ export default function DlfPage() {
             {company.legalName} è concessionaria Caterpillar e Dieci con due sedi operative in Sicilia. Vendita,
             noleggio, assistenza e ricambi con un unico partner. Guidata dal CEO Delfino Maria La Ferla.
           </p>
+        </Container>
+      </section>
+
+      <section className="noise relative bg-graphite-950 text-white">
+        <div className="bg-grid-fine absolute inset-0 opacity-50" aria-hidden />
+        <Container className="relative py-16 sm:py-24">
+          <Eyebrow>Il nostro team</Eyebrow>
+          <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold text-white sm:text-5xl">
+            Le persone dietro il successo
+          </h2>
+          <p className="mt-4 max-w-2xl text-white/60">
+            {team.length} professionisti, un&apos;officina e due magazzini ricambi: professionalità,
+            esperienza e passione al vostro servizio.
+          </p>
+          <div className="mt-12">
+            <TeamShowcase />
+          </div>
         </Container>
       </section>
 
@@ -65,9 +85,11 @@ export default function DlfPage() {
             </div>
             <div>
               <Eyebrow>Marchi trattati</Eyebrow>
-              <div className="mt-4 flex flex-wrap gap-2 text-sm">
-                {marchi.map((m) => (
-                  <span key={m} className="rounded-sm bg-surface-3 px-2.5 py-1 text-slate-strong">{m}</span>
+              <div className="mt-4 grid grid-cols-3 gap-2">
+                {partner.slice(0, 12).map((p) => (
+                  <span key={p.nome} className="flex h-14 items-center justify-center rounded-md bg-white p-2 ring-1 ring-line" title={p.nome}>
+                    <Image src={p.logo} alt={p.nome} width={80} height={40} className="max-h-10 w-auto object-contain" />
+                  </span>
                 ))}
               </div>
             </div>

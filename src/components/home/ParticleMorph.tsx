@@ -152,8 +152,9 @@ export function ParticleMorph() {
   }, []);
 
   return (
-    <section ref={wrap} className="relative h-screen overflow-hidden bg-graphite-950 text-white">
+    <section ref={wrap} className="relative min-h-[100svh] overflow-hidden bg-gradient-to-b from-graphite-900 via-graphite-950 to-graphite-900 text-white">
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+      <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/50 via-transparent to-graphite-950/20 pointer-events-none" aria-hidden />
       <div ref={t0} className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center px-6 text-center transition-opacity">
         <span className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-brand">Una rete che lavora per te</span>
         <h2 className="max-w-3xl font-display text-5xl font-extrabold sm:text-7xl">Migliaia di parti,<br />un solo sistema</h2>

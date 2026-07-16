@@ -23,9 +23,9 @@ export function ShaderStatement() {
   );
 
   return (
-    <section ref={root} className="relative flex min-h-[100svh] items-center overflow-hidden bg-graphite-950 text-white">
+    <section ref={root} className="relative flex min-h-[100svh] items-center overflow-hidden bg-gradient-to-br from-graphite-900 via-graphite-950 to-graphite-950 text-white">
       <ShaderField />
-      <div className="absolute inset-0 bg-graphite-950/30" aria-hidden />
+      <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/40 via-transparent to-graphite-950/20 pointer-events-none" aria-hidden />
       <Container className="relative">
         <p className="mb-6 text-xs font-bold uppercase tracking-[0.3em] text-brand">Il nostro standard</p>
         <h2 className="max-w-4xl font-display text-5xl font-extrabold leading-[1.02] sm:text-7xl lg:text-8xl">

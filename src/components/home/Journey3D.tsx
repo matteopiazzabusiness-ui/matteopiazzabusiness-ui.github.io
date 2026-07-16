@@ -242,8 +242,9 @@ export function Journey3D() {
   }, []);
 
   return (
-    <section ref={wrap} className="relative h-screen overflow-hidden bg-graphite-950 text-white">
+    <section ref={wrap} className="relative min-h-[100svh] overflow-hidden bg-gradient-to-b from-graphite-900 via-graphite-950 to-graphite-950 text-white">
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+      <div className="absolute inset-0 bg-gradient-to-t from-graphite-950/60 via-transparent to-graphite-950/30 pointer-events-none" aria-hidden />
 
       {/* FASE 0 — intro cinematografico (foto reale → 3D) */}
       <div ref={p0} className="absolute inset-0 transition-opacity">

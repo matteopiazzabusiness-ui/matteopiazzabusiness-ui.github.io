@@ -44,3 +44,18 @@ export function IconGear({ className = "h-8 w-8" }: P) {
     </svg>
   );
 }
+export function IconPhone({ className = "h-5 w-5" }: P) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill={base} stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z" />
+    </svg>
+  );
+}
+export function IconMail({ className = "h-5 w-5" }: P) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill={base} stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="4" width="20" height="16" rx="2" />
+      <path d="m22 7-10 6L2 7" />
+    </svg>
+  );
+}

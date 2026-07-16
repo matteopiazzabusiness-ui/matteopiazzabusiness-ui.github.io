@@ -4,11 +4,12 @@ import { useRef } from "react";
 import { gsap, useGSAP, prefersReducedMotion } from "@/lib/useScrollGsap";
 import { Container } from "@/components/ui";
 
+// Numeri reali: catalogo scraping (88 modelli), team.ts (14 + officina/magazzini), partner.ts (20 loghi).
 const stats = [
+  { n: 88, suf: "", label: "Modelli a catalogo Caterpillar e Dieci" },
+  { n: 20, suf: "", label: "Marchi e partner trattati" },
+  { n: 17, suf: "+", label: "Professionisti dedicati" },
   { n: 2, suf: "", label: "Sedi operative in Sicilia" },
-  { n: 16, suf: "+", label: "Professionisti dedicati" },
-  { n: 10, suf: "+", label: "Marchi trattati" },
-  { n: 4, suf: "", label: "Servizi in un partner" },
 ];
 
 export function Stats() {

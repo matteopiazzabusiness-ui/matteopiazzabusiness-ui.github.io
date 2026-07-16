@@ -12,8 +12,12 @@ import { Territory } from "@/components/home/Territory";
 import { FinalCta } from "@/components/home/FinalCta";
 
 export default function Home() {
-  const showcase = prodotti.filter((p) => p.specVerificate || p.immagini.length > 0).slice(0, 8);
-  const showcaseFull = showcase.length >= 6 ? showcase : prodotti.slice(0, 8);
+  // Vetrina: modelli di punta reali, mix bilanciato per categoria.
+  const flagship = ["306-cr", "dedalus-30-7-gd", "313-gc", "299d3-xe", "272d3-xe", "hercules-210-10", "301-7-cr", "262d3"];
+  const bySlug = new Map(prodotti.map((p) => [p.slug, p]));
+  const showcaseFull = flagship
+    .map((s) => bySlug.get(s))
+    .filter((p): p is NonNullable<typeof p> => Boolean(p?.immagini.length));
 
   return (
     <>
