@@ -12,6 +12,9 @@ import { Muro } from "@/components/home/Muro";
 import { Chiusa } from "@/components/home/Chiusa";
 import { SettoriTeaser } from "@/components/home/SettoriTeaser";
 import { BlogTeaser } from "@/components/home/BlogTeaser";
+import { Marquee } from "@/components/home/Marquee";
+import { Cinematica } from "@/components/home/Cinematica";
+import { Mosaico } from "@/components/home/Mosaico";
 
 /**
  * HOMEPAGE — viaggio in 11 tappe, alternanza carta/carbone:
@@ -30,10 +33,13 @@ export default function Home() {
     <>
       <Overture />
       <Numeri />
+      <Marquee />
       <Manifesto />
       <Rail prodotti={rail} />
       <Intenti />
+      <Mosaico />
       <SettoriTeaser />
+      <Cinematica />
       <Processo />
       <Territorio />
       <PercheDlf />
