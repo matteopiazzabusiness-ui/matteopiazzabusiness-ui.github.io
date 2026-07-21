@@ -3,7 +3,7 @@ import { Overture } from "@/components/home/Overture";
 import { Numeri } from "@/components/home/Numeri";
 import { Manifesto } from "@/components/home/Manifesto";
 import { Rail } from "@/components/home/Rail";
-import { Intenti } from "@/components/home/Intenti";
+import { ShowcaseServizi } from "@/components/home/ShowcaseServizi";
 import { Processo } from "@/components/home/Processo";
 import { Territorio } from "@/components/home/Territorio";
 import { PercheDlf } from "@/components/home/PercheDlf";
@@ -36,8 +36,8 @@ export default function Home() {
       <Marquee />
       <Manifesto />
       <Rail prodotti={rail} />
-      <Intenti />
       <Mosaico />
+      <ShowcaseServizi />
       <SettoriTeaser />
       <Cinematica />
       <Processo />
