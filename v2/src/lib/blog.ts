@@ -122,6 +122,46 @@ export const posts: Post[] = [
   },
 ];
 
+posts.push(
+  {
+    slug: "leasing-strumentale-mezzi-movimento-terra",
+    titolo: "Leasing strumentale: comprare il mezzo senza immobilizzare capitale",
+    categoria: "Guida",
+    data: "2026-06-02",
+    lettura: "4 min",
+    excerpt:
+      "Il leasing è spesso la via più intelligente per portare in azienda un mezzo nuovo. Come funziona, quali vantaggi e cosa serve per attivarlo.",
+    cover: "/media/hero/dlf-movimento-terra.png",
+    corpo: [
+      { tipo: "p", testo: "Acquistare un mezzo movimento terra è un investimento importante. Il leasing strumentale permette di usare subito la macchina pagandola nel tempo, senza immobilizzare in un colpo solo la liquidità aziendale." },
+      { tipo: "h", testo: "Come funziona" },
+      { tipo: "p", testo: "Con il leasing una società finanziaria acquista il mezzo e te lo concede in uso dietro un canone periodico. Al termine puoi riscattarlo a un valore prestabilito e diventarne proprietario." },
+      { tipo: "h", testo: "I vantaggi" },
+      { tipo: "lista", voci: ["Liquidità preservata per il resto dell'attività", "Canoni pianificabili e vantaggi fiscali (deducibilità)", "Possibilità di riscatto finale del mezzo", "Spesso abbinabile alla permuta dell'usato"] },
+      { tipo: "h", testo: "Come ti aiutiamo" },
+      { tipo: "p", testo: "Il nostro ufficio leasing costruisce con te la formula più adatta al mezzo e al tuo piano di lavoro, curando la pratica dall'inizio alla fine. Dicci il modello che ti interessa e ti prepariamo una simulazione." },
+    ],
+  },
+  {
+    slug: "sicurezza-cantiere-abilitazioni-operatori",
+    titolo: "Sicurezza in cantiere: abilitazioni e formazione per gli operatori",
+    categoria: "Sicurezza",
+    data: "2026-02-10",
+    lettura: "3 min",
+    excerpt:
+      "Chi guida escavatori, minipale e telescopici deve avere l'abilitazione. Cosa prevede la normativa e perché conviene metterla in regola.",
+    cover: "/media/products/262d3.jpeg",
+    corpo: [
+      { tipo: "p", testo: "L'uso di macchine movimento terra richiede operatori abilitati: non è solo un obbligo di legge, è la prima forma di sicurezza in cantiere." },
+      { tipo: "h", testo: "Cosa dice la normativa" },
+      { tipo: "p", testo: "L'Accordo Stato-Regioni prevede una formazione specifica per l'uso di attrezzature come escavatori, pale caricatrici e sollevatori telescopici, con corsi teorico-pratici e aggiornamenti periodici." },
+      { tipo: "h", testo: "Perché conviene" },
+      { tipo: "lista", voci: ["Operatori più sicuri e produttivi", "Conformità alle verifiche in cantiere", "Meno rischi di danni al mezzo e alle persone"] },
+      { tipo: "p", testo: "Quando noleggi o acquisti da noi, i mezzi vanno affidati a operatori con abilitazione in corso di validità. Se il tuo team ne è sprovvisto, possiamo indirizzarti verso i corsi di formazione adeguati." },
+    ],
+  },
+);
+
 export function postBySlug(slug: string) {
   return posts.find((p) => p.slug === slug);
 }

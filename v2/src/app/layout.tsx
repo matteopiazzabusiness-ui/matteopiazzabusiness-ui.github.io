@@ -6,6 +6,7 @@ import { Progress } from "@/components/fx/Progress";
 import { Cursor } from "@/components/fx/Cursor";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { FloatingActions } from "@/components/FloatingActions";
 import { OrgJsonLd } from "@/components/JsonLd";
 import { company } from "@/lib/site";
 
@@ -34,12 +35,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="it" className={`${anton.variable} ${grotesk.variable} ${jet.variable}`}>
       <body>
         <OrgJsonLd />
+        <a href="#contenuto" className="t-label sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-ink focus:px-4 focus:py-2 focus:text-paper">
+          Salta al contenuto
+        </a>
         <Smooth>
           <Progress />
           <Cursor />
           <Header />
-          <main>{children}</main>
+          <main id="contenuto">{children}</main>
           <Footer />
+          <FloatingActions />
         </Smooth>
       </body>
     </html>

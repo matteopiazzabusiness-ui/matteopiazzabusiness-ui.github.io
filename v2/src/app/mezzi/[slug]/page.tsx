@@ -6,8 +6,9 @@ import { prodotti, prodottoBySlug, categorie } from "@/lib/catalog";
 import { settori } from "@/lib/settori";
 import { company } from "@/lib/site";
 import { PageHead } from "@/components/PageHead";
-import { ProductJsonLd } from "@/components/JsonLd";
+import { ProductJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 import { FormContatti } from "@/components/FormContatti";
+import { Gallery } from "@/components/Gallery";
 
 export function generateStaticParams() {
   return prodotti.map((p) => ({ slug: p.slug }));
@@ -17,7 +18,17 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const p = prodottoBySlug(slug);
   if (!p) return {};
-  return { title: `${p.nome} — ${categorie[p.categoria].label}`, description: p.descrizione.slice(0, 155) };
+  const description = p.descrizione.slice(0, 155);
+  return {
+    title: `${p.nome} — ${categorie[p.categoria].label}`,
+    description,
+    alternates: { canonical: `/mezzi/${p.slug}` },
+    openGraph: {
+      title: `${p.nome} — ${categorie[p.categoria].label}`,
+      description,
+      images: p.immagini[0] ? [{ url: p.immagini[0] }] : undefined,
+    },
+  };
 }
 
 const FORMULA_LABEL: Record<string, string> = { vendita: "In vendita", noleggio: "A noleggio", assistenza: "Assistenza", ricambi: "Ricambi" };
@@ -37,6 +48,12 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
   return (
     <>
       <ProductJsonLd p={p} />
+      <BreadcrumbJsonLd items={[
+        { name: "Home", url: "https://dlfmacchine.it" },
+        { name: "Mezzi", url: "https://dlfmacchine.it/mezzi" },
+        { name: categorie[p.categoria].label, url: `https://dlfmacchine.it/mezzi?cat=${p.categoria}` },
+        { name: p.nome, url: `https://dlfmacchine.it/mezzi/${p.slug}` },
+      ]} />
 
       {/* Breadcrumb */}
       <nav aria-label="Percorso" className="bg-paper px-5 pt-28 sm:px-8 sm:pt-32">
@@ -58,21 +75,7 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
       <div className="grid gap-10 px-5 pb-16 sm:px-8 lg:grid-cols-2">
         {/* Galleria */}
         <div>
-          <div className="relative aspect-[4/3] overflow-hidden bg-paper-2">
-            {p.immagini[0] && (
-              <Image src={p.immagini[0]} alt={p.nome} fill priority sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
-            )}
-            <span className="t-label absolute left-3 top-3 bg-giallo px-2 py-1 text-ink">{p.condizione}</span>
-          </div>
-          {p.immagini.length > 1 && (
-            <div className="mt-3 grid grid-cols-3 gap-3">
-              {p.immagini.slice(1, 4).map((src) => (
-                <div key={src} className="relative aspect-[4/3] overflow-hidden bg-paper-2">
-                  <Image src={src} alt={p.nome} fill sizes="20vw" className="object-cover" />
-                </div>
-              ))}
-            </div>
-          )}
+          <Gallery images={p.immagini} alt={p.nome} condizione={p.condizione} />
           <div className="mt-4 flex flex-wrap gap-2">
             {p.formule.map((f) => (
               <span key={f} className="t-label border border-ink/25 px-3 py-1.5 text-ink">{FORMULA_LABEL[f] ?? f}</span>

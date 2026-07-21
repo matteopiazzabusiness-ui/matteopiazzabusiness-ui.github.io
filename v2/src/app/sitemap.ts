@@ -6,7 +6,7 @@ import { posts } from "@/lib/blog";
 const BASE = "https://dlfmacchine.it";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const statiche = ["", "/mezzi", "/settori", "/noleggio", "/assistenza", "/ricambi", "/usato", "/blog", "/faq", "/dlf", "/contatti"].map((p) => ({
+  const statiche = ["", "/mezzi", "/settori", "/noleggio", "/assistenza", "/ricambi", "/leasing", "/usato", "/blog", "/faq", "/dlf", "/contatti", "/privacy", "/cookie"].map((p) => ({
     url: `${BASE}${p}`,
     changeFrequency: "weekly" as const,
     priority: p === "" ? 1 : 0.8,

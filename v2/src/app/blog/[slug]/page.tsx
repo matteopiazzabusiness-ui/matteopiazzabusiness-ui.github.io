@@ -13,7 +13,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const p = postBySlug(slug);
   if (!p) return {};
-  return { title: p.titolo, description: p.excerpt };
+  return {
+    title: p.titolo,
+    description: p.excerpt,
+    alternates: { canonical: `/blog/${p.slug}` },
+    openGraph: { type: "article", title: p.titolo, description: p.excerpt, images: [{ url: p.cover }], publishedTime: p.data },
+  };
 }
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {

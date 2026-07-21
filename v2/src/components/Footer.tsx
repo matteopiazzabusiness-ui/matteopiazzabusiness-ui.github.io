@@ -30,7 +30,7 @@ export function Footer() {
           <div>
             <h3 className="t-label text-paper/70">Naviga</h3>
             <ul className="mt-3 space-y-1 text-sm">
-              {[["/mezzi", "Mezzi"], ["/settori", "Settori"], ["/noleggio", "Noleggio"], ["/assistenza", "Assistenza"], ["/ricambi", "Ricambi"], ["/usato", "Usato"], ["/blog", "Approfondimenti"], ["/faq", "FAQ"], ["/dlf", "Chi siamo"], ["/contatti", "Contatti"]].map(([h, l]) => (
+              {[["/mezzi", "Mezzi"], ["/settori", "Settori"], ["/noleggio", "Noleggio"], ["/assistenza", "Assistenza"], ["/ricambi", "Ricambi"], ["/leasing", "Leasing"], ["/usato", "Usato"], ["/blog", "Approfondimenti"], ["/faq", "FAQ"], ["/dlf", "Chi siamo"], ["/contatti", "Contatti"]].map(([h, l]) => (
                 <li key={h}><Link href={h} className="u-line">{l}</Link></li>
               ))}
             </ul>
@@ -41,7 +41,9 @@ export function Footer() {
           <p className="t-label text-paper/60">
             © {new Date().getFullYear()} {company.legalName} · P.IVA {company.vat} · REA {company.rea} · PEC {company.pec}
           </p>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap gap-6">
+            <Link href="/privacy" className="t-label u-line text-paper/60">Privacy</Link>
+            <Link href="/cookie" className="t-label u-line text-paper/60">Cookie</Link>
             <a href={company.social.facebook} className="t-label u-line text-paper/60" target="_blank" rel="noopener noreferrer">Facebook</a>
             <a href={company.social.instagram} className="t-label u-line text-paper/60" target="_blank" rel="noopener noreferrer">Instagram</a>
             <a href={company.social.linkedin} className="t-label u-line text-paper/60" target="_blank" rel="noopener noreferrer">LinkedIn</a>

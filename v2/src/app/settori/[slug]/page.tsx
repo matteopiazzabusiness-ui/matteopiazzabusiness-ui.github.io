@@ -7,6 +7,7 @@ import { categorie, prodottoBySlug, prodottiByCategoria } from "@/lib/catalog";
 import { company } from "@/lib/site";
 import { PageHead } from "@/components/PageHead";
 import { Reveal } from "@/components/Reveal";
+import { BreadcrumbJsonLd } from "@/components/JsonLd";
 
 export function generateStaticParams() {
   return settori.map((s) => ({ slug: s.slug }));
@@ -16,7 +17,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const s = settoreBySlug(slug);
   if (!s) return {};
-  return { title: `${s.nome} — soluzioni e mezzi`, description: s.intro.slice(0, 155) };
+  const description = s.intro.slice(0, 155);
+  return {
+    title: `${s.nome} — soluzioni e mezzi`,
+    description,
+    alternates: { canonical: `/settori/${s.slug}` },
+    openGraph: { title: `${s.nome} — DLF Macchine`, description, images: [{ url: s.img }] },
+  };
 }
 
 export default async function SettorePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -29,6 +36,11 @@ export default async function SettorePage({ params }: { params: Promise<{ slug: 
 
   return (
     <>
+      <BreadcrumbJsonLd items={[
+        { name: "Home", url: "https://dlfmacchine.it" },
+        { name: "Settori", url: "https://dlfmacchine.it/settori" },
+        { name: s.nome, url: `https://dlfmacchine.it/settori/${s.slug}` },
+      ]} />
       <nav aria-label="Percorso" className="bg-paper px-5 pt-28 sm:px-8 sm:pt-32">
         <ol className="t-label flex flex-wrap items-center gap-2 text-ink-soft">
           <li><Link href="/" className="u-line">Home</Link></li>
