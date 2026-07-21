@@ -6,11 +6,18 @@ import Image from "next/image";
 
 const nav = [
   { href: "/mezzi", label: "Mezzi", n: "01" },
-  { href: "/noleggio", label: "Noleggio", n: "02" },
-  { href: "/assistenza", label: "Assistenza", n: "03" },
-  { href: "/ricambi", label: "Ricambi", n: "04" },
-  { href: "/dlf", label: "Chi siamo", n: "05" },
-  { href: "/contatti", label: "Contatti", n: "06" },
+  { href: "/settori", label: "Settori", n: "02" },
+  { href: "/noleggio", label: "Noleggio", n: "03" },
+  { href: "/assistenza", label: "Assistenza", n: "04" },
+  { href: "/ricambi", label: "Ricambi", n: "05" },
+  { href: "/usato", label: "Usato", n: "06" },
+  { href: "/dlf", label: "Chi siamo", n: "07" },
+  { href: "/contatti", label: "Contatti", n: "08" },
+];
+
+const navSecondaria = [
+  { href: "/blog", label: "Approfondimenti" },
+  { href: "/faq", label: "FAQ" },
 ];
 
 /**
@@ -62,18 +69,25 @@ export function Header() {
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className={`group flex items-baseline gap-4 border-b border-paper/10 py-2 transition-all duration-500 sm:gap-8 ${
+              className={`group flex items-baseline gap-4 border-b border-paper/10 py-1.5 transition-all duration-500 sm:gap-8 ${
                 open ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
               }`}
-              style={{ transitionDelay: open ? `${150 + i * 60}ms` : "0ms" }}
+              style={{ transitionDelay: open ? `${120 + i * 45}ms` : "0ms" }}
             >
               <span className="t-label text-giallo">{item.n}</span>
-              <span className="t-poster text-5xl text-paper transition-colors duration-300 group-hover:text-giallo sm:text-7xl">
+              <span className="t-poster text-4xl text-paper transition-colors duration-300 group-hover:text-giallo sm:text-6xl">
                 {item.label}
               </span>
             </Link>
           ))}
-          <div className="mt-10 flex flex-wrap gap-x-10 gap-y-2">
+          <div className="mt-8 flex flex-wrap gap-x-8 gap-y-2">
+            {navSecondaria.map((item) => (
+              <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="t-label u-line text-paper/80">
+                {item.label}
+              </Link>
+            ))}
+          </div>
+          <div className="mt-6 flex flex-wrap gap-x-10 gap-y-2">
             <a href="tel:+390934575176" className="t-label u-line text-paper/60">Caltanissetta 0934 575176</a>
             <a href="tel:+390958320215" className="t-label u-line text-paper/60">Catania 095 8320215</a>
             <a href="mailto:info@dlfmacchine.it" className="t-label u-line text-paper/60">info@dlfmacchine.it</a>

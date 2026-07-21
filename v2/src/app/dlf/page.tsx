@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Image from "next/image";
 import { PageHead } from "@/components/PageHead";
-import { company, valori, sedi } from "@/lib/site";
+import { Reveal } from "@/components/Reveal";
+import { company, valori, sedi, numeri, storia, certificazioni } from "@/lib/site";
 import { team, reparti, partner } from "@/lib/team";
 
 export const metadata: Metadata = {
@@ -17,6 +19,34 @@ export default function DlfPage() {
         {company.legalName} è concessionaria Caterpillar e Dieci con due sedi operative in Sicilia,
         guidata dal CEO Delfino Maria La Ferla. Professionalità, esperienza e passione al vostro servizio.
       </PageHead>
+
+      {/* Numeri */}
+      <section className="px-5 pb-16 sm:px-8">
+        <div className="grid gap-px border border-ink/15 bg-ink/15 sm:grid-cols-2 lg:grid-cols-4">
+          {numeri.map((n) => (
+            <div key={n.label} className="bg-paper p-6">
+              <p className="t-poster text-6xl text-ink">{n.valore}</p>
+              <p className="t-label mt-2 text-ink">{n.label}</p>
+              <p className="mt-1 text-sm text-ink-soft">{n.nota}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Storia */}
+      <Reveal as="section" className="grain relative bg-carbon px-5 py-20 text-paper sm:px-8">
+        <p className="t-label text-giallo">La nostra storia</p>
+        <h2 className="t-poster mt-2 text-4xl text-paper sm:text-6xl">Da officina a concessionaria di riferimento</h2>
+        <div className="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+          {storia.map((t, i) => (
+            <div key={t.fase} className="rv border-t-2 border-paper/30 pt-4">
+              <span className="t-label text-giallo">0{i + 1}</span>
+              <h3 className="t-poster mt-2 text-2xl text-paper">{t.fase}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-paper/70">{t.testo}</p>
+            </div>
+          ))}
+        </div>
+      </Reveal>
 
       {/* Team completo */}
       <section className="px-5 pb-20 sm:px-8">
@@ -97,9 +127,39 @@ export default function DlfPage() {
                 <li key={s.slug}><strong>{s.city}</strong> — {s.street}, {s.zip} ({s.province})</li>
               ))}
             </ul>
-            <p className="t-label mt-8 text-ink-soft">Marchi trattati</p>
-            <p className="mt-3 text-sm leading-relaxed text-ink-soft">{partner.map((p) => p.nome).join(" · ")}</p>
+            <p className="t-label mt-8 text-ink-soft">Credenziali</p>
+            <ul className="mt-3 space-y-2">
+              {certificazioni.map((c) => (
+                <li key={c} className="flex items-baseline gap-3 border-b border-ink/15 py-2 text-sm text-ink">
+                  <span className="text-giallo-deep">✓</span>{c}
+                </li>
+              ))}
+            </ul>
           </div>
+        </div>
+      </section>
+
+      {/* Marchi trattati — loghi */}
+      <section className="border-t border-ink/15 px-5 py-20 sm:px-8">
+        <div className="flex items-baseline justify-between">
+          <h2 className="t-poster text-4xl text-ink sm:text-5xl">Marchi e partner</h2>
+          <span className="t-label text-ink-soft">{partner.length} marchi</span>
+        </div>
+        <div className="mt-8 grid grid-cols-2 gap-px border border-ink/10 bg-ink/10 sm:grid-cols-4 lg:grid-cols-5">
+          {partner.map((p) => (
+            <div key={p.nome} className="flex aspect-[3/2] items-center justify-center bg-paper p-6">
+              <Image src={p.logo} alt={p.nome} width={140} height={70} className="max-h-14 w-auto object-contain opacity-70 transition-opacity duration-300 hover:opacity-100" />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-giallo px-5 py-16 sm:px-8">
+        <h2 className="t-poster max-w-3xl text-4xl text-ink sm:text-6xl">Vuoi lavorare con noi o conoscerci meglio?</h2>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link href="/contatti" className="t-label bg-ink px-8 py-4 text-paper transition-colors hover:bg-carbon">Contattaci {"->"}</Link>
+          <Link href="/mezzi" className="t-label border border-ink px-8 py-4 text-ink transition-colors hover:bg-ink hover:text-paper">Scopri i mezzi</Link>
         </div>
       </section>
     </>

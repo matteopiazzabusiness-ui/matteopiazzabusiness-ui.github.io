@@ -25,6 +25,13 @@ export default function AssistenzaPage() {
         { q: "Quanto costa l'uscita dell'officina mobile?", a: "Dipende dalla zona e dal tipo di intervento: contatta il post-vendita per un preventivo immediato." },
         { q: "Fate manutenzione programmata?", a: "Sì, piani di manutenzione programmata su misura per flotte e singoli mezzi, con promemoria delle scadenze." },
       ]}
+      processo={[
+        { t: "Segnalazione", d: "Ci chiami o scrivi al post-vendita descrivendo il problema e la posizione del mezzo." },
+        { t: "Diagnosi", d: "Valutiamo se conviene l'intervento in cantiere o il rientro in officina." },
+        { t: "Intervento", d: "Officina attrezzata a Caltanissetta o officina mobile direttamente sul posto." },
+        { t: "Riconsegna", d: "Un responsabile post-vendita segue la pratica fino alla rimessa in servizio." },
+      ]}
+      copertura
     />
   );
 }

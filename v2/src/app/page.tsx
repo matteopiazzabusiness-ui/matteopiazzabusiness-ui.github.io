@@ -10,6 +10,8 @@ import { PercheDlf } from "@/components/home/PercheDlf";
 import { Squadra } from "@/components/home/Squadra";
 import { Muro } from "@/components/home/Muro";
 import { Chiusa } from "@/components/home/Chiusa";
+import { SettoriTeaser } from "@/components/home/SettoriTeaser";
+import { BlogTeaser } from "@/components/home/BlogTeaser";
 
 /**
  * HOMEPAGE — viaggio in 11 tappe, alternanza carta/carbone:
@@ -31,10 +33,12 @@ export default function Home() {
       <Manifesto />
       <Rail prodotti={rail} />
       <Intenti />
+      <SettoriTeaser />
       <Processo />
       <Territorio />
       <PercheDlf />
       <Squadra />
+      <BlogTeaser />
       <Muro />
       <Chiusa />
     </>

@@ -1,8 +1,9 @@
 /**
  * DLF Macchine — Source of truth entità (NAP, sedi, contatti).
- * Dati VERIFICATI dal sito/registro pubblico salvo dove marcato DA_VALIDARE.
- * NB: audit ha rilevato incoerenza sul mobile Catania (331 100 36 59 vs 366 444 4300).
- * Qui si adotta un numero unico ufficiale per sede — DA CONFERMARE dal cliente.
+ * Dati VERIFICATI dal sito ufficiale (dlfmacchine.it/contatti) e registro pubblico.
+ * Cellulari confermati per sede: Caltanissetta 331 100 36 59, Misterbianco 366 444 4300
+ * (numeri distinti, entrambi ufficiali — chiarito il presunto conflitto dell'audit).
+ * Coordinate: centro città verificato via OSM/Nominatim; civico esatto da rilevare.
  */
 
 export const DA_VALIDARE = "[DA VALIDARE]";
@@ -60,7 +61,7 @@ export const sedi: Sede[] = [
     phone: "+39 0934 575176",
     mobile: "+39 331 100 36 59",
     email: "info@dlfmacchine.it",
-    geo: { lat: 37.4863, lng: 14.0625 }, // DA VALIDARE coordinate precise
+    geo: { lat: 37.4902628, lng: 14.063284 }, // centro Caltanissetta (OSM); civico industriale da rilevare
     areaServita: ["Caltanissetta", "Enna", "Agrigento", "Sicilia centrale"],
     reparti: ["vendita", "noleggio", "assistenza", "ricambi"],
     note: "Sede principale.",
@@ -74,9 +75,9 @@ export const sedi: Sede[] = [
     zip: "95045",
     region: "Sicilia",
     phone: "+39 095 8320215",
-    mobile: "+39 366 444 4300", // audit: incoerenza con 331 100 36 59 — DA VALIDARE
+    mobile: "+39 366 444 4300", // confermato da dlfmacchine.it/contatti
     email: "info@dlfmacchine.it",
-    geo: { lat: 37.5205, lng: 14.9542 }, // DA VALIDARE
+    geo: { lat: 37.5191722, lng: 15.0079363 }, // Misterbianco (OSM); Km 78+800 SS192 da rilevare
     areaServita: ["Catania", "Siracusa", "Ragusa", "Sicilia orientale"],
     reparti: ["vendita", "noleggio", "assistenza", "ricambi"],
   },
@@ -106,3 +107,43 @@ export const marchi = [
 export function waLink(text: string): string {
   return `https://wa.me/${company.whatsapp}?text=${encodeURIComponent(text)}`;
 }
+
+/** Email dedicate per reparto — usate in ricambi/assistenza/contatti. */
+export const emailReparti = {
+  info: "info@dlfmacchine.it",
+  noleggio: "noleggio@dlfmacchine.it",
+  postvenditaCL: "postvendita@dlfmacchine.it",
+  postvenditaCT: "postvenditacatania@dlfmacchine.it",
+} as const;
+
+/** Numeri chiave — usati in home, chi siamo e teaser. Conteggi reali dal catalogo/rete. */
+export const numeri = [
+  { valore: "2", label: "Sedi operative", nota: "Caltanissetta e Catania" },
+  { valore: "9", label: "Province servite", nota: "Tutta la Sicilia" },
+  { valore: "80+", label: "Modelli a catalogo", nota: "Caterpillar e Dieci" },
+  { valore: "20+", label: "Marchi trattati", nota: "Ricambi e attrezzature" },
+] as const;
+
+/** Perché DLF — differenziali sintetici riusabili. */
+export const differenziali = [
+  { t: "Concessionaria ufficiale", d: "Caterpillar e Dieci per la Sicilia: gamma completa, garanzia e supporto diretto del costruttore." },
+  { t: "Assistenza mobile", d: "Officina attrezzata a Caltanissetta e officina meccanica mobile che raggiunge il cantiere ovunque in Sicilia." },
+  { t: "Ricambi originali a stock", d: "Due magazzini riforniti: le referenze più richieste di tutte le marche già sullo scaffale." },
+  { t: "Una squadra, non un centralino", d: "Commerciali di zona, noleggio, leasing e post-vendita: una persona di riferimento per ogni esigenza." },
+];
+
+/** Certificazioni / credenziali — solo dichiarazioni verificabili dal ruolo di concessionaria. */
+export const certificazioni = [
+  "Concessionaria ufficiale Caterpillar",
+  "Concessionaria ufficiale Dieci",
+  "Officina autorizzata e tecnici qualificati",
+  "Ricambi originali garantiti",
+];
+
+/** Storia in tappe — narrativa qualitativa. Anni puntuali DA_VALIDARE col cliente. */
+export const storia = [
+  { fase: "Le origini", testo: "DLF nasce in Sicilia con una missione semplice: mettere a disposizione delle imprese del territorio mezzi movimento terra affidabili e un'assistenza che risponde davvero." },
+  { fase: "La concessione", testo: "L'azienda diventa concessionaria di riferimento per Caterpillar e Dieci, portando in Sicilia gamma, garanzia e supporto tecnico dei due marchi." },
+  { fase: "Due sedi, tutta l'isola", testo: "Con le sedi di Caltanissetta e Misterbianco (Catania), DLF copre la Sicilia centrale, occidentale e orientale, avvicinando vendita, noleggio, assistenza e ricambi ai cantieri." },
+  { fase: "Oggi", testo: "Una squadra strutturata — commerciali di zona, noleggio, leasing, officina e magazzini — affianca imprese, agricoltori e cave in ogni fase, dal primo preventivo al post-vendita." },
+];

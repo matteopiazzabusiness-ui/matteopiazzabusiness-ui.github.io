@@ -26,6 +26,15 @@ export default function NoleggioPage() {
         { q: "La manutenzione è inclusa?", a: "La manutenzione ordinaria è inclusa nel canone. Per guasti in cantiere interviene la nostra officina meccanica mobile." },
         { q: "Posso noleggiare anche il sabato?", a: "L'ufficio noleggio è aperto anche il sabato mattina, 8:30–13:00." },
       ]}
+      processo={[
+        { t: "Richiesta", d: "Ci dici mezzo, periodo e cantiere. Verifichiamo la disponibilità in tempo reale." },
+        { t: "Preventivo", d: "Canone chiaro con manutenzione inclusa, trasporto quotato in base alla zona." },
+        { t: "Consegna", d: "Portiamo la macchina in cantiere, pronta al lavoro, in tutta la Sicilia." },
+        { t: "Supporto & ritiro", d: "Assistenza mobile per la durata del noleggio e ritiro incluso a fine lavori." },
+      ]}
+      categorie={["escavatori", "mini-escavatori", "minipale-cingolate", "minipale-gommate", "sollevatori-telescopici"]}
+      mezzi={["306-cr", "301-7-cr", "262d3", "dedalus-30-7-gd", "313", "apollo-20-4-smart"]}
+      copertura
     />
   );
 }

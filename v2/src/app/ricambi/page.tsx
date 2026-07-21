@@ -25,6 +25,13 @@ export default function RicambiPage() {
         { q: "Spedite in tutta la Sicilia?", a: "Sì, spediamo ovunque; per i clienti in assistenza la consegna può viaggiare con l'officina mobile." },
         { q: "Trattate solo CAT e Dieci?", a: "No: ricambi originali di tutte le marche, comprese Venieri, Baoli, Indeco, Generac, Husqvarna e Pramac." },
       ]}
+      processo={[
+        { t: "Ci mandi i dati", d: "Marca, modello e numero di serie del mezzo: bastano questi per partire." },
+        { t: "Identifichiamo", d: "Troviamo il codice esatto della referenza, senza errori di ordinazione." },
+        { t: "Verifichiamo lo stock", d: "Controlliamo i magazzini di Caltanissetta e Catania: molte referenze sono già a scaffale." },
+        { t: "Spediamo o consegniamo", d: "Spedizione rapida in tutta la Sicilia o consegna con l'officina mobile." },
+      ]}
+      copertura
     />
   );
 }
