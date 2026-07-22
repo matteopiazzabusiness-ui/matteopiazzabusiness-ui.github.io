@@ -37,14 +37,18 @@ export default function UsatoPage() {
       </PageHead>
 
       {/* Garanzie */}
-      <Reveal as="section" className="grid gap-x-10 gap-y-8 px-5 py-20 sm:px-8 lg:grid-cols-3">
-        {garanzie.map((g, i) => (
-          <div key={g.t} className="rv border-t-2 border-ink pt-4">
-            <span className="t-label text-giallo-deep">0{i + 1}</span>
-            <h2 className="t-poster mt-2 text-3xl text-ink">{g.t}</h2>
-            <p className="mt-2 text-sm leading-relaxed text-ink-soft">{g.d}</p>
-          </div>
-        ))}
+      <Reveal as="section" className="px-5 py-20 sm:px-8">
+        <p className="rv t-label text-ink-soft">Le garanzie</p>
+        <h2 className="rv t-poster mt-2 max-w-3xl text-4xl text-ink sm:text-5xl">Usato sì, ma senza sorprese</h2>
+        <div className="mt-10 grid gap-x-10 gap-y-8 lg:grid-cols-3">
+          {garanzie.map((g, i) => (
+            <div key={g.t} className="rv border-t-2 border-ink pt-4">
+              <span className="t-label text-giallo-deep">0{i + 1}</span>
+              <h3 className="t-poster mt-2 text-3xl text-ink">{g.t}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink-soft">{g.d}</p>
+            </div>
+          ))}
+        </div>
       </Reveal>
 
       {/* Parco usato o disponibilità */}
