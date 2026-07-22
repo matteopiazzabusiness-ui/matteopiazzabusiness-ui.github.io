@@ -58,6 +58,9 @@ export function Numeri() {
   return (
     <section ref={root} className="bg-paper px-5 py-24 sm:px-8 sm:py-32">
       <p className="t-label text-ink-soft">DLF in cifre</p>
+      <h2 className="mt-2 max-w-3xl text-3xl font-medium leading-snug text-ink sm:text-4xl">
+        Non un rivenditore qualunque: una <span className="marker">struttura vera</span> dietro ogni mezzo.
+      </h2>
       <div className="mt-10 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
         {NUMERI.map((s) => (
           <div key={s.label} className="num-item border-t-2 border-ink pt-5">

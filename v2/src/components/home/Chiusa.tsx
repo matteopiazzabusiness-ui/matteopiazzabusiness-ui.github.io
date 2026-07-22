@@ -36,6 +36,7 @@ export function Chiusa() {
 
   return (
     <section ref={root} className="bg-giallo px-5 py-24 text-ink sm:px-8 sm:py-32">
+      <p className="t-label mb-6 text-ink/70">Ultimo passo · parliamone</p>
       <h2 className="t-poster text-[13vw] leading-[0.9] sm:text-[9vw]">
         <span className="block overflow-hidden"><span className="ch-line block">Il cantiere</span></span>
         <span className="block overflow-hidden"><span className="ch-line block">non aspetta.</span></span>

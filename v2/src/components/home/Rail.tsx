@@ -83,6 +83,9 @@ export function Rail({ prodotti }: { prodotti: Prodotto[] }) {
             <h2 className="t-poster mt-2 text-5xl text-ink sm:text-7xl">
               Mezzi <span className="marker">in prima linea</span>
             </h2>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-ink-soft">
+              I modelli più richiesti, disponibili in vendita e a noleggio. Scorri per sfogliarli.
+            </p>
           </div>
           <p className="t-poster hidden text-7xl text-paper-3 sm:block">
             <span ref={counter}>01</span>/<span className="text-ink/30">{String(prodotti.length).padStart(2, "0")}</span>
