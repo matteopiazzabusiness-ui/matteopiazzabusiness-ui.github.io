@@ -1,9 +1,15 @@
-"use client";
+import { WipeOverlay } from "@/components/WipeOverlay";
 
 /**
- * Template — rimonta a ogni navigazione, quindi applica la transizione
- * d'ingresso pagina (.page-in). Nessun JS: solo animazione CSS, reduce-motion safe.
+ * Template — rimonta a ogni navigazione. Il contenuto NON è avvolto in un
+ * wrapper con transform (romperebbe i pin ScrollTrigger): la transizione è
+ * demandata a WipeOverlay, un sipario giallo fixed e autonomo.
  */
 export default function Template({ children }: { children: React.ReactNode }) {
-  return <div className="page-in">{children}</div>;
+  return (
+    <>
+      {children}
+      <WipeOverlay />
+    </>
+  );
 }
