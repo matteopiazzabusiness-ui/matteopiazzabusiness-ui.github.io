@@ -7,6 +7,7 @@ import { Cursor } from "@/components/fx/Cursor";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingActions } from "@/components/FloatingActions";
+import { PageTransition } from "@/components/PageTransition";
 import { OrgJsonLd } from "@/components/JsonLd";
 import { company } from "@/lib/site";
 
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <FloatingActions />
         </Smooth>
+        <PageTransition />
       </body>
     </html>
   );
