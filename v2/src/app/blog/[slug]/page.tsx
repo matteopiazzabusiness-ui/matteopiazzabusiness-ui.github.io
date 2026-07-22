@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { posts, postBySlug, formatData } from "@/lib/blog";
 import { company } from "@/lib/site";
+import { HeroMedia } from "@/components/HeroMedia";
 
 export function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
@@ -59,9 +60,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">{p.excerpt}</p>
       </header>
 
-      <div className="relative mx-5 aspect-[16/8] overflow-hidden sm:mx-8">
-        <Image src={p.cover} alt={p.titolo} fill priority sizes="100vw" className="object-cover" />
-      </div>
+      <HeroMedia src={p.cover} alt={p.titolo} priority grade className="mx-5 aspect-[16/8] sm:mx-8" />
 
       <article className="mx-auto max-w-2xl px-5 py-16 sm:px-8">
         {p.corpo.map((b, i) => {

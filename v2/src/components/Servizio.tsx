@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { PageHead } from "@/components/PageHead";
+import { HeroMedia } from "@/components/HeroMedia";
 import { Faq } from "@/components/Faq";
 import { Reveal } from "@/components/Reveal";
 import { company, sedi } from "@/lib/site";
@@ -33,9 +34,7 @@ export function Servizio({ label, title, intro, img, punti, faq, intento, proces
     <>
       <PageHead label={label} title={title}>{intro}</PageHead>
 
-      <div className="relative mx-5 aspect-[16/7] overflow-hidden sm:mx-8">
-        <Image src={img} alt={title} fill priority sizes="100vw" className="object-cover" />
-      </div>
+      <HeroMedia src={img} alt={title} priority grade className="mx-5 aspect-[16/7] sm:mx-8" />
 
       {/* Punti chiave */}
       <Reveal as="section" className="grid gap-x-10 gap-y-8 px-5 py-20 sm:px-8 lg:grid-cols-3">

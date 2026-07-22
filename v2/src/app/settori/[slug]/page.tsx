@@ -6,6 +6,7 @@ import { settori, settoreBySlug } from "@/lib/settori";
 import { categorie, prodottoBySlug, prodottiByCategoria } from "@/lib/catalog";
 import { company } from "@/lib/site";
 import { PageHead } from "@/components/PageHead";
+import { HeroMedia } from "@/components/HeroMedia";
 import { Reveal } from "@/components/Reveal";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 
@@ -53,9 +54,7 @@ export default async function SettorePage({ params }: { params: Promise<{ slug: 
 
       <PageHead label="Settore" title={s.nome}>{s.intro}</PageHead>
 
-      <div className="relative mx-5 aspect-[16/7] overflow-hidden sm:mx-8">
-        <Image src={s.img} alt={s.nome} fill priority sizes="100vw" className="object-cover" />
-      </div>
+      <HeroMedia src={s.img} alt={s.nome} priority grade className="mx-5 aspect-[16/7] sm:mx-8" />
 
       {/* Descrizione + applicazioni */}
       <section className="grid gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[1.4fr_1fr]">
