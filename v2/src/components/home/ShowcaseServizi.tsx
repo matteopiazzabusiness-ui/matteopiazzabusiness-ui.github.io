@@ -1,45 +1,52 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { gsap, useGSAP, reduced } from "@/lib/motion";
+import { gsap, ScrollTrigger, useGSAP, reduced } from "@/lib/motion";
 
 /**
- * SHOWCASE SERVIZI — sezione pinnata cinematica: i quattro servizi sfilano in
- * orizzontale mentre si scrolla in verticale (scrub). Pannelli full-bleed con
- * immagine in parallasse + ken-burns, numero fantasma gigante, gradiente e
- * grana, sipario giallo che si ritira all'ingresso di ogni pannello.
- * Reduce-motion: fascia scorrevole a mano (contenuto mai tagliato).
+ * SHOWCASE SERVIZI — sezione pinnata: i quattro servizi sfilano in orizzontale
+ * mentre si scrolla (pin + scrub). Due trattamenti alternati per nitidezza e
+ * ritmo cinematico: pannelli "studio" (chiari, macchina ad alta risoluzione
+ * senza crop/upscaling) e "campo" (scuri, foto ambientali full-bleed).
+ * Nav capitoli cliccabile + hint di scorrimento. Reduce-motion: scroll a mano.
  */
 
-const SERVIZI = [
+type Variant = "studio" | "campo";
+
+const SERVIZI: {
+  href: string; n: string; label: string; titolo: string; testo: string; punti: string[]; img: string; variant: Variant;
+}[] = [
   {
     href: "/mezzi",
     n: "01",
     label: "Vendita",
     titolo: "La macchina giusta",
     testo: "Gamma completa Caterpillar e Dieci con garanzia ufficiale. Nuovo, usato garantito e permuta, con leasing su misura.",
-    punti: ["Concessionaria ufficiale CAT e Dieci", "Nuovo, usato e permuta", "Leasing e finanziamento"],
-    img: "/media/products/306-cr.jpeg",
-  },
-  {
-    href: "/noleggio",
-    n: "02",
-    label: "Noleggio",
-    titolo: "Solo quando serve",
-    testo: "Breve e lungo termine, consegna in cantiere in tutta la Sicilia, manutenzione sempre inclusa. Paghi il mezzo per il tempo in cui lavora.",
-    punti: ["Breve e lungo termine", "Consegna e ritiro in cantiere", "Manutenzione inclusa"],
-    img: "/media/products/dedalus-30-7-main.jpeg",
+    punti: ["Concessionaria ufficiale", "Nuovo, usato e permuta", "Leasing e finanziamento"],
+    img: "/media/products/cat-miniex-309.png",
+    variant: "studio",
   },
   {
     href: "/assistenza",
-    n: "03",
+    n: "02",
     label: "Assistenza",
     titolo: "Arriviamo noi",
     testo: "Officina attrezzata a Caltanissetta e officina mobile che raggiunge il cantiere ovunque in Sicilia. Meno fermi macchina, un referente dedicato.",
-    punti: ["Officina mobile in tutta la Sicilia", "Tecnici qualificati su tutte le marche", "Manutenzione programmata"],
+    punti: ["Officina mobile in Sicilia", "Tecnici qualificati", "Manutenzione programmata"],
     img: "/media/team/officina-caltanissetta.jpg",
+    variant: "campo",
+  },
+  {
+    href: "/noleggio",
+    n: "03",
+    label: "Noleggio",
+    titolo: "Solo quando serve",
+    testo: "Breve e lungo termine, consegna in cantiere in tutta la Sicilia, manutenzione sempre inclusa. Paghi il mezzo per il tempo in cui lavora.",
+    punti: ["Breve e lungo termine", "Consegna in cantiere", "Manutenzione inclusa"],
+    img: "/media/products/cat-270.png",
+    variant: "studio",
   },
   {
     href: "/ricambi",
@@ -49,6 +56,7 @@ const SERVIZI = [
     testo: "Ricambi originali di tutte le marche in stock nei magazzini di Caltanissetta e Catania. Identifichiamo il codice dal numero di serie e spediamo in giornata.",
     punti: ["Originali di tutte le marche", "Due magazzini riforniti", "Spedizione rapida"],
     img: "/media/team/magazzino-caltanissetta.jpg",
+    variant: "campo",
   },
 ];
 
@@ -56,7 +64,9 @@ export function ShowcaseServizi() {
   const root = useRef<HTMLElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const bar = useRef<HTMLSpanElement>(null);
-  const counter = useRef<HTMLSpanElement>(null);
+  const stRef = useRef<ScrollTrigger | null>(null);
+  const [active, setActive] = useState(0);
+  const [hint, setHint] = useState(true);
 
   useGSAP(
     () => {
@@ -76,25 +86,25 @@ export function ShowcaseServizi() {
           anticipatePin: 1,
           onUpdate: (self) => {
             if (bar.current) bar.current.style.transform = `scaleX(${self.progress})`;
-            if (counter.current) {
-              const idx = Math.min(SERVIZI.length, 1 + Math.floor(self.progress * SERVIZI.length));
-              counter.current.textContent = String(idx).padStart(2, "0");
-            }
+            setActive(Math.min(SERVIZI.length - 1, Math.floor(self.progress * SERVIZI.length + 0.0001)));
+            setHint(self.progress < 0.03);
           },
         },
       });
+      stRef.current = tween.scrollTrigger ?? null;
 
       gsap.utils.toArray<HTMLElement>(".sv-panel").forEach((panel) => {
-        // Parallasse + ken-burns dell'immagine
+        // Parallasse leggera (niente forte upscaling: le foto restano nitide)
         const img = panel.querySelector(".sv-img");
         if (img) {
+          const campo = panel.dataset.variant === "campo";
           gsap.fromTo(
             img,
-            { xPercent: -12, scale: 1.35 },
-            { xPercent: 12, scale: 1.18, ease: "none", scrollTrigger: { trigger: panel, containerAnimation: tween, start: "left right", end: "right left", scrub: true } },
+            { xPercent: campo ? -8 : -4, scale: campo ? 1.12 : 1.04 },
+            { xPercent: campo ? 8 : 4, scale: campo ? 1.04 : 1.0, ease: "none", scrollTrigger: { trigger: panel, containerAnimation: tween, start: "left right", end: "right left", scrub: true } },
           );
         }
-        // Sipario giallo che si ritira quando il pannello entra
+        // Sipario che si ritira all'ingresso
         const cover = panel.querySelector(".sv-cover");
         if (cover) {
           gsap.fromTo(
@@ -103,16 +113,10 @@ export function ShowcaseServizi() {
             { clipPath: "inset(0 0 0 100%)", ease: "power2.inOut", scrollTrigger: { trigger: panel, containerAnimation: tween, start: "left right", end: "left center", scrub: true } },
           );
         }
-        // Numero fantasma che deriva
         const ghost = panel.querySelector(".sv-ghost");
         if (ghost) {
-          gsap.fromTo(
-            ghost,
-            { xPercent: 18 },
-            { xPercent: -18, ease: "none", scrollTrigger: { trigger: panel, containerAnimation: tween, start: "left right", end: "right left", scrub: true } },
-          );
+          gsap.fromTo(ghost, { xPercent: 16 }, { xPercent: -16, ease: "none", scrollTrigger: { trigger: panel, containerAnimation: tween, start: "left right", end: "right left", scrub: true } });
         }
-        // Testo che entra al centro
         gsap.from(panel.querySelectorAll(".sv-rise"), {
           y: 46,
           opacity: 0,
@@ -126,58 +130,103 @@ export function ShowcaseServizi() {
     { scope: root },
   );
 
+  const goTo = (i: number) => {
+    const st = stRef.current;
+    if (st) {
+      const top = st.start + (i / SERVIZI.length) * (st.end - st.start) + 6;
+      window.scrollTo({ top, behavior: "smooth" });
+    } else {
+      document.getElementById(`sv-${i}`)?.scrollIntoView({ behavior: "smooth", inline: "start" });
+    }
+  };
+
   return (
     <section ref={root} className="relative overflow-hidden bg-carbon text-paper">
-      {/* HUD fisso */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-30 flex items-center justify-between px-5 pt-6 sm:px-8">
-        <p className="t-label text-paper/70">I quattro servizi</p>
-        <p className="t-label text-paper/70">
-          <span ref={counter}>01</span> / {String(SERVIZI.length).padStart(2, "0")}
-        </p>
+      {/* HUD */}
+      <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-5 pt-6 sm:px-8">
+        <p className="t-label text-paper/70 mix-blend-difference">I quattro servizi</p>
+        <p className="t-label text-paper/70 mix-blend-difference">{String(active + 1).padStart(2, "0")} / {String(SERVIZI.length).padStart(2, "0")}</p>
+      </div>
+
+      {/* Hint scorrimento */}
+      <div className={`pointer-events-none absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-500 ${hint ? "opacity-100" : "opacity-0"}`}>
+        <span className="t-label flex items-center gap-3 bg-ink/70 px-5 py-3 text-paper backdrop-blur-sm">
+          Scorri per esplorare <span className="animate-pulse text-giallo">{"->"}</span>
+        </span>
       </div>
 
       <div className="motion-reduce:overflow-x-auto">
         <div ref={track} className="flex w-max motion-reduce:w-auto">
-          {SERVIZI.map((s) => (
-            <article key={s.href} className="sv-panel relative flex h-[100svh] w-screen shrink-0 items-end overflow-hidden motion-reduce:w-[92vw]">
-              {/* Immagine full-bleed */}
-              <div className="absolute inset-0">
-                <Image src={s.img} alt={s.titolo} fill sizes="100vw" className="sv-img object-cover" />
-              </div>
-              {/* Grading: gradiente + vignetta + grana */}
-              <div className="absolute inset-0 bg-gradient-to-t from-carbon via-carbon/45 to-carbon/20" />
-              <div className="absolute inset-0 bg-gradient-to-r from-carbon/85 via-transparent to-transparent" />
-              <div className="absolute inset-0 shadow-[inset_0_0_220px_60px_rgba(10,10,11,0.75)]" />
-              <div className="grain absolute inset-0" />
-              {/* Sipario giallo */}
-              <div className="sv-cover absolute inset-0 z-20 bg-giallo" />
-              {/* Numero fantasma */}
-              <span className="sv-ghost t-poster pointer-events-none absolute -right-4 top-2 z-0 text-[42vw] leading-none text-paper/10 sm:text-[30vw]">{s.n}</span>
+          {SERVIZI.map((s, i) => {
+            const campo = s.variant === "campo";
+            return (
+              <article
+                key={s.href}
+                id={`sv-${i}`}
+                data-variant={s.variant}
+                className={`sv-panel relative flex h-[100svh] w-screen shrink-0 items-end overflow-hidden motion-reduce:w-[92vw] ${campo ? "text-paper" : "bg-paper-2 text-ink"}`}
+              >
+                {campo ? (
+                  <>
+                    <div className="absolute inset-0">
+                      <Image src={s.img} alt={s.titolo} fill quality={90} sizes="100vw" className="sv-img object-cover" />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-carbon via-carbon/40 to-carbon/10" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-carbon/85 via-transparent to-transparent" />
+                    <div className="absolute inset-0 shadow-[inset_0_0_220px_60px_rgba(10,10,11,0.7)]" />
+                    <div className="grain absolute inset-0" />
+                  </>
+                ) : (
+                  <div className="absolute inset-y-0 right-0 w-full lg:w-3/5">
+                    <Image src={s.img} alt={s.titolo} fill quality={95} sizes="(max-width: 1024px) 100vw, 60vw" className="sv-img object-contain object-right" />
+                  </div>
+                )}
 
-              {/* Contenuto */}
-              <div className="relative z-10 w-full px-5 pb-16 sm:px-8 lg:px-16">
-                <span className="sv-rise t-label text-giallo">{s.n} · {s.label}</span>
-                <h3 className="sv-rise t-poster mt-3 max-w-4xl text-6xl text-paper sm:text-8xl">{s.titolo}</h3>
-                <div className="mt-6 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-                  <p className="sv-rise max-w-md text-lg leading-relaxed text-paper/80">{s.testo}</p>
-                  <ul className="flex flex-wrap gap-2">
+                {/* Sipario */}
+                <div className={`sv-cover absolute inset-0 z-20 ${campo ? "bg-giallo" : "bg-ink"}`} />
+
+                {/* Numero fantasma */}
+                <span className={`sv-ghost t-poster pointer-events-none absolute -right-4 top-2 z-0 text-[42vw] leading-none sm:text-[30vw] ${campo ? "text-paper/10" : "text-ink/[0.06]"}`}>{s.n}</span>
+
+                {/* Contenuto */}
+                <div className="relative z-10 w-full px-5 pb-16 sm:px-8 lg:max-w-2xl lg:px-16">
+                  <span className={`sv-rise t-label ${campo ? "text-giallo" : "text-giallo-deep"}`}>{s.n} · {s.label}</span>
+                  <h3 className={`sv-rise t-poster mt-3 text-6xl sm:text-8xl ${campo ? "text-paper" : "text-ink"}`}>{s.titolo}</h3>
+                  <p className={`sv-rise mt-5 max-w-md text-lg leading-relaxed ${campo ? "text-paper/80" : "text-ink-soft"}`}>{s.testo}</p>
+                  <ul className="mt-6 flex flex-wrap gap-2">
                     {s.punti.map((p) => (
-                      <li key={p} className="sv-rise t-label border border-paper/30 px-3 py-1.5 text-paper/90 backdrop-blur-sm">{p}</li>
+                      <li key={p} className={`sv-rise t-label border px-3 py-1.5 ${campo ? "border-paper/30 text-paper/90 backdrop-blur-sm" : "border-ink/25 text-ink"}`}>{p}</li>
                     ))}
                   </ul>
+                  <Link href={s.href} className={`sv-rise t-label mt-8 inline-block px-8 py-4 transition-colors ${campo ? "bg-giallo text-ink hover:bg-paper" : "bg-carbon text-paper hover:bg-giallo hover:text-ink"}`}>
+                    Scopri {s.label} {"->"}
+                  </Link>
                 </div>
-                <Link href={s.href} className="sv-rise pointer-events-auto t-label mt-8 inline-block bg-giallo px-8 py-4 text-ink transition-colors hover:bg-paper">
-                  Scopri {s.label} {"->"}
-                </Link>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       </div>
 
-      {/* Barra di avanzamento */}
-      <div className="absolute inset-x-0 bottom-0 z-30 h-1 bg-paper/15">
-        <span ref={bar} className="block h-full origin-left scale-x-0 bg-giallo" />
+      {/* Nav capitoli */}
+      <div className="absolute inset-x-0 bottom-0 z-30">
+        <div className="flex items-stretch">
+          {SERVIZI.map((s, i) => (
+            <button
+              key={s.href}
+              onClick={() => goTo(i)}
+              aria-label={`Vai a ${s.label}`}
+              aria-current={i === active}
+              className={`group flex-1 border-t px-3 py-3 text-left transition-colors ${i === active ? "border-giallo bg-ink/70 text-paper" : "border-paper/20 bg-ink/40 text-paper/60 hover:text-paper"}`}
+            >
+              <span className="t-label block backdrop-blur-sm">{s.n}</span>
+              <span className="t-label mt-0.5 hidden backdrop-blur-sm sm:block">{s.label}</span>
+            </button>
+          ))}
+        </div>
+        <div className="h-1 bg-paper/15">
+          <span ref={bar} className="block h-full origin-left scale-x-0 bg-giallo" />
+        </div>
       </div>
     </section>
   );

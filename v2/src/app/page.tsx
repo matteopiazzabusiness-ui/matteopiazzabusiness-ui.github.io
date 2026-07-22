@@ -17,10 +17,10 @@ import { Cinematica } from "@/components/home/Cinematica";
 import { Mosaico } from "@/components/home/Mosaico";
 
 /**
- * HOMEPAGE — viaggio in 11 tappe, alternanza carta/carbone:
- * Overture → Numeri → Manifesto → Rail flotta → 4 Intenti → Processo →
- * Territorio → Perché DLF → Squadra → Muro marchi → Chiusa gialla.
- * (Sezione 3D rimossa: senza un modello realistico non entra in pagina.)
+ * HOMEPAGE — viaggio cinematico, alternanza carta/carbone:
+ * Overture → Numeri → Marquee → Manifesto → Rail (pin orizzontale) →
+ * Mosaico → Showcase servizi (pin orizzontale) → Settori → Cinematica →
+ * Processo → Territorio → Perché DLF → Squadra → Blog → Muro → Chiusa.
  */
 export default function Home() {
   const flagship = ["306-cr", "dedalus-30-7-gd", "313-gc", "299d3-xe", "272d3-xe", "hercules-210-10", "301-7-cr", "262d3"];
