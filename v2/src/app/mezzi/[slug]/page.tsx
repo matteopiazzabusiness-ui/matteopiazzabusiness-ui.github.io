@@ -9,6 +9,7 @@ import { PageHead } from "@/components/PageHead";
 import { ProductJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 import { FormContatti } from "@/components/FormContatti";
 import { Gallery } from "@/components/Gallery";
+import { Reveal } from "@/components/Reveal";
 
 export function generateStaticParams() {
   return prodotti.map((p) => ({ slug: p.slug }));
@@ -180,9 +181,9 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
             <h2 className="t-poster text-4xl text-ink">Nella stessa categoria</h2>
             <Link href="/mezzi" className="t-label u-line text-ink-soft">Tutto il catalogo {"->"}</Link>
           </div>
-          <div className="mt-8 grid gap-6 sm:grid-cols-3">
+          <Reveal className="mt-8 grid gap-6 sm:grid-cols-3">
             {correlati.map((c) => (
-              <Link key={c.slug} href={`/mezzi/${c.slug}`} className="group">
+              <Link key={c.slug} href={`/mezzi/${c.slug}`} className="rv group">
                 <div className="relative aspect-[4/3] overflow-hidden bg-paper-2">
                   {c.immagini[0] && (
                     <Image src={c.immagini[0]} alt={c.nome} fill sizes="33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
@@ -191,7 +192,7 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
                 <h3 className="t-poster mt-3 text-2xl text-ink group-hover:text-giallo-deep">{c.nome}</h3>
               </Link>
             ))}
-          </div>
+          </Reveal>
         </div>
       )}
     </>

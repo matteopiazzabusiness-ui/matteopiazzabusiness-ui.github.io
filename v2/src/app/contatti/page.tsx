@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHead } from "@/components/PageHead";
 import { FormContatti } from "@/components/FormContatti";
 import { Faq } from "@/components/Faq";
+import { Reveal } from "@/components/Reveal";
 import { sedi, orari, company, emailReparti } from "@/lib/site";
 import { faqGruppi } from "@/lib/faq";
 
@@ -31,22 +32,22 @@ export default async function ContattiPage({
       </PageHead>
 
       {/* Azioni rapide */}
-      <section className="px-5 sm:px-8">
+      <Reveal as="section" className="px-5 sm:px-8">
         <div className="grid gap-px border border-ink/15 bg-ink/15 sm:grid-cols-3">
-          <a href={`https://wa.me/${company.whatsapp}`} target="_blank" rel="noopener noreferrer" className="group bg-paper p-6 transition-colors hover:bg-white">
+          <a href={`https://wa.me/${company.whatsapp}`} target="_blank" rel="noopener noreferrer" className="rv group bg-paper p-6 transition-colors hover:bg-white">
             <span className="t-label text-ink-soft">Risposta rapida</span>
             <p className="t-poster mt-2 text-2xl text-ink group-hover:text-giallo-deep">WhatsApp {"->"}</p>
           </a>
-          <a href={`mailto:${emailReparti.info}`} className="group bg-paper p-6 transition-colors hover:bg-white">
+          <a href={`mailto:${emailReparti.info}`} className="rv group bg-paper p-6 transition-colors hover:bg-white">
             <span className="t-label text-ink-soft">Scrivici</span>
             <p className="t-poster mt-2 text-2xl text-ink group-hover:text-giallo-deep">{emailReparti.info}</p>
           </a>
-          <a href="tel:+390934575176" className="group bg-paper p-6 transition-colors hover:bg-white">
+          <a href="tel:+390934575176" className="rv group bg-paper p-6 transition-colors hover:bg-white">
             <span className="t-label text-ink-soft">Chiama</span>
             <p className="t-poster mt-2 text-2xl text-ink group-hover:text-giallo-deep">0934 575176</p>
           </a>
         </div>
-      </section>
+      </Reveal>
 
       <div className="grid gap-14 px-5 py-16 sm:px-8 lg:grid-cols-2">
         <FormContatti intento={intento} modello={modello} />

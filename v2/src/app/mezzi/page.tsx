@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHead } from "@/components/PageHead";
 import { Catalogo } from "@/components/Catalogo";
+import { Reveal } from "@/components/Reveal";
 import { categorie, prodottiByCategoria, type Categoria } from "@/lib/catalog";
 
 export const metadata: Metadata = {
@@ -23,10 +24,10 @@ export default async function MezziPage({ searchParams }: { searchParams: Promis
       </PageHead>
 
       {/* Overview categorie */}
-      <section className="px-5 pb-4 sm:px-8">
+      <Reveal as="section" className="px-5 pb-4 sm:px-8">
         <div className="grid gap-px border border-ink/15 bg-ink/15 sm:grid-cols-2 lg:grid-cols-3">
           {catKeys.map((k) => (
-            <a key={k} href="#catalogo" className="group bg-paper p-6 transition-colors hover:bg-white">
+            <a key={k} href="#catalogo" className="rv group bg-paper p-6 transition-colors hover:bg-white">
               <div className="flex items-baseline justify-between">
                 <span className="t-label text-ink-soft">{categorie[k].brand}</span>
                 <span className="t-label text-ink/30">{String(prodottiByCategoria(k).length).padStart(2, "0")}</span>
@@ -35,7 +36,7 @@ export default async function MezziPage({ searchParams }: { searchParams: Promis
             </a>
           ))}
         </div>
-      </section>
+      </Reveal>
 
       <div id="catalogo" className="scroll-mt-24">
         <Catalogo initialCat={initialCat} />

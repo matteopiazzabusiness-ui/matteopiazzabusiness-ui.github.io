@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHead } from "@/components/PageHead";
 import { Faq } from "@/components/Faq";
+import { Reveal } from "@/components/Reveal";
 import { faqGruppi, faqTutte } from "@/lib/faq";
 import { company } from "@/lib/site";
 
@@ -41,16 +42,16 @@ export default function FaqPage() {
           ))}
         </nav>
 
-        <div className="mt-8 space-y-14">
+        <Reveal className="mt-8 space-y-14">
           {faqGruppi.map((g) => (
-            <div key={g.slug} id={g.slug} className="scroll-mt-24">
+            <div key={g.slug} id={g.slug} className="rv scroll-mt-24">
               <h2 className="t-poster text-3xl text-ink sm:text-4xl">{g.tema}</h2>
               <div className="mt-4">
                 <Faq voci={g.voci} />
               </div>
             </div>
           ))}
-        </div>
+        </Reveal>
 
         {/* CTA */}
         <div className="mt-16 border-t-2 border-ink pt-10">
