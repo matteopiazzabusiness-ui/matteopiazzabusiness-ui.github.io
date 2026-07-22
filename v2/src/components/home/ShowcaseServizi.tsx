@@ -177,6 +177,7 @@ export function ShowcaseServizi() {
                 key={s.href}
                 id={`sv-${i}`}
                 data-variant={s.variant}
+                data-cursor="Trascina"
                 className={`sv-panel relative flex h-[100svh] w-screen shrink-0 items-end overflow-hidden motion-reduce:w-[92vw] ${campo ? "text-paper" : "text-ink"}`}
               >
                 {campo ? (
@@ -218,7 +219,7 @@ export function ShowcaseServizi() {
                       <li key={p} className={`sv-rise t-label border px-3 py-1.5 ${campo ? "border-paper/30 text-paper/90 backdrop-blur-sm" : "border-ink/25 text-ink"}`}>{p}</li>
                     ))}
                   </ul>
-                  <Link href={s.href} className={`sv-rise t-label mt-8 inline-block px-8 py-4 transition-colors ${campo ? "bg-giallo text-ink hover:bg-paper" : "bg-carbon text-paper hover:bg-giallo hover:text-ink"}`}>
+                  <Link href={s.href} data-cursor="Scopri" className={`sv-rise t-label mt-8 inline-block px-8 py-4 transition-colors ${campo ? "bg-giallo text-ink hover:bg-paper" : "bg-carbon text-paper hover:bg-giallo hover:text-ink"}`}>
                     Scopri {s.label} {"->"}
                   </Link>
                 </div>

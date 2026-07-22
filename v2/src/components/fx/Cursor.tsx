@@ -13,38 +13,59 @@ import { gsap, reduced } from "@/lib/motion";
 export function Cursor() {
   const dot = useRef<HTMLDivElement>(null);
   const ring = useRef<HTMLDivElement>(null);
+  const label = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (reduced()) return;
     if (!window.matchMedia("(pointer: fine)").matches) return;
     const d = dot.current;
     const r = ring.current;
-    if (!d || !r) return;
+    const l = label.current;
+    if (!d || !r || !l) return;
 
     document.documentElement.classList.add("cursor-on");
 
     // Centratura via gsap (le utility translate di Tailwind verrebbero
     // sovrascritte dal transform di quickTo)
     gsap.set([d, r], { xPercent: -50, yPercent: -50, x: -100, y: -100 });
+    gsap.set(l, { xPercent: -50, yPercent: -50, x: -100, y: -100, autoAlpha: 0, scale: 0.6 });
 
     const dx = gsap.quickTo(d, "x", { duration: 0.08, ease: "power2.out" });
     const dy = gsap.quickTo(d, "y", { duration: 0.08, ease: "power2.out" });
     const rx = gsap.quickTo(r, "x", { duration: 0.45, ease: "power3.out" });
     const ry = gsap.quickTo(r, "y", { duration: 0.45, ease: "power3.out" });
+    const lx = gsap.quickTo(l, "x", { duration: 0.5, ease: "power3.out" });
+    const ly = gsap.quickTo(l, "y", { duration: 0.5, ease: "power3.out" });
 
     const move = (e: MouseEvent) => {
       dx(e.clientX); dy(e.clientY);
       rx(e.clientX); ry(e.clientY);
+      lx(e.clientX + 26); ly(e.clientY + 26);
     };
 
-    // Crescita dell'anello sugli interattivi (delegato: sopravvive ai re-render)
     const isInteractive = (t: EventTarget | null) =>
       t instanceof Element && !!t.closest("a, button, [role='button'], summary, input, select, textarea, label");
+
+    // Cursore contestuale: elementi [data-cursor] mostrano una pill etichetta.
+    let curEl: Element | null = null;
     const over = (e: MouseEvent) => {
-      if (isInteractive(e.target)) gsap.to(r, { scale: 2.2, opacity: 0.55, duration: 0.3, ease: "power3.out" });
+      const t = e.target;
+      const cur = t instanceof Element ? t.closest("[data-cursor]") : null;
+      if (cur !== curEl) {
+        curEl = cur;
+        if (cur) {
+          l.textContent = cur.getAttribute("data-cursor") || "";
+          gsap.to(l, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out" });
+          gsap.to(r, { scale: 3, opacity: 0.15, duration: 0.35, ease: "power3.out" });
+          return;
+        }
+        gsap.to(l, { autoAlpha: 0, scale: 0.6, duration: 0.2, ease: "power2.out" });
+        gsap.to(r, { scale: 1, opacity: 1, duration: 0.35, ease: "power3.out" });
+      }
+      if (!cur && isInteractive(t)) gsap.to(r, { scale: 2.2, opacity: 0.55, duration: 0.3, ease: "power3.out" });
     };
     const out = (e: MouseEvent) => {
-      if (isInteractive(e.target)) gsap.to(r, { scale: 1, opacity: 1, duration: 0.35, ease: "power3.out" });
+      if (!curEl && isInteractive(e.target)) gsap.to(r, { scale: 1, opacity: 1, duration: 0.35, ease: "power3.out" });
     };
 
     window.addEventListener("mousemove", move, { passive: true });
@@ -92,6 +113,11 @@ export function Cursor() {
         ref={ring}
         aria-hidden
         className="pointer-events-none fixed left-0 top-0 z-[80] hidden h-9 w-9 rounded-full border border-paper mix-blend-difference [html.cursor-on_&]:block"
+      />
+      <div
+        ref={label}
+        aria-hidden
+        className="t-label pointer-events-none fixed left-0 top-0 z-[80] hidden whitespace-nowrap rounded-full bg-giallo px-4 py-2 text-ink [html.cursor-on_&]:block"
       />
     </>
   );
