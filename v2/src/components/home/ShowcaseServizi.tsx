@@ -169,8 +169,10 @@ export function ShowcaseServizi() {
                 {campo ? (
                   <>
                     <div className="absolute inset-0">
-                      <Image src={s.img} alt={s.titolo} fill quality={90} sizes="100vw" className="sv-img object-cover" />
+                      <Image src={s.img} alt={s.titolo} fill quality={90} sizes="100vw" className="sv-img object-cover [filter:saturate(1.18)_contrast(1.05)_brightness(0.97)_sepia(0.16)]" />
                     </div>
+                    {/* Color-grade caldo (golden hour) */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-arancio/30 via-arancio/5 to-giallo/15 mix-blend-soft-light" />
                     <div className="absolute inset-0 bg-gradient-to-t from-carbon via-carbon/40 to-carbon/10" />
                     <div className="absolute inset-0 bg-gradient-to-r from-carbon/85 via-transparent to-transparent" />
                     <div className="absolute inset-0 shadow-[inset_0_0_220px_60px_rgba(10,10,11,0.7)]" />
