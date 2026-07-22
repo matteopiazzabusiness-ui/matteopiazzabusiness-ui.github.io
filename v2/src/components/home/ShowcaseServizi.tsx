@@ -84,6 +84,11 @@ export function ShowcaseServizi() {
           scrub: 1,
           invalidateOnRefresh: true,
           anticipatePin: 1,
+          snap: {
+            snapTo: 1 / (SERVIZI.length - 1),
+            duration: { min: 0.2, max: 0.5 },
+            ease: "power2.inOut",
+          },
           onUpdate: (self) => {
             if (bar.current) bar.current.style.transform = `scaleX(${self.progress})`;
             setActive(Math.min(SERVIZI.length - 1, Math.floor(self.progress * SERVIZI.length + 0.0001)));
@@ -179,9 +184,14 @@ export function ShowcaseServizi() {
                     <div className="grain absolute inset-0" />
                   </>
                 ) : (
-                  <div className="absolute inset-y-0 right-0 w-full lg:w-3/5">
-                    <Image src={s.img} alt={s.titolo} fill quality={95} sizes="(max-width: 1024px) 100vw, 60vw" className="sv-img object-contain object-right" />
-                  </div>
+                  <>
+                    {/* Spotlight studio + ombra a terra: profondità sotto la macchina */}
+                    <div className="absolute inset-0 bg-[radial-gradient(65%_55%_at_72%_38%,rgba(255,255,255,0.75),transparent_70%)]" />
+                    <div className="absolute bottom-[12%] right-[10%] h-10 w-[42%] rounded-[100%] bg-ink/25 blur-2xl" />
+                    <div className="absolute inset-y-0 right-0 w-full lg:w-3/5">
+                      <Image src={s.img} alt={s.titolo} fill quality={95} sizes="(max-width: 1024px) 100vw, 60vw" className="sv-img object-contain object-right" />
+                    </div>
+                  </>
                 )}
 
                 {/* Sipario */}
