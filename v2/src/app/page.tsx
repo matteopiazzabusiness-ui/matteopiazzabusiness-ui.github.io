@@ -15,6 +15,7 @@ import { BlogTeaser } from "@/components/home/BlogTeaser";
 import { Marquee } from "@/components/home/Marquee";
 import { Cinematica } from "@/components/home/Cinematica";
 import { Mosaico } from "@/components/home/Mosaico";
+import { Percorsi } from "@/components/home/Percorsi";
 
 /**
  * HOMEPAGE — viaggio cinematico, alternanza carta/carbone:
@@ -33,6 +34,7 @@ export default function Home() {
     <>
       <Overture />
       <Numeri />
+      <Percorsi />
       <Marquee />
       <Manifesto />
       <Rail prodotti={rail} />
