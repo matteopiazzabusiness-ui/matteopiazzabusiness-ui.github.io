@@ -120,6 +120,7 @@ export function Catalogo({ initialCat = "" }: { initialCat?: Categoria | "" }) {
                   src={p.immagini[0]}
                   alt={p.nome}
                   fill
+                  quality={90}
                   sizes="(max-width: 640px) 100vw, 33vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />

@@ -34,18 +34,18 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 mix-blend-difference">
+      <header className="fixed inset-x-0 top-0 z-50">
         <div className="flex items-center justify-between px-5 py-4 sm:px-8">
-          <Link href="/" className="flex items-center gap-3 text-white" onClick={() => setOpen(false)}>
-            <Image src="/media/brand/dlf_logo.png" alt="DLF Macchine" width={44} height={44} className="h-10 w-auto brightness-0 invert" />
-            <span className="t-label hidden sm:block">Movimento terra · Sicilia</span>
+          <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
+            <Image src="/media/brand/dlf_logo.png" alt="DLF Macchine" width={378} height={207} priority className="h-11 w-auto drop-shadow-sm sm:h-12" />
+            <span className="t-label hidden text-ink/60 sm:block">Movimento terra · Sicilia</span>
           </Link>
           <button
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-label={open ? "Chiudi menu" : "Apri menu"}
             data-magnetic
-            className="t-label -m-3 flex cursor-pointer items-center gap-3 p-3 text-white"
+            className="t-label -m-3 flex cursor-pointer items-center gap-3 p-3 text-white mix-blend-difference"
           >
             {open ? "Chiudi" : "Menu"}
             <span className="relative block h-3 w-7">

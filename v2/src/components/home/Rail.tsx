@@ -104,6 +104,7 @@ export function Rail({ prodotti }: { prodotti: Prodotto[] }) {
                     src={p.immagini[0]}
                     alt={p.nome}
                     fill
+                    quality={90}
                     sizes="460px"
                     className="rail-img scale-[1.16] object-cover transition-transform duration-700 [transition-timing-function:cubic-bezier(0.76,0,0.24,1)] group-hover:scale-[1.22]"
                   />

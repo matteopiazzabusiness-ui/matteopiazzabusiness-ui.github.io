@@ -35,7 +35,7 @@ export function Gallery({ images, alt, condizione }: { images: string[]; alt: st
         aria-label="Ingrandisci immagine"
         className="group relative block aspect-[4/3] w-full cursor-zoom-in overflow-hidden bg-paper-2"
       >
-        {has && <Image src={images[active]} alt={alt} fill priority sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />}
+        {has && <Image src={images[active]} alt={alt} fill priority quality={90} sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />}
         <span className="t-label absolute left-3 top-3 bg-giallo px-2 py-1 text-ink">{condizione}</span>
         <span className="t-label absolute bottom-3 right-3 bg-ink/80 px-2 py-1 text-paper opacity-0 transition-opacity group-hover:opacity-100">Ingrandisci +</span>
       </button>
@@ -69,7 +69,7 @@ export function Gallery({ images, alt, condizione }: { images: string[]; alt: st
             Chiudi ✕
           </button>
           <div className="relative h-[80vh] w-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
-            <Image src={images[active]} alt={alt} fill sizes="90vw" className="object-contain" />
+            <Image src={images[active]} alt={alt} fill quality={95} sizes="90vw" className="object-contain" />
           </div>
           {images.length > 1 && (
             <>
