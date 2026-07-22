@@ -98,6 +98,14 @@ export function ShowcaseServizi() {
       });
       stRef.current = tween.scrollTrigger ?? null;
 
+      // Transizione colore del fondo sezione, sincronizzata ai centri pannello:
+      // studio(paper) → campo(carbon) → studio(paper) → campo(carbon).
+      gsap
+        .timeline({ scrollTrigger: { trigger: root.current, start: "top top", end: () => "+=" + dist(), scrub: true, invalidateOnRefresh: true } })
+        .fromTo(root.current, { backgroundColor: "#f4f1ec" }, { backgroundColor: "#0a0a0b", ease: "none" })
+        .to(root.current, { backgroundColor: "#f4f1ec", ease: "none" })
+        .to(root.current, { backgroundColor: "#0a0a0b", ease: "none" });
+
       gsap.utils.toArray<HTMLElement>(".sv-panel").forEach((panel) => {
         // Parallasse leggera (niente forte upscaling: le foto restano nitide)
         const img = panel.querySelector(".sv-img");
@@ -146,7 +154,7 @@ export function ShowcaseServizi() {
   };
 
   return (
-    <section ref={root} className="relative overflow-hidden bg-carbon text-paper">
+    <section ref={root} className="relative overflow-hidden bg-paper text-paper">
       {/* HUD */}
       <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-5 pt-6 sm:px-8">
         <p className="t-label text-paper/70 mix-blend-difference">I quattro servizi</p>
@@ -169,7 +177,7 @@ export function ShowcaseServizi() {
                 key={s.href}
                 id={`sv-${i}`}
                 data-variant={s.variant}
-                className={`sv-panel relative flex h-[100svh] w-screen shrink-0 items-end overflow-hidden motion-reduce:w-[92vw] ${campo ? "text-paper" : "bg-paper-2 text-ink"}`}
+                className={`sv-panel relative flex h-[100svh] w-screen shrink-0 items-end overflow-hidden motion-reduce:w-[92vw] ${campo ? "text-paper" : "text-ink"}`}
               >
                 {campo ? (
                   <>

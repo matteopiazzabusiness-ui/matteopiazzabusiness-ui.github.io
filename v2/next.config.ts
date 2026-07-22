@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
   // Root esplicita: evita che Turbopack scelga il lockfile della cartella
   // genitore come radice del progetto (warning multi-lockfile).
   turbopack: { root: __dirname },
+  // Qualità immagini consentite (Next 16 le limita): 75 default + 90/95 per le
+  // foto in evidenza dello showcase e delle schede.
+  images: { qualities: [70, 75, 90, 95] },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
   },
