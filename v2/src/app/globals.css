@@ -111,6 +111,18 @@ body {
 }
 .ticker:hover .ticker-track { animation-play-state: paused; }
 
+/* Ticker verticale (scroll-up infinito) */
+@keyframes tickerV {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+.ticker-col {
+  display: flex;
+  flex-direction: column;
+  animation: tickerV 16s linear infinite;
+}
+.ticker-col:hover { animation-play-state: paused; }
+
 /* Elementi preparati per GSAP: invisibili solo se JS attivo (no-flash, no SEO loss) */
 html.gsap-on .prep { opacity: 0; }
 

@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { gsap, useGSAP, reduced, splitChars } from "@/lib/motion";
 
 /**
@@ -143,12 +142,21 @@ export function Overture() {
           </div>
         </div>
 
-        {/* Mezzo in evidenza — foto HD */}
-        <Link href="/mezzi/317" data-cursor="Apri" className="group relative block aspect-[16/10] overflow-hidden bg-paper-2 sm:aspect-[4/3]">
-          <Image src="/media/products/317.jpeg" alt="CAT 317" fill quality={90} sizes="(max-width: 1024px) 100vw, 20rem" className="object-cover transition-transform duration-700 group-hover:scale-105" />
-          <span className="t-label absolute left-3 top-3 bg-giallo px-2 py-1 text-ink">In evidenza</span>
-          <span className="t-label absolute bottom-3 left-3 text-paper drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">CAT 317 {"->"}</span>
-        </Link>
+        {/* Colonna cinetica: le voci del catalogo scorrono verso l'alto */}
+        <div aria-hidden className="relative h-52 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,#000_18%,#000_82%,transparent)] lg:h-72">
+          <div className="ticker-col">
+            {[0, 1].map((dup) => (
+              <div key={dup} className="flex flex-col">
+                {["Escavatori", "Mini escavatori", "Minipale", "Sollevatori telescopici", "Noleggio", "Assistenza", "Ricambi", "Officina mobile"].map((w) => (
+                  <span key={w} className="flex items-center gap-3 py-1.5">
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-giallo-deep" />
+                    <span className="t-poster text-3xl leading-none text-ink sm:text-4xl">{w}</span>
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Indice reparti: valore subito, niente foto ripetute */}
