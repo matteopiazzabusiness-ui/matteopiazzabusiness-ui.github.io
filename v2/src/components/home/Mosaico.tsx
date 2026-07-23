@@ -63,7 +63,7 @@ export function Mosaico() {
   );
 
   return (
-    <section ref={root} className="bg-paper px-5 py-24 sm:px-8 sm:py-32">
+    <section ref={root} className="flow-flat bg-paper px-5 py-24 sm:px-8 sm:py-32">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="t-label text-ink-soft">La gamma</p>

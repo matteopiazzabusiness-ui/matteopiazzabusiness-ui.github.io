@@ -96,7 +96,7 @@ export function Overture() {
   );
 
   return (
-    <section ref={root} className="relative flex min-h-[100svh] flex-col overflow-hidden bg-paper pt-24">
+    <section ref={root} className="flow-flat relative flex min-h-[100svh] flex-col overflow-hidden bg-paper pt-24">
       {/* Preloader */}
       <div ref={veil} className="fixed inset-0 z-[60] flex items-end justify-between bg-carbon p-6 sm:p-10">
         <span className="t-label text-paper/70">DLF Macchine — dal cantiere, per il cantiere</span>

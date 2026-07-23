@@ -6,7 +6,7 @@ import { settori } from "@/lib/settori";
 /** Teaser settori in home — porta al nuovo hub /settori. */
 export function SettoriTeaser() {
   return (
-    <Reveal as="section" className="bg-paper px-5 py-24 sm:px-8">
+    <Reveal as="section" className="flow-flat bg-paper px-5 py-24 sm:px-8">
       <div className="flex items-end justify-between gap-6">
         <div>
           <p className="t-label text-ink-soft">Settori</p>
