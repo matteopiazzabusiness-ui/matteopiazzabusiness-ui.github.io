@@ -18,6 +18,7 @@ import { Mosaico } from "@/components/home/Mosaico";
 import { Percorsi } from "@/components/home/Percorsi";
 import { ScrollSequence } from "@/components/home/ScrollSequence";
 import { HeroTerra } from "@/components/home/HeroTerra";
+import { HeroNumeri } from "@/components/home/HeroNumeri";
 
 /**
  * HOMEPAGE — viaggio cinematico, alternanza carta/carbone:
@@ -46,6 +47,7 @@ export default function Home() {
       <SettoriTeaser />
       <Cinematica />
       <Processo />
+      <HeroNumeri />
       <Territorio />
       <HeroTerra />
       <PercheDlf />
