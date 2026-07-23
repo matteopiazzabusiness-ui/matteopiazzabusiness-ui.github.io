@@ -75,7 +75,7 @@ export function Rail({ prodotti }: { prodotti: Prodotto[] }) {
   );
 
   return (
-    <section ref={root} id="flotta" className="flow-flat relative overflow-hidden bg-paper">
+    <section ref={root} id="flotta" className="flow-pinned relative overflow-hidden bg-paper">
       <div className="flex min-h-[100svh] flex-col justify-center py-14">
         <div className="mb-8 flex items-end justify-between px-5 sm:px-8">
           <div>

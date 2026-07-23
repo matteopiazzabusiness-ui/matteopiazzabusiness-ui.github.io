@@ -146,7 +146,7 @@ export function ShowcaseServizi() {
   };
 
   return (
-    <section ref={root} className="flow-flat relative overflow-hidden bg-carbon text-paper">
+    <section ref={root} className="flow-pinned relative overflow-hidden bg-carbon text-paper">
       {/* HUD */}
       <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-5 pt-6 sm:px-8">
         <p className="t-label text-paper/70 mix-blend-difference">I quattro servizi</p>

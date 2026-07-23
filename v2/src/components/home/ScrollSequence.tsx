@@ -85,7 +85,7 @@ export function ScrollSequence() {
   );
 
   return (
-    <section ref={root} className="relative h-[100svh] w-full overflow-hidden bg-carbon">
+    <section ref={root} className="flow-pinned relative h-[100svh] w-full overflow-hidden bg-carbon">
       <canvas ref={canvas} className="absolute inset-0 h-full w-full object-cover" />
 
       {/* Gradiente per leggibilità */}

@@ -22,6 +22,7 @@ import { HeroNumeri } from "@/components/home/HeroNumeri";
 import { HeroZoom } from "@/components/home/HeroZoom";
 import { HeroKinetic } from "@/components/home/HeroKinetic";
 import { HeroParallax } from "@/components/home/HeroParallax";
+import { SectionFX } from "@/components/home/SectionFX";
 
 /**
  * HOMEPAGE — viaggio cinematico, alternanza carta/carbone:
@@ -38,6 +39,7 @@ export default function Home() {
 
   return (
     <>
+      <SectionFX />
       <ScrollSequence />
       <Overture />
       <Numeri />

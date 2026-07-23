@@ -29,7 +29,7 @@ export function HeroKinetic() {
   );
 
   return (
-    <section ref={root} className="flow-flat relative flex h-[100svh] items-center overflow-hidden bg-paper">
+    <section ref={root} className="flow-pinned relative flex h-[100svh] items-center overflow-hidden bg-paper">
       <p className="t-label absolute left-5 top-24 z-10 text-ink-soft sm:left-8">Il nostro mestiere</p>
       <div className="motion-reduce:overflow-x-auto">
         <div ref={track} className="flex w-max items-center whitespace-nowrap pl-[10vw] will-change-transform motion-reduce:w-auto">

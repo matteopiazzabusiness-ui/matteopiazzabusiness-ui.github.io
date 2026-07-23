@@ -29,7 +29,7 @@ export function HeroZoom() {
   );
 
   return (
-    <section ref={root} className="flow-flat relative h-[100svh] overflow-hidden bg-carbon text-paper">
+    <section ref={root} className="flow-pinned relative h-[100svh] overflow-hidden bg-carbon text-paper">
       <div className="hz-bg absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(/media/sequence/frame_006.jpg)" }} aria-hidden />
       <div className="absolute inset-0 bg-carbon/45" aria-hidden />
       <div className="grain absolute inset-0" aria-hidden />

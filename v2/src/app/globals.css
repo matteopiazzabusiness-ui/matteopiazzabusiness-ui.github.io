@@ -111,21 +111,16 @@ body {
 }
 .ticker:hover .ticker-track { animation-play-state: paused; }
 
-/*
-  Flow seam — le sezioni della home si sovrappongono leggermente con un
-  bordo superiore arrotondato e un'ombra morbida: scorrono una sull'altra
-  invece di impilarsi con tagli netti. Le sezioni pinnate/speciali opt-out
-  con .flow-flat.
-*/
-main > section {
-  position: relative;
-}
-main > section + section:not(.flow-flat) {
-  margin-top: -2.75rem;
-  border-top-left-radius: clamp(1.25rem, 3vw, 2.5rem);
-  border-top-right-radius: clamp(1.25rem, 3vw, 2.5rem);
-  box-shadow: 0 -34px 70px -28px rgba(10, 10, 11, 0.4);
-  z-index: 1;
+/* Posizionamento sezioni per gli overlay di transizione */
+main > section { position: relative; }
+
+/* Sipario di transizione tra sezioni (iniettato da SectionFX) */
+.fx-curtain {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  will-change: clip-path;
 }
 
 /* Ticker verticale (scroll-up infinito) */
