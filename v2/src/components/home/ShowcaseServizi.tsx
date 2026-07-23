@@ -25,8 +25,8 @@ const SERVIZI: {
     titolo: "La macchina giusta",
     testo: "Gamma completa Caterpillar e Dieci con garanzia ufficiale. Nuovo, usato garantito e permuta, con leasing su misura.",
     punti: ["Concessionaria ufficiale", "Nuovo, usato e permuta", "Leasing e finanziamento"],
-    img: "/media/products/cat-miniex-309.png",
-    variant: "studio",
+    img: "/media/products/317.jpeg",
+    variant: "campo",
   },
   {
     href: "/assistenza",
@@ -45,8 +45,8 @@ const SERVIZI: {
     titolo: "Solo quando serve",
     testo: "Breve e lungo termine, consegna in cantiere in tutta la Sicilia, manutenzione sempre inclusa. Paghi il mezzo per il tempo in cui lavora.",
     punti: ["Breve e lungo termine", "Consegna in cantiere", "Manutenzione inclusa"],
-    img: "/media/products/cat-270.png",
-    variant: "studio",
+    img: "/media/products/dedalus-30-7-main.jpeg",
+    variant: "campo",
   },
   {
     href: "/ricambi",
@@ -98,14 +98,6 @@ export function ShowcaseServizi() {
       });
       stRef.current = tween.scrollTrigger ?? null;
 
-      // Transizione colore del fondo sezione, sincronizzata ai centri pannello:
-      // studio(paper) → campo(carbon) → studio(paper) → campo(carbon).
-      gsap
-        .timeline({ scrollTrigger: { trigger: root.current, start: "top top", end: () => "+=" + dist(), scrub: true, invalidateOnRefresh: true } })
-        .fromTo(root.current, { backgroundColor: "#f4f1ec" }, { backgroundColor: "#0a0a0b", ease: "none" })
-        .to(root.current, { backgroundColor: "#f4f1ec", ease: "none" })
-        .to(root.current, { backgroundColor: "#0a0a0b", ease: "none" });
-
       gsap.utils.toArray<HTMLElement>(".sv-panel").forEach((panel) => {
         // Parallasse leggera (niente forte upscaling: le foto restano nitide)
         const img = panel.querySelector(".sv-img");
@@ -154,7 +146,7 @@ export function ShowcaseServizi() {
   };
 
   return (
-    <section ref={root} className="relative overflow-hidden bg-paper text-paper">
+    <section ref={root} className="relative overflow-hidden bg-carbon text-paper">
       {/* HUD */}
       <div className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-5 pt-6 sm:px-8">
         <p className="t-label text-paper/70 mix-blend-difference">I quattro servizi</p>

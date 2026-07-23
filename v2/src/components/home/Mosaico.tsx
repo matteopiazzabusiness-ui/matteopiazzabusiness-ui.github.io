@@ -4,13 +4,23 @@ import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { gsap, useGSAP, reduced } from "@/lib/motion";
-import { categorie, prodottiByCategoria, type Categoria } from "@/lib/catalog";
+import { categorie, prodottiByCategoria, prodottoBySlug, type Categoria } from "@/lib/catalog";
 
 /**
  * MOSAICO — le sei categorie in griglia editoriale asimmetrica. Ogni cella
  * si apre a sipario (clip-path) in cascata allo scroll; l'immagine ha un
  * lieve parallasse interno. Porta al catalogo filtrato. Nessun pin.
  */
+
+// Immagine rappresentativa curata per categoria (foto HD pulite, niente volantini)
+const REP: Record<Categoria, string> = {
+  escavatori: "317",
+  "mini-escavatori": "301-7-cr",
+  "minipale-cingolate": "259d3",
+  "minipale-gommate": "262d3",
+  "sollevatori-telescopici": "dedalus-30-7-gd",
+  "mini-agri": "mini-agri-26-6",
+};
 
 const SPANS: Record<Categoria, string> = {
   escavatori: "sm:col-span-2 sm:row-span-2",
@@ -66,7 +76,7 @@ export function Mosaico() {
 
       <div className="mt-12 grid auto-rows-[minmax(200px,1fr)] grid-cols-1 gap-4 sm:grid-cols-4">
         {cats.map((c, i) => {
-          const primo = prodottiByCategoria(c)[0];
+          const primo = prodottoBySlug(REP[c]) ?? prodottiByCategoria(c)[0];
           const img = primo?.immagini[0];
           return (
             <Link
