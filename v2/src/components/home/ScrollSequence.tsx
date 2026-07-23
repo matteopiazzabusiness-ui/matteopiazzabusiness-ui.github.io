@@ -25,6 +25,8 @@ export function ScrollSequence() {
       if (!cv || !sec) return;
       const ctx = cv.getContext("2d");
       if (!ctx) return;
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
 
       const imgs: HTMLImageElement[] = [];
       const state = { f: 0 };
