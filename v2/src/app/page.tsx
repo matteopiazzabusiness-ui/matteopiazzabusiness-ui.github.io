@@ -16,6 +16,7 @@ import { Marquee } from "@/components/home/Marquee";
 import { Cinematica } from "@/components/home/Cinematica";
 import { Mosaico } from "@/components/home/Mosaico";
 import { Percorsi } from "@/components/home/Percorsi";
+import { ScrollSequence } from "@/components/home/ScrollSequence";
 
 /**
  * HOMEPAGE — viaggio cinematico, alternanza carta/carbone:
@@ -32,6 +33,7 @@ export default function Home() {
 
   return (
     <>
+      <ScrollSequence />
       <Overture />
       <Numeri />
       <Percorsi />
