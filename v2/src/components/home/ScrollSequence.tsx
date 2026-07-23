@@ -17,6 +17,7 @@ export function ScrollSequence() {
   const root = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const hint = useRef<HTMLDivElement>(null);
+  const outro = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
@@ -51,19 +52,31 @@ export function ScrollSequence() {
 
       if (reduced()) return;
 
+      // I frame avanzano nell'80% dello scroll pinnato; l'ultimo 20% è la
+      // transizione: zoom verso il terreno lanciato + velatura di polvere
+      // che diventa la sezione successiva (nessun taglio netto).
+      cv.style.transformOrigin = "50% 72%";
+      const FRAMES_END = 0.8;
+
       gsap.to(state, {
         f: COUNT - 1,
         ease: "none",
         scrollTrigger: {
           trigger: sec,
           start: "top top",
-          end: "+=260%",
+          end: "+=320%",
           pin: true,
           scrub: 0.4,
           anticipatePin: 1,
           onUpdate: (self) => {
-            draw(state.f);
-            if (hint.current) hint.current.style.opacity = String(Math.max(0, 1 - self.progress * 4));
+            const p = self.progress;
+            const fp = Math.min(1, p / FRAMES_END);
+            draw(fp * (COUNT - 1));
+            const o = p <= FRAMES_END ? 0 : (p - FRAMES_END) / (1 - FRAMES_END);
+            cv.style.transform = `scale(${1 + o * 0.32})`;
+            cv.style.filter = `brightness(${1 - o * 0.25})`;
+            if (outro.current) outro.current.style.opacity = String(o);
+            if (hint.current) hint.current.style.opacity = String(Math.max(0, 1 - p * 5));
           },
         },
       });
@@ -87,6 +100,12 @@ export function ScrollSequence() {
       <div ref={hint} className="pointer-events-none absolute inset-x-0 bottom-10 z-10 flex flex-col items-center gap-3 text-paper">
         <span className="t-poster text-4xl sm:text-6xl">Muoviamo la terra</span>
         <span className="t-label flex items-center gap-2 text-paper/80">Scorri per esplorare <span className="animate-bounce">↓</span></span>
+      </div>
+
+      {/* Transizione: velatura di polvere che diventa la pagina successiva */}
+      <div ref={outro} aria-hidden className="pointer-events-none absolute inset-0 z-30 bg-paper opacity-0">
+        <div className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_78%,rgba(255,90,31,0.22),transparent_70%)]" />
+        <div className="grain absolute inset-0 opacity-80" />
       </div>
     </section>
   );
