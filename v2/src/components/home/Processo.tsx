@@ -39,7 +39,7 @@ export function Processo() {
   );
 
   return (
-    <section ref={root} className="bg-paper px-5 py-24 sm:px-8 sm:py-36">
+    <section ref={root} className="flow-flat bg-paper px-5 py-24 sm:px-8 sm:py-36">
       <p className="t-label text-ink-soft">Come lavoriamo</p>
       <h2 className="t-poster mt-2 max-w-3xl text-5xl text-ink sm:text-7xl">
         Dal primo contatto <span className="marker">al cantiere</span>

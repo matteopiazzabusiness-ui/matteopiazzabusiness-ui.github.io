@@ -27,7 +27,7 @@ function Riga({ voci, reverse }: { voci: string[]; reverse?: boolean }) {
 
 export function Marquee() {
   return (
-    <section aria-label="Servizi e mezzi DLF" className="grain relative overflow-hidden border-y border-paper/10 bg-carbon py-8">
+    <section aria-label="Servizi e mezzi DLF" className="flow-flat grain relative overflow-hidden border-y border-paper/10 bg-carbon py-8">
       <Riga voci={RIGA_A} />
       <div className="h-3" />
       <Riga voci={RIGA_B} reverse />

@@ -19,6 +19,9 @@ import { Percorsi } from "@/components/home/Percorsi";
 import { ScrollSequence } from "@/components/home/ScrollSequence";
 import { HeroTerra } from "@/components/home/HeroTerra";
 import { HeroNumeri } from "@/components/home/HeroNumeri";
+import { HeroZoom } from "@/components/home/HeroZoom";
+import { HeroKinetic } from "@/components/home/HeroKinetic";
+import { HeroParallax } from "@/components/home/HeroParallax";
 
 /**
  * HOMEPAGE — viaggio cinematico, alternanza carta/carbone:
@@ -38,7 +41,9 @@ export default function Home() {
       <ScrollSequence />
       <Overture />
       <Numeri />
+      <HeroParallax />
       <Percorsi />
+      <HeroZoom />
       <Marquee />
       <Manifesto />
       <Rail prodotti={rail} />
@@ -46,6 +51,7 @@ export default function Home() {
       <ShowcaseServizi />
       <SettoriTeaser />
       <Cinematica />
+      <HeroKinetic />
       <Processo />
       <HeroNumeri />
       <Territorio />
