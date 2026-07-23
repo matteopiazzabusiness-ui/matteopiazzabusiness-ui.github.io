@@ -144,8 +144,8 @@ export function Overture() {
         </div>
 
         {/* Mezzo in evidenza — foto HD */}
-        <Link href="/mezzi/317" data-cursor="Apri" className="group relative hidden aspect-[4/3] overflow-hidden bg-paper-2 lg:block">
-          <Image src="/media/products/317.jpeg" alt="CAT 317" fill quality={90} sizes="20rem" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+        <Link href="/mezzi/317" data-cursor="Apri" className="group relative block aspect-[16/10] overflow-hidden bg-paper-2 sm:aspect-[4/3]">
+          <Image src="/media/products/317.jpeg" alt="CAT 317" fill quality={90} sizes="(max-width: 1024px) 100vw, 20rem" className="object-cover transition-transform duration-700 group-hover:scale-105" />
           <span className="t-label absolute left-3 top-3 bg-giallo px-2 py-1 text-ink">In evidenza</span>
           <span className="t-label absolute bottom-3 left-3 text-paper drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">CAT 317 {"->"}</span>
         </Link>
