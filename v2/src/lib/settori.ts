@@ -47,7 +47,7 @@ export const settori: Settore[] = [
       "Sollevatori compatti e telescopici Dieci nati per l'azienda agricola: carico di balle e mangimi, pulizia stalle, movimentazione in spazi angusti. Vendita, noleggio e ricambi originali a portata di campo.",
     descrizione:
       "L'agricoltura moderna ha bisogno di macchine agili che lavorino tutto l'anno, dalla stalla al campo. I sollevatori Mini Agri e la gamma telescopica Dieci offrono forza e maneggevolezza in spazi ridotti, con la vasta scelta di attrezzature che li rende un vero tuttofare aziendale.",
-    img: "/media/products/mini-agri-26-6.png",
+    img: "/media/products/mini-agri-26-6.jpeg",
     applicazioni: ["Carico balle e mangimi", "Pulizia stalle", "Movimentazione inerti", "Manutenzione aziendale", "Spazi angusti"],
     sfide: [
       { t: "Versatilità tutto l'anno", d: "Un'unica macchina con ganci, pinze, pale e cestelli copre decine di lavorazioni stagionali." },
@@ -65,7 +65,7 @@ export const settori: Settore[] = [
       "Escavatori di taglia e sollevatori telescopici Hercules per la produzione in cava: portate estreme, robustezza e continuità operativa, con assistenza e ricambi originali sempre vicini.",
     descrizione:
       "In cava e in miniera contano potenza, affidabilità e ore-macchina. Gli escavatori Caterpillar di taglia superiore e i telescopici Hercules — i più forti della gamma Dieci — lavorano con portate estreme anche ad altezze elevate. DLF affianca la produzione con manutenzione programmata e magazzino ricambi dedicato.",
-    img: "/media/products/hercules-210-10.png",
+    img: "/media/products/hercules-210-10.jpeg",
     applicazioni: ["Estrazione e caricamento", "Movimento terra pesante", "Sollevamento carichi estremi", "Lavorazione inerti"],
     sfide: [
       { t: "Ore-macchina elevate", d: "Piani di manutenzione programmata su misura riducono i fermi non pianificati e allungano la vita del mezzo." },
