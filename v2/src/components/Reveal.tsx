@@ -27,14 +27,20 @@ export function Reveal({
       if (reduced() || !root.current) return;
       const targets = root.current.querySelectorAll(".rv");
       const els = targets.length ? targets : [root.current];
-      gsap.from(els, {
-        y,
-        opacity: 0,
-        duration: 0.85,
-        stagger,
-        ease: "expo.out",
-        scrollTrigger: { trigger: root.current, start: "top 82%" },
-      });
+      // Reveal "focus-in": sale con leggero sfocato che si mette a fuoco.
+      gsap.fromTo(
+        els,
+        { y, opacity: 0, filter: "blur(12px)" },
+        {
+          y: 0,
+          opacity: 1,
+          filter: "blur(0px)",
+          duration: 1.05,
+          stagger,
+          ease: "expo.out",
+          scrollTrigger: { trigger: root.current, start: "top 85%" },
+        },
+      );
     },
     { scope: root },
   );

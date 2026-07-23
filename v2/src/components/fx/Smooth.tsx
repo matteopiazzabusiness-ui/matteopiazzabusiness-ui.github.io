@@ -10,7 +10,12 @@ export function Smooth({ children }: { children: ReactNode }) {
     document.documentElement.classList.add("gsap-on");
     if (reduced()) return;
 
-    const lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1.05 });
+    const lenis = new Lenis({
+      duration: 1.15,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      wheelMultiplier: 1,
+      touchMultiplier: 1.6,
+    });
     lenis.on("scroll", ScrollTrigger.update);
     // Hook per test/debug (Playwright): scroll programmatico coerente con Lenis
     (window as unknown as { __lenis?: Lenis }).__lenis = lenis;

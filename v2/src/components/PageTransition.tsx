@@ -13,6 +13,7 @@ import { gsap, reduced } from "@/lib/motion";
  */
 export function PageTransition() {
   const overlay = useRef<HTMLDivElement>(null);
+  const mark = useRef<HTMLSpanElement>(null);
   const router = useRouter();
   const pathname = usePathname();
   const covering = useRef(false);
@@ -44,7 +45,9 @@ export function PageTransition() {
       gsap
         .timeline()
         .set(overlay.current, { autoAlpha: 1, yPercent: 100 })
-        .to(overlay.current, { yPercent: 0, duration: 0.5, ease: "expo.inOut" })
+        .set(mark.current, { yPercent: 60, opacity: 0 })
+        .to(overlay.current, { yPercent: 0, duration: 0.55, ease: "expo.inOut" })
+        .to(mark.current, { yPercent: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, "<0.18")
         .add(() => router.push(url.pathname + url.search + url.hash));
     };
 
@@ -57,7 +60,8 @@ export function PageTransition() {
     if (!covering.current || !overlay.current) return;
     const tl = gsap
       .timeline({ onComplete: () => (covering.current = false) })
-      .to(overlay.current, { yPercent: -100, duration: 0.6, ease: "expo.inOut", delay: 0.05 })
+      .to(mark.current, { yPercent: -50, opacity: 0, duration: 0.45, ease: "power2.in" })
+      .to(overlay.current, { yPercent: -100, duration: 0.65, ease: "expo.inOut" }, "<0.05")
       .set(overlay.current, { autoAlpha: 0, yPercent: 100 });
     return () => {
       tl.kill();
@@ -66,7 +70,7 @@ export function PageTransition() {
 
   return (
     <div ref={overlay} aria-hidden className="pointer-events-none fixed inset-0 z-[90] flex items-center justify-center bg-giallo">
-      <span className="t-poster text-7xl text-ink sm:text-9xl">DLF</span>
+      <span ref={mark} className="t-poster text-7xl text-ink sm:text-9xl">DLF</span>
     </div>
   );
 }
