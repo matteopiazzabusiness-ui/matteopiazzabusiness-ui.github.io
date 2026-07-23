@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { gsap, useGSAP, reduced, splitChars } from "@/lib/motion";
 
 /**
@@ -124,12 +125,30 @@ export function Overture() {
         </h1>
       </div>
 
-      <div className="ov-meta prep relative mt-8 flex flex-wrap items-start justify-between gap-6 px-5 sm:px-8">
-        <p className="max-w-md text-base leading-relaxed text-ink-soft">
-          Vendita, noleggio, assistenza e ricambi per macchine movimento terra.
-          Officina meccanica mobile, due sedi, un&apos;unica squadra.
-        </p>
-        <a href="#flotta" data-magnetic className="t-label marker inline-block px-2 py-2 text-ink">Inizia il viaggio ↓</a>
+      <div className="ov-meta prep relative mt-8 grid gap-10 px-5 sm:px-8 lg:grid-cols-[1fr_20rem] lg:items-end">
+        <div>
+          <p className="max-w-md text-base leading-relaxed text-ink-soft">
+            Vendita, noleggio, assistenza e ricambi per macchine movimento terra.
+            Officina meccanica mobile, due sedi, un&apos;unica squadra.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {["Concessionaria Caterpillar & Dieci", "2 sedi in Sicilia", "Officina mobile"].map((c) => (
+              <span key={c} className="t-label border border-ink/25 px-3 py-1.5 text-ink-soft">{c}</span>
+            ))}
+          </div>
+          <div className="mt-7 flex flex-wrap items-center gap-3">
+            <Link href="/mezzi" data-magnetic className="t-label bg-carbon px-7 py-4 text-paper transition-colors hover:bg-giallo hover:text-ink">Vedi il catalogo {"->"}</Link>
+            <Link href="/contatti?intento=vendita" className="t-label border border-ink px-7 py-4 text-ink transition-colors hover:bg-ink hover:text-paper">Richiedi preventivo</Link>
+            <a href="#flotta" className="t-label u-line px-1 py-2 text-ink-soft">Scorri ↓</a>
+          </div>
+        </div>
+
+        {/* Mezzo in evidenza — foto HD */}
+        <Link href="/mezzi/317" data-cursor="Apri" className="group relative hidden aspect-[4/3] overflow-hidden bg-paper-2 lg:block">
+          <Image src="/media/products/317.jpeg" alt="CAT 317" fill quality={90} sizes="20rem" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+          <span className="t-label absolute left-3 top-3 bg-giallo px-2 py-1 text-ink">In evidenza</span>
+          <span className="t-label absolute bottom-3 left-3 text-paper drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">CAT 317 {"->"}</span>
+        </Link>
       </div>
 
       {/* Indice reparti: valore subito, niente foto ripetute */}

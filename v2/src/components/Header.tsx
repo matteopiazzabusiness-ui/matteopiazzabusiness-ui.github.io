@@ -5,14 +5,15 @@ import Link from "next/link";
 import Image from "next/image";
 
 const nav = [
-  { href: "/mezzi", label: "Mezzi", n: "01" },
-  { href: "/settori", label: "Settori", n: "02" },
-  { href: "/noleggio", label: "Noleggio", n: "03" },
-  { href: "/assistenza", label: "Assistenza", n: "04" },
-  { href: "/ricambi", label: "Ricambi", n: "05" },
-  { href: "/usato", label: "Usato", n: "06" },
-  { href: "/dlf", label: "Chi siamo", n: "07" },
-  { href: "/contatti", label: "Contatti", n: "08" },
+  { href: "/", label: "Home", n: "01" },
+  { href: "/mezzi", label: "Mezzi", n: "02" },
+  { href: "/settori", label: "Settori", n: "03" },
+  { href: "/noleggio", label: "Noleggio", n: "04" },
+  { href: "/assistenza", label: "Assistenza", n: "05" },
+  { href: "/ricambi", label: "Ricambi", n: "06" },
+  { href: "/usato", label: "Usato", n: "07" },
+  { href: "/dlf", label: "Chi siamo", n: "08" },
+  { href: "/contatti", label: "Contatti", n: "09" },
 ];
 
 const navSecondaria = [
@@ -45,7 +46,7 @@ export function Header() {
             aria-expanded={open}
             aria-label={open ? "Chiudi menu" : "Apri menu"}
             data-magnetic
-            className="t-label -m-3 flex cursor-pointer items-center gap-3 p-3 text-white mix-blend-difference"
+            className="t-label flex cursor-pointer items-center gap-3 rounded-full bg-carbon/85 px-5 py-2.5 text-paper ring-1 ring-paper/15 backdrop-blur-md transition-colors hover:bg-carbon"
           >
             {open ? "Chiudi" : "Menu"}
             <span className="relative block h-3 w-7">
@@ -69,13 +70,13 @@ export function Header() {
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className={`group flex items-baseline gap-4 border-b border-paper/10 py-1.5 transition-all duration-500 sm:gap-8 ${
+              className={`group flex items-baseline gap-4 border-b border-paper/10 py-1 transition-all duration-500 sm:gap-8 ${
                 open ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
               }`}
-              style={{ transitionDelay: open ? `${120 + i * 45}ms` : "0ms" }}
+              style={{ transitionDelay: open ? `${110 + i * 40}ms` : "0ms" }}
             >
               <span className="t-label text-giallo">{item.n}</span>
-              <span className="t-poster text-4xl text-paper transition-colors duration-300 group-hover:text-giallo sm:text-6xl">
+              <span className="t-poster text-3xl text-paper transition-colors duration-300 group-hover:text-giallo sm:text-5xl">
                 {item.label}
               </span>
             </Link>
