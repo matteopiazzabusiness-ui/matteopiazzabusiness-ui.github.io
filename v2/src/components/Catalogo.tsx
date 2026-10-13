@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { prodotti, categorie, brands, type Categoria, type Intento } from "@/lib/catalog";
 
@@ -15,6 +16,9 @@ const FORMULE: { v: Intento; l: string }[] = [
 
 /** Catalogo filtrabile — chip categorie, filtri combinati, ricerca e ordinamento. */
 export function Catalogo({ initialCat = "" }: { initialCat?: Categoria | "" }) {
+  const searchParams = useSearchParams();
+  const queryCat = searchParams.get("cat");
+  if (queryCat && Object.hasOwn(categorie, queryCat)) initialCat = queryCat as Categoria;
   const [cat, setCat] = useState<Categoria | "">(initialCat);
   const [brand, setBrand] = useState("");
   const [cond, setCond] = useState("");

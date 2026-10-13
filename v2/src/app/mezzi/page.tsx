@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { PageHead } from "@/components/PageHead";
 import { Catalogo } from "@/components/Catalogo";
 import { Reveal } from "@/components/Reveal";
@@ -10,10 +11,8 @@ export const metadata: Metadata = {
     "Catalogo mezzi DLF: escavatori, mini escavatori, minipale cingolate e gommate Caterpillar, sollevatori telescopici Dieci. Vendita e noleggio in Sicilia.",
 };
 
-export default async function MezziPage({ searchParams }: { searchParams: Promise<{ cat?: string }> }) {
-  const { cat } = await searchParams;
+export default function MezziPage() {
   const catKeys = Object.keys(categorie) as Categoria[];
-  const initialCat = catKeys.includes(cat as Categoria) ? (cat as Categoria) : "";
 
   return (
     <>
@@ -39,7 +38,9 @@ export default async function MezziPage({ searchParams }: { searchParams: Promis
       </Reveal>
 
       <div id="catalogo" className="scroll-mt-24">
-        <Catalogo initialCat={initialCat} />
+        <Suspense fallback={<p className="px-5 py-8">Caricamento catalogo…</p>}>
+          <Catalogo />
+        </Suspense>
       </div>
     </>
   );

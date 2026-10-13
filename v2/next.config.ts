@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const isPreview = process.env.GITHUB_PAGES === "true";
+
 // Security header assenti sul sito attuale (audit) — qui presenti dal giorno 1.
 const securityHeaders = [
   { key: "X-Frame-Options", value: "DENY" },
@@ -10,15 +12,16 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  ...(isPreview ? { output: "export", trailingSlash: true } : {}),
   // Root esplicita: evita che Turbopack scelga il lockfile della cartella
   // genitore come radice del progetto (warning multi-lockfile).
   turbopack: { root: __dirname },
   // Qualità immagini consentite (Next 16 le limita): 75 default + 90/95 per le
   // foto in evidenza dello showcase e delle schede.
-  images: { qualities: [70, 75, 90, 95] },
-  async headers() {
+  images: { qualities: [70, 75, 90, 95], unoptimized: isPreview },
+  ...(!isPreview ? { async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
-  },
+  } } : {}),
 };
 
 export default nextConfig;

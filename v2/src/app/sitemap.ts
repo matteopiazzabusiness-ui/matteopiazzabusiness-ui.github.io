@@ -1,4 +1,6 @@
 import type { MetadataRoute } from "next";
+
+export const dynamic = "force-static";
 import { prodotti } from "@/lib/catalog";
 import { settori } from "@/lib/settori";
 import { posts } from "@/lib/blog";

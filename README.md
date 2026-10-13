@@ -55,6 +55,29 @@ hero astratte. Font: Inter (testo) + Archivo (display). Focus visibile, target â
 
 ## Sviluppo
 
+## Anteprima pubblica v2
+
+- Sito provvisorio: https://matteopiazzabusiness-ui.github.io/
+- Repository: https://github.com/matteopiazzabusiness-ui/matteopiazzabusiness-ui.github.io
+- GitHub Pages pubblica la cartella `v2`, la versione aggiornata del sito.
+- Ogni push su `master` esegue `.github/workflows/pages.yml`: installazione,
+  build statica e pubblicazione. La directory `v2/out` non va committata.
+- `GITHUB_PAGES=true` abilita export statico, immagini senza server di
+  ottimizzazione e direttive `noindex`. Lo sviluppo ordinario mantiene Next.js.
+- I moduli contatti aprono email o WhatsApp; non inviano richieste a un CRM.
+- Il repository ha il nome speciale dell'account per servire il sito alla
+  radice del dominio GitHub Pages, conservando i percorsi dei media.
+
+Build anteprima locale (PowerShell, dalla cartella `v2`):
+
+```powershell
+$env:GITHUB_PAGES = 'true'
+npm run build
+Remove-Item Env:GITHUB_PAGES
+```
+
+## Comandi sviluppo
+
 ```bash
 npm run dev      # http://localhost:3000
 npm run build    # build produzione

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { company } from "@/lib/site";
 
 const INTENTI = [
@@ -15,6 +16,17 @@ const INTENTI = [
  * strutturato (nessun backend richiesto), o in alternativa WhatsApp.
  */
 export function FormContatti({ intento, modello }: { intento?: string; modello?: string }) {
+  return (
+    <Suspense fallback={<p>Caricamento modulo…</p>}>
+      <FormContattiConParametri intento={intento} modello={modello} />
+    </Suspense>
+  );
+}
+
+function FormContattiConParametri({ intento, modello }: { intento?: string; modello?: string }) {
+  const searchParams = useSearchParams();
+  intento ??= searchParams.get("intento") ?? undefined;
+  modello ??= searchParams.get("modello") ?? undefined;
   const [tipo, setTipo] = useState(INTENTI.some((i) => i.v === intento) ? intento! : "vendita");
   const [nome, setNome] = useState("");
   const [telefono, setTelefono] = useState("");

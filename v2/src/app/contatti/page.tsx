@@ -16,12 +16,7 @@ function bbox(lat: number, lng: number, d = 0.02) {
   return `${lng - d},${lat - d},${lng + d},${lat + d}`;
 }
 
-export default async function ContattiPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ intento?: string; modello?: string }>;
-}) {
-  const { intento, modello } = await searchParams;
+export default function ContattiPage() {
   const faqContatti = faqGruppi.find((g) => g.slug === "azienda")?.voci ?? [];
 
   return (
@@ -50,7 +45,7 @@ export default async function ContattiPage({
       </Reveal>
 
       <div className="grid gap-14 px-5 py-16 sm:px-8 lg:grid-cols-2">
-        <FormContatti intento={intento} modello={modello} />
+        <FormContatti />
 
         <div>
           {sedi.map((s) => (

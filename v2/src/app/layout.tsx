@@ -16,6 +16,7 @@ const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-grotesk" }
 const jet = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jet" });
 
 export const metadata: Metadata = {
+  ...(process.env.GITHUB_PAGES === "true" ? { robots: { index: false, follow: false } } : {}),
   metadataBase: new URL("https://dlfmacchine.it"),
   title: {
     default: "DLF Macchine — Movimento terra in Sicilia. Vendita, noleggio, assistenza, ricambi",
