@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { SelectionLink } from "@/components/discovery/ProductActions";
 
 const nav = [
   { href: "/", label: "Home", n: "01" },
@@ -17,6 +18,9 @@ const nav = [
 ];
 
 const navSecondaria = [
+  { href: "/scegli", label: "Trova il tuo mezzo" },
+  { href: "/selezione", label: "La tua selezione" },
+  { href: "/richiesta", label: "Richiesta guidata" },
   { href: "/blog", label: "Approfondimenti" },
   { href: "/faq", label: "FAQ" },
 ];
@@ -30,7 +34,9 @@ export function Header() {
 
   useEffect(() => {
     document.documentElement.classList.toggle("lenis-stopped", open);
-    return () => document.documentElement.classList.remove("lenis-stopped");
+    const onKey = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => { document.documentElement.classList.remove("lenis-stopped"); window.removeEventListener("keydown", onKey); };
   }, [open]);
 
   return (
@@ -41,6 +47,9 @@ export function Header() {
             <Image src="/media/brand/dlf_logo.png" alt="DLF Macchine" width={378} height={207} priority className="h-11 w-auto drop-shadow-sm sm:h-12" />
             <span className="t-label hidden text-ink/60 sm:block">Movimento terra · Sicilia</span>
           </Link>
+          <div className="dlf-header-actions">
+          <Link href="/scegli" onClick={() => setOpen(false)} className="dlf-header-finder">Trova il tuo mezzo ↗</Link>
+          <SelectionLink />
           <button
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
@@ -54,6 +63,7 @@ export function Header() {
               <span className={`absolute bottom-0 left-0 h-0.5 w-full bg-current transition-transform duration-300 ${open ? "bottom-1/2 translate-y-1/2 -rotate-45" : ""}`} />
             </span>
           </button>
+          </div>
         </div>
       </header>
 
@@ -63,8 +73,9 @@ export function Header() {
           open ? "[clip-path:inset(0_0_0%_0)]" : "pointer-events-none [clip-path:inset(0_0_100%_0)]"
         }`}
         aria-hidden={!open}
+        inert={!open}
       >
-        <nav className="flex h-full flex-col justify-center px-6 sm:px-16">
+        <nav className="flex h-full flex-col overflow-y-auto px-6 pb-6 pt-24 sm:justify-center sm:px-16" data-lenis-prevent>
           {nav.map((item, i) => (
             <Link
               key={item.href}

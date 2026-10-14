@@ -53,8 +53,6 @@ hero astratte. Font: Inter (testo) + Archivo (display). Focus visibile, target �
 - `src/app/api/lead/route.ts` — valida e struttura il lead. `TODO(Theon)`:
   Leads/CRM scoring → assegnazione reparto → WhatsApp AI → follow-up.
 
-## Sviluppo
-
 ## Anteprima pubblica v2
 
 - Sito provvisorio: https://matteopiazzabusiness-ui.github.io/
@@ -77,6 +75,26 @@ Remove-Item Env:GITHUB_PAGES
 ```
 
 ## Comandi sviluppo
+
+### Percorsi pubblici
+
+- `/scegli`: guida per attività, spazio e formula; orientamento automatico ai
+  contenuti, collegamenti a guide, servizi e squadra DLF.
+- `/selezione`: fino a quattro preferiti sul dispositivo, confronto delle
+  specifiche verificate e link condivisibile senza account.
+- `/richiesta`: otto percorsi con validazione, riepilogo e passaggio esplicito
+  a email/WhatsApp. Foto visibili solo in locale, da allegare nel messaggio.
+- Catalogo e schede prodotto includono salvataggio, confronto e accessi a
+  documentazione, visita e permuta.
+
+La guida usa regole e contenuti locali, non un modello generativo. Non consulta
+un inventario in tempo reale. Le richieste di usato e visita non creano avvisi
+automatici o prenotazioni: DLF deve confermarle. Prezzi, video, documenti tecnici
+mancanti e testimonianze richiedono materiali approvati dall'azienda.
+
+Verifica: build statica, TypeScript, ESLint dei componenti modificati e percorsi
+browser su desktop, telefono da 375 px e orientamento orizzontale. Test con dati
+dimostrativi senza inviare messaggi.
 
 ```bash
 npm run dev      # http://localhost:3000

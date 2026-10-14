@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
+import { ProductActions } from "@/components/discovery/ProductActions";
 import { prodotti, categorie, brands, type Categoria, type Intento } from "@/lib/catalog";
 
 type Ordine = "cat" | "az" | "za";
@@ -52,6 +53,7 @@ export function Catalogo({ initialCat = "" }: { initialCat?: Categoria | "" }) {
 
   return (
     <div className="px-5 pb-24 sm:px-8">
+      <div className="dlf-catalog-tools"><div><strong>Il mezzo giusto parte dal lavoro da fare.</strong><p>Lasciati guidare nella scelta o salva fino a quattro modelli per confrontarli.</p></div><Link href="/scegli" className="dlf-button">Aiutami a scegliere <span aria-hidden="true">↗</span></Link></div>
       {/* Chip categorie */}
       <div className="flex flex-wrap gap-2 border-b border-ink/15 py-6">
         <button
@@ -109,11 +111,11 @@ export function Catalogo({ initialCat = "" }: { initialCat?: Categoria | "" }) {
 
       <div className="grid grid-cols-1 border-l border-t border-ink/15 sm:grid-cols-2 lg:grid-cols-3">
         {list.map((p, i) => (
-          <Link
+          <article
             key={p.slug}
-            href={`/mezzi/${p.slug}`}
             className="group border-b border-r border-ink/15 p-5 transition-colors duration-300 hover:bg-white"
           >
+            <Link href={`/mezzi/${p.slug}`}>
             <div className="flex items-baseline justify-between">
               <span className="t-label text-ink-soft">{categorie[p.categoria].label}</span>
               <span className="t-label text-ink/30">{String(i + 1).padStart(2, "0")}</span>
@@ -138,7 +140,9 @@ export function Catalogo({ initialCat = "" }: { initialCat?: Categoria | "" }) {
                 <span key={f} className="t-label border border-ink/20 px-2 py-0.5 text-ink-soft">{f}</span>
               ))}
             </div>
-          </Link>
+            </Link>
+            <ProductActions slug={p.slug} />
+          </article>
         ))}
       </div>
       {list.length === 0 && (

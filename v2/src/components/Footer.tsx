@@ -30,7 +30,7 @@ export function Footer() {
           <div>
             <h3 className="t-label text-paper/70">Naviga</h3>
             <ul className="mt-3 space-y-1 text-sm">
-              {[["/mezzi", "Mezzi"], ["/settori", "Settori"], ["/noleggio", "Noleggio"], ["/assistenza", "Assistenza"], ["/ricambi", "Ricambi"], ["/leasing", "Leasing"], ["/usato", "Usato"], ["/blog", "Approfondimenti"], ["/faq", "FAQ"], ["/dlf", "Chi siamo"], ["/contatti", "Contatti"]].map(([h, l]) => (
+              {[["/scegli", "Trova il tuo mezzo"], ["/selezione", "La tua selezione"], ["/richiesta", "Richiesta guidata"], ["/mezzi", "Mezzi"], ["/settori", "Settori"], ["/noleggio", "Noleggio"], ["/assistenza", "Assistenza"], ["/ricambi", "Ricambi"], ["/leasing", "Leasing"], ["/usato", "Usato"], ["/blog", "Approfondimenti"], ["/faq", "FAQ"], ["/dlf", "Chi siamo"], ["/contatti", "Contatti"]].map(([h, l]) => (
                 <li key={h}><Link href={h} className="u-line">{l}</Link></li>
               ))}
             </ul>

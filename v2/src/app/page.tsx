@@ -1,4 +1,5 @@
 import { prodotti } from "@/lib/catalog";
+import { DiscoveryTeaser } from "@/components/discovery/Discovery";
 import { Overture } from "@/components/home/Overture";
 import { Numeri } from "@/components/home/Numeri";
 import { Manifesto } from "@/components/home/Manifesto";
@@ -42,6 +43,7 @@ export default function Home() {
       <SectionFX />
       <ScrollSequence />
       <Overture />
+      <DiscoveryTeaser />
       <Numeri />
       <HeroParallax />
       <Percorsi />

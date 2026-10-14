@@ -10,6 +10,9 @@ import { ProductJsonLd, BreadcrumbJsonLd } from "@/components/JsonLd";
 import { FormContatti } from "@/components/FormContatti";
 import { Gallery } from "@/components/Gallery";
 import { Reveal } from "@/components/Reveal";
+import { ProductActions } from "@/components/discovery/ProductActions";
+import { ProductSupport } from "@/components/discovery/ProductSupport";
+import { requestUrl } from "@/lib/discovery";
 
 export function generateStaticParams() {
   return prodotti.map((p) => ({ slug: p.slug }));
@@ -77,6 +80,7 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
         {/* Galleria */}
         <div>
           <Gallery images={p.immagini} alt={p.nome} condizione={p.condizione} />
+          <ProductActions slug={p.slug} />
           <div className="mt-4 flex flex-wrap gap-2">
             {p.formule.map((f) => (
               <span key={f} className="t-label border border-ink/25 px-3 py-1.5 text-ink">{FORMULA_LABEL[f] ?? f}</span>
@@ -121,9 +125,9 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
           )}
 
           <div className="mt-12 flex flex-wrap gap-3">
-            <a href="#preventivo" className="t-label bg-carbon px-8 py-4 text-paper transition-colors hover:bg-giallo hover:text-ink">
+            <Link href={requestUrl("vendita", p.nome)} className="t-label bg-carbon px-8 py-4 text-paper transition-colors hover:bg-giallo hover:text-ink">
               Richiedi preventivo {"->"}
-            </a>
+            </Link>
             <a
               href={`https://wa.me/${company.whatsapp}?text=${encodeURIComponent(`Salve, vorrei informazioni su ${p.nome}`)}`}
               target="_blank"
@@ -133,6 +137,7 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
               WhatsApp
             </a>
           </div>
+          <ProductSupport model={p.nome} />
         </div>
       </div>
 
@@ -152,6 +157,7 @@ export default async function ProdottoPage({ params }: { params: Promise<{ slug:
             </div>
           </div>
           <div className="bg-paper p-6 text-ink sm:p-8">
+            <Link className="dlf-guided-cta" href={requestUrl("vendita", p.nome)}><div><strong>Una richiesta su misura.</strong><span>Acquisto, noleggio, trasporto: prepara tutti i dettagli in pochi passaggi.</span></div><span aria-hidden="true">↗</span></Link>
             <FormContatti intento="vendita" modello={p.nome} />
           </div>
         </div>
